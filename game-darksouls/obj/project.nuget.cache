@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1DHahrFH3xM1gE67f16dZWHrCvvK8q3pxbGbEThWWnVzca0aU/tdwf1oehkn6S2NSsvSFlosVA1rsHNrzS55Zg==",
+  "dgSpecHash": "L2RxZ+qKeTkevg9tjqqUfkjR4cN0KlIgDU/Zm49W3x5y57k0+BGMxyP5XfyF1B1rrRU77GdCntYGAQZj0VVM7w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Tim\\source\\repos\\game\\game-darksouls\\game-darksouls\\game-darksouls.csproj",
+  "projectFilePath": "C:\\Users\\Tim\\source\\repos\\game-darksouls\\game-darksouls\\game-darksouls.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tim\\.nuget\\packages\\libuv\\1.9.1\\libuv.1.9.1.nupkg.sha512",
     "C:\\Users\\Tim\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\1.1.0\\microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",
