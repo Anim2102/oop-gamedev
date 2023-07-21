@@ -3,7 +3,8 @@
     public enum MovementState
     {
         IDLE,
-        MOVINGLEFT,
-        MOVINGRIGHT,
+        MOVING,
+        FALLING
+        
     }
 }

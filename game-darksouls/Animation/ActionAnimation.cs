@@ -12,11 +12,7 @@ namespace game_darksouls.Animation
         public int fps = 15;
         public string AnimationName;
 
-        public ActionAnimation(string animationName)
-        {
-            frames = new List<AnimationFrame>();
-            AnimationName = animationName;
-        }
+        
         public ActionAnimation()
         {
             frames = new List<AnimationFrame>();
