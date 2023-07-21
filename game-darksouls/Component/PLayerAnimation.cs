@@ -1,12 +1,23 @@
-﻿using System;
+﻿using game_darksouls.Animation;
+using game_darksouls.Enum;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace game-darksouls.Component
+namespace game_darksouls.Component
 {
-    internal class PLayerAnimation
-{
-}
+    internal class PlayerAnimation
+    {
+        private Dictionary<MovementState, ActionAnimation> animations = new();
+        private ActionAnimation currentAnimation;
+
+        public PlayerAnimation()
+        {
+            
+        }
+
+
+        public void AddAnimation(MovementState state, ActionAnimation actionAnimation)
+        {
+            this.animations.Add(state, actionAnimation);
+        }
+    }
 }
