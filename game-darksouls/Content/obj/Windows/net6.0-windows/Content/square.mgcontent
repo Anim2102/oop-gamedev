@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/square.png</SourceFile>
-  <SourceTime>2023-01-25T17:01:03.3729025+01:00</SourceTime>
+  <SourceTime>2023-07-22T18:49:20.8457443+02:00</SourceTime>
   <DestFile>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/bin/Windows/Content/square.xnb</DestFile>
-  <DestTime>2023-07-22T16:04:14.4751199+02:00</DestTime>
+  <DestTime>2023-07-22T18:53:10.8230709+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

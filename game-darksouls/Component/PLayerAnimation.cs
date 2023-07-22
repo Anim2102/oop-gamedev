@@ -27,6 +27,9 @@ namespace game_darksouls.Component
 
             ActionAnimation runningAnimation = LoadAnimations(amountFrames: 8, fps: 16, yas: 32, width: 32, height: 32);
             AddAnimation(MovementState.MOVING, runningAnimation);
+
+            ActionAnimation fallingAnimation = LoadAnimations(amountFrames: 3, fps: 4, yas: 192, width: 32, height: 32);
+            AddAnimation(MovementState.FALLING, fallingAnimation);
         }
 
 

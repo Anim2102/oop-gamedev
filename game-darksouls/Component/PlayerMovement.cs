@@ -43,7 +43,7 @@ namespace game_darksouls.Component
                 direction.Y = +1;
             }
 
-            ChangeMovingState(direction);
+            
             collisionManager.CheckForGravity();
 
             if (!collisionManager.IsOnFloor)
@@ -51,6 +51,8 @@ namespace game_darksouls.Component
                 direction = ApplyGravity(direction);
             }
 
+
+            ChangeMovingState(direction);
             Rectangle updatedRectangle = player.drawingBox.DrawingRectangle;
             updatedRectangle.X += (int)direction.X;
             updatedRectangle.Y += (int)direction.Y;
@@ -65,12 +67,17 @@ namespace game_darksouls.Component
         }
         private void ChangeMovingState(Vector2 direction)
         {
+            if (direction.Y > 0)
+            {
+                currentMovingState = MovementState.FALLING;
+                playerAnimation.currentAnimation = playerAnimation.animations[MovementState.FALLING];
+            }
             if (direction.X != 0)
             {
                 currentMovingState = MovementState.MOVING;
                 playerAnimation.currentAnimation = playerAnimation.animations[MovementState.MOVING];
             }
-            else
+            else if (direction.X == 0 && direction.Y == 0)
             {
                 currentMovingState = MovementState.IDLE;
                 playerAnimation.currentAnimation = playerAnimation.animations[MovementState.IDLE];
