@@ -17,6 +17,7 @@ namespace game_darksouls
         private Player player;
 
         private TempLevel tempLevel;
+        private Texture2D redsquare;
 
         public Game1()
         {
@@ -31,7 +32,7 @@ namespace game_darksouls
             base.Initialize();
             player = new Player(knightSpritesheet);
 
-            tempLevel = new(GraphicsDevice);
+            tempLevel = new();
 
         }
 
@@ -39,6 +40,7 @@ namespace game_darksouls
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             knightSpritesheet = Content.Load<Texture2D>("Knight");
+            redsquare = Content.Load<Texture2D>("square");
             // TODO: use this.Content to load your game content here
         }
 
@@ -58,7 +60,7 @@ namespace game_darksouls
             _spriteBatch.Begin();
 
             player.Draw(_spriteBatch);
-            tempLevel.Draw(_spriteBatch);
+            tempLevel.Draw(_spriteBatch,redsquare);
             _spriteBatch.End();
 
             base.Draw(gameTime);

@@ -5,8 +5,10 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Knight Sprite Sheet.png</File>
+    <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/square.png</File>
   </SourceFiles>
   <DestFiles>
     <File>Knight.png</File>
+    <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

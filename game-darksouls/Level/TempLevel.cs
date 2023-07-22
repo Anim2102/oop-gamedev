@@ -7,14 +7,12 @@ namespace game_darksouls.Level
     public class TempLevel
     {
         private static TempLevel instance;
-        List<Rectangle> rectangles = new List<Rectangle>();
-        Texture2D texture;
+        public readonly List<Rectangle> rectangles = new List<Rectangle>();
+        
 
-        public TempLevel(GraphicsDevice graphicsDevice)
+        public TempLevel()
         {
             const int SQUARESIZE = 50;
-            texture = new Texture2D(graphicsDevice, 1, 1);
-            texture.SetData(new[] { Color.Red });
 
             int positionX = 0;
             for (int i = 0; i < 10; i++)
@@ -24,16 +22,16 @@ namespace game_darksouls.Level
                 positionX += 50;
             }
         }
-        public static TempLevel GetInstance(GraphicsDevice graphicsDevice)
+        public static TempLevel GetInstance()
         {
             if (instance == null)
             {
-                instance = new TempLevel(graphicsDevice);
+                instance = new TempLevel();
             }
 
             return instance;
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch,Texture2D texture)
         {
             foreach (var square in rectangles)
             {

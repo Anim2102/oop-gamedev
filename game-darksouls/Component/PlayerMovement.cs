@@ -2,12 +2,14 @@
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace game_darksouls.Component
 {
     internal class PlayerMovement : IComponent
     {
         private readonly Player player;
+        private CollisionManager collisionManager;
         private readonly PlayerAnimation playerAnimation;
         private MovementState currentMovingState;
 
@@ -15,6 +17,7 @@ namespace game_darksouls.Component
         {
             this.player = player;
             this.playerAnimation = playerAnimation;
+            this.collisionManager = new(player);
             currentMovingState = MovementState.IDLE;
         }
 
@@ -41,6 +44,12 @@ namespace game_darksouls.Component
             }
 
             ChangeMovingState(direction);
+            collisionManager.CheckForGravity();
+
+            if (!collisionManager.IsOnFloor)
+            {
+                direction = ApplyGravity(direction);
+            }
 
             Rectangle updatedRectangle = player.drawingBox.DrawingRectangle;
             updatedRectangle.X += (int)direction.X;
@@ -48,7 +57,12 @@ namespace game_darksouls.Component
             player.drawingBox.DrawingRectangle = updatedRectangle;
         }
 
-
+        private Vector2 ApplyGravity(Vector2 direction)
+        {
+            //change to gravity value
+            direction.Y += 1f;
+            return direction;
+        }
         private void ChangeMovingState(Vector2 direction)
         {
             if (direction.X != 0)
