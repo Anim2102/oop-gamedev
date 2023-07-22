@@ -18,20 +18,6 @@ namespace game_darksouls.Component
             currentMovingState = MovementState.IDLE;
         }
 
-        private void ChangeMovingState(Vector2 direction)
-        {
-            if (direction.X != 0)
-            {
-                currentMovingState = MovementState.MOVING;
-                playerAnimation.currentAnimation = playerAnimation.animations[MovementState.MOVING];
-            }
-            else
-            {
-                currentMovingState = MovementState.IDLE;
-                playerAnimation.currentAnimation = playerAnimation.animations[MovementState.IDLE];
-
-            }
-        }
         public void Update(GameTime gameTime)
         {
             var state = Keyboard.GetState();
@@ -60,6 +46,22 @@ namespace game_darksouls.Component
             updatedRectangle.X += (int)direction.X;
             updatedRectangle.Y += (int)direction.Y;
             player.drawingBox.DrawingRectangle = updatedRectangle;
+        }
+
+
+        private void ChangeMovingState(Vector2 direction)
+        {
+            if (direction.X != 0)
+            {
+                currentMovingState = MovementState.MOVING;
+                playerAnimation.currentAnimation = playerAnimation.animations[MovementState.MOVING];
+            }
+            else
+            {
+                currentMovingState = MovementState.IDLE;
+                playerAnimation.currentAnimation = playerAnimation.animations[MovementState.IDLE];
+
+            }
         }
     }
 }
