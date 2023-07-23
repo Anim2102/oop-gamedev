@@ -1,32 +1,28 @@
 ﻿using game_darksouls.Entity;
 using game_darksouls.Level;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace game_darksouls.Component
 {
     internal class CollisionManager
     {
-       
-        public bool IsOnFloor { get; private set; }
-        private AnimatedObject entity;
-
         public CollisionManager(AnimatedObject entity)
         {
-            this.entity = entity;
         }
 
-        public void CheckForGravity()
+        public bool CheckForGravity(List<Rectangle> blocks, Box hitbox)
         {
-            IsOnFloor = false;
 
             foreach (var block in TempLevel.GetInstance().rectangles)
             {
-                if (block.Intersects(entity.drawingBox.DrawingRectangle))
+                if (block.Intersects(hitbox.DrawingRectangle))
                 {
-                    IsOnFloor = true;
-                    break;
+                    return true;
+                    
                 }
             }
+            return false;
         }
     }
 }
