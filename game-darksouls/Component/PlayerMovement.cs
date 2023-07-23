@@ -18,6 +18,11 @@ namespace game_darksouls.Component
 
 
         private bool IsFalling;
+        private bool IsJumping;
+        private float JumpTime;
+
+        private const float maxjumpdureation = 0.2f;
+
         private Vector2 speed;
 
         public PlayerMovement(Player player, PlayerAnimation playerAnimation)
@@ -29,36 +34,53 @@ namespace game_darksouls.Component
             this.collisionManager = new(player);
             this.inputManager = new();
             currentMovingState = MovementState.IDLE;
-            speed = new Vector2(120, 200);
+            speed = new Vector2(0.2f, 0.2f);
             IsFalling = false;
+            IsJumping = false;
+            JumpTime = 0;
+
         }
 
         public void Update(GameTime gameTime)
         {
             var direction = inputManager.GetInput();
-
-
-            /*collisionManager.CheckForGravity();
-
-            if (!collisionManager.IsOnFloor)
-            {
-                direction = ApplyGravity(direction);
-            }
             
-
-            
-            */
             direction = ApplyGravity(direction);
+            direction = JumpPlayer(gameTime, direction);
             MovePlayer(direction,gameTime);
             ChangeMovingState(direction);
         }
 
+        private Vector2 JumpPlayer(GameTime gameTime,Vector2 direction)
+        {
+            Debug.WriteLine("jumping: " + IsJumping + " " + "IsFalling; "
+                + IsFalling + "up button: " + inputManager.IsJumpButtonPress());
 
+            if (!IsJumping && IsFalling && inputManager.IsJumpButtonPress())
+            {
+                Debug.WriteLine(true);
+                IsJumping = true;
+                JumpTime = 0;
+            }
+            if (IsJumping)
+            {
+                JumpTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (JumpTime < maxjumpdureation)
+                {
+                    direction.Y -= (float)(100 * gameTime.ElapsedGameTime.TotalSeconds);
+                }
+                else
+                    IsJumping = false;
+            }
+            return direction;
+
+        }
         private void MovePlayer(Vector2 direction, GameTime gameTime)
         {
             Rectangle updatedRectangle = player.drawingBox.DrawingRectangle;
-            updatedRectangle.X += (int)(direction.X * speed.X * gameTime.ElapsedGameTime.TotalSeconds);
-            updatedRectangle.Y += (int)(direction.Y * speed.Y * gameTime.ElapsedGameTime.TotalSeconds);
+            updatedRectangle.X += (int)(direction.X * speed.X * gameTime.ElapsedGameTime.Milliseconds);
+            updatedRectangle.Y += (int)(direction.Y * speed.Y * gameTime.ElapsedGameTime.Milliseconds);
             player.drawingBox.DrawingRectangle = updatedRectangle;
 
         }
@@ -67,7 +89,7 @@ namespace game_darksouls.Component
             
             IsFalling = collisionManager.CheckForGravity(TempLevel.GetInstance().rectangles, player.drawingBox);
 
-            if (!IsFalling)
+            if (!IsFalling && !IsJumping)
             {
                 direction.Y += 1;
             }

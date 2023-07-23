@@ -20,15 +20,15 @@ namespace game_darksouls.Input
             {
                 direction.X = +1;
             }
-            if (state.IsKeyDown(Keys.Up))
-            {
-                direction.Y = -1;
-            }
-            if (state.IsKeyDown(Keys.Down))
-            {
-                direction.Y = +1;
-            }
+            
             return direction;
         }
+
+        public bool IsJumpButtonPress()
+        {
+            bool jumped = Keyboard.GetState().IsKeyDown(Keys.Up);
+            return jumped;
+        }
+
     }
 }
