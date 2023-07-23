@@ -1,5 +1,7 @@
 ﻿using game_darksouls.Entity;
 using game_darksouls.Enum;
+using game_darksouls.Input;
+using game_darksouls.Level;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
@@ -12,57 +14,64 @@ namespace game_darksouls.Component
         private CollisionManager collisionManager;
         private readonly PlayerAnimation playerAnimation;
         private MovementState currentMovingState;
+        private InputManager inputManager;
+
+
+        private bool IsFalling;
+        private Vector2 speed;
 
         public PlayerMovement(Player player, PlayerAnimation playerAnimation)
         {
+
+            //rework dependency injection either player or playeranimation or more specific
             this.player = player;
             this.playerAnimation = playerAnimation;
             this.collisionManager = new(player);
+            this.inputManager = new();
             currentMovingState = MovementState.IDLE;
+            speed = new Vector2(120, 200);
+            IsFalling = false;
         }
 
         public void Update(GameTime gameTime)
         {
-            var state = Keyboard.GetState();
-            Vector2 direction = Vector2.Zero;
+            var direction = inputManager.GetInput();
 
-            if (state.IsKeyDown(Keys.Left))
-            {
-                direction.X = -1;
-            }
-            if (state.IsKeyDown(Keys.Right))
-            {
-                direction.X = +1;
-            }
-            if (state.IsKeyDown(Keys.Up))
-            {
-                direction.Y = -1;
-            }
-            if (state.IsKeyDown(Keys.Down))
-            {
-                direction.Y = +1;
-            }
 
-            
-            collisionManager.CheckForGravity();
+            /*collisionManager.CheckForGravity();
 
             if (!collisionManager.IsOnFloor)
             {
                 direction = ApplyGravity(direction);
             }
+            
 
-
+            
+            */
+            direction = ApplyGravity(direction);
+            MovePlayer(direction,gameTime);
             ChangeMovingState(direction);
-            Rectangle updatedRectangle = player.drawingBox.DrawingRectangle;
-            updatedRectangle.X += (int)direction.X;
-            updatedRectangle.Y += (int)direction.Y;
-            player.drawingBox.DrawingRectangle = updatedRectangle;
         }
 
+
+        private void MovePlayer(Vector2 direction, GameTime gameTime)
+        {
+            Rectangle updatedRectangle = player.drawingBox.DrawingRectangle;
+            updatedRectangle.X += (int)(direction.X * speed.X * gameTime.ElapsedGameTime.TotalSeconds);
+            updatedRectangle.Y += (int)(direction.Y * speed.Y * gameTime.ElapsedGameTime.TotalSeconds);
+            player.drawingBox.DrawingRectangle = updatedRectangle;
+
+        }
         private Vector2 ApplyGravity(Vector2 direction)
         {
-            //change to gravity value
-            direction.Y += 1f;
+            
+            IsFalling = collisionManager.CheckForGravity(TempLevel.GetInstance().rectangles, player.drawingBox);
+
+            if (!IsFalling)
+            {
+                direction.Y += 1;
+            }
+
             return direction;
         }
         private void ChangeMovingState(Vector2 direction)
