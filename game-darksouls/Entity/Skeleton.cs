@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using game_darksouls.Animation;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,21 @@ namespace game_darksouls.Entity
     {
         public Skeleton(Texture2D texture) {
             this.texture = texture;
+            this.animationManager = new(AnimationFactory.LoadSkeletonAnimations());
+
+            this.drawingBox.DrawingRectangle = new Rectangle(140, 60, 80, 80);
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         public void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            animationManager.Update(gameTime);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, drawingBox.DrawingRectangle, animationManager.currentAnimation.CurrentFrame.SourceRectangle, Color.White);
+
         }
     }
 }

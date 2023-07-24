@@ -54,6 +54,7 @@ namespace game_darksouls
 
             // TODO: Add your update logic here
             player.Update(gameTime);
+            skeleton.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -63,6 +64,7 @@ namespace game_darksouls
             _spriteBatch.Begin();
 
             player.Draw(_spriteBatch);
+            skeleton.Draw(_spriteBatch);
             tempLevel.Draw(_spriteBatch,redsquare);
             _spriteBatch.End();
 

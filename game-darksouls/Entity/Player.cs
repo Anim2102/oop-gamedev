@@ -9,14 +9,13 @@ namespace game_darksouls.Entity
     public class Player : AnimatedObject, IEntity
     {
         private PlayerMovement playerMovement;
-        private AnimationManager playerAnimation;
 
         public Player(Texture2D texturePlayer)
         {
             texture = texturePlayer;
 
-            playerAnimation = new(AnimationFactory.LoadPlayerAnimations());
-            playerMovement = new(this, playerAnimation);
+            animationManager = new(AnimationFactory.LoadPlayerAnimations());
+            playerMovement = new(this, animationManager);
 
             drawingBox.DrawingRectangle = new Rectangle(1, 1, 50, 50);
 
@@ -25,12 +24,12 @@ namespace game_darksouls.Entity
         public void Update(GameTime gameTime)
         {
             playerMovement.Update(gameTime);
-            playerAnimation.Update(gameTime);
+            animationManager.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, drawingBox.DrawingRectangle, playerAnimation.currentAnimation.CurrentFrame.SourceRectangle, Color.White);
+            spriteBatch.Draw(texture, drawingBox.DrawingRectangle, animationManager.currentAnimation.CurrentFrame.SourceRectangle, Color.White);
         }
     }
 }
