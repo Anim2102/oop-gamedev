@@ -7,19 +7,35 @@ namespace game_darksouls.Component
 {
     internal class CollisionManager
     {
-        public CollisionManager(AnimatedObject entity)
+        private readonly TempLevel tempLevel;
+        public CollisionManager()
         {
+            tempLevel = TempLevel.GetInstance();
         }
 
-        public bool CheckForGravity(List<Rectangle> blocks, Box hitbox)
+        public bool CheckForCollision(Box hitbox)
         {
 
-            foreach (var block in TempLevel.GetInstance().rectangles)
+            foreach (var block in tempLevel.rectangles)
             {
                 if (block.Intersects(hitbox.DrawingRectangle))
                 {
                     return true;
                     
+                }
+            }
+            return false;
+        }
+
+        public bool CheckForCollision(Rectangle hitbox)
+        {
+
+            foreach (var block in tempLevel.rectangles)
+            {
+                if (block.Intersects(hitbox))
+                {
+                    return true;
+
                 }
             }
             return false;

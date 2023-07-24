@@ -17,7 +17,7 @@ namespace game_darksouls.Component
         private InputManager inputManager;
 
 
-        private bool IsFalling;
+        private bool onFloor;
         private bool IsJumping;
         private float JumpTime;
 
@@ -31,11 +31,11 @@ namespace game_darksouls.Component
             //rework dependency injection either player or playeranimation or more specific
             this.player = player;
             this.playerAnimation = playerAnimation;
-            this.collisionManager = new(player);
+            this.collisionManager = new();
             this.inputManager = new();
             currentMovingState = MovementState.IDLE;
             speed = new Vector2(0.2f, 0.2f);
-            IsFalling = false;
+            onFloor = false;
             IsJumping = false;
             JumpTime = 0;
 
@@ -53,10 +53,10 @@ namespace game_darksouls.Component
 
         private Vector2 JumpPlayer(GameTime gameTime,Vector2 direction)
         {
-            Debug.WriteLine("jumping: " + IsJumping + " " + "IsFalling; "
-                + IsFalling + "up button: " + inputManager.IsJumpButtonPress());
+           // Debug.WriteLine("jumping: " + IsJumping + " " + "onFloor; "
+              //  + onFloor + "up button: " + inputManager.IsJumpButtonPress());
 
-            if (!IsJumping && IsFalling && inputManager.IsJumpButtonPress())
+            if (!IsJumping && onFloor && inputManager.IsJumpButtonPress())
             {
                 Debug.WriteLine(true);
                 IsJumping = true;
@@ -78,18 +78,38 @@ namespace game_darksouls.Component
         }
         private void MovePlayer(Vector2 direction, GameTime gameTime)
         {
+            
             Rectangle updatedRectangle = player.drawingBox.DrawingRectangle;
+
             updatedRectangle.X += (int)(direction.X * speed.X * gameTime.ElapsedGameTime.Milliseconds);
+            if (!collisionManager.CheckForCollision(updatedRectangle))
+            {
+                player.drawingBox.DrawingRectangle = updatedRectangle;
+            }
+            else
+            {
+                Debug.WriteLine("x collsiion");
+            }
             updatedRectangle.Y += (int)(direction.Y * speed.Y * gameTime.ElapsedGameTime.Milliseconds);
-            player.drawingBox.DrawingRectangle = updatedRectangle;
+
+            if (!collisionManager.CheckForCollision(updatedRectangle))
+            {
+                player.drawingBox.DrawingRectangle = updatedRectangle;
+            }
+            else
+            {
+                Debug.WriteLine("x collsiion");
+            }
+
+            //player.drawingBox.DrawingRectangle = updatedRectangle;
 
         }
         private Vector2 ApplyGravity(Vector2 direction)
         {
             
-            IsFalling = collisionManager.CheckForGravity(TempLevel.GetInstance().rectangles, player.drawingBox);
+            onFloor = collisionManager.CheckForCollision(player.drawingBox);
 
-            if (!IsFalling && !IsJumping)
+            if (!onFloor && !IsJumping)
             {
                 direction.Y += 1;
             }
