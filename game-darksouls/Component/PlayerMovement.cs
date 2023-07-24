@@ -110,7 +110,7 @@ namespace game_darksouls.Component
                 player.drawingBox.DrawingRectangle.Width, 5);
             
             onFloor = collisionManager.CheckForCollision(feetRectangle);
-            Debug.WriteLine(onFloor);
+           // Debug.WriteLine(onFloor);
             if (!onFloor && !IsJumping)
             {
                 //Debug.WriteLine("hit if");
