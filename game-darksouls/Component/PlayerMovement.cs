@@ -124,19 +124,16 @@ namespace game_darksouls.Component
             if (direction.Y > 0)
             {
                 currentMovingState = MovementState.FALLING;
-                playerAnimation.currentAnimation = playerAnimation.animations[MovementState.FALLING];
             }
             if (direction.X != 0)
             {
                 currentMovingState = MovementState.MOVING;
-                playerAnimation.currentAnimation = playerAnimation.animations[MovementState.MOVING];
             }
             else if (direction.X == 0 && direction.Y == 0)
             {
                 currentMovingState = MovementState.IDLE;
-                playerAnimation.currentAnimation = playerAnimation.animations[MovementState.IDLE];
-
             }
+            playerAnimation.UpdateAnimationOnState(currentMovingState);
         }
     }
 }

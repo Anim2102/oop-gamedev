@@ -37,3 +37,4 @@ C:\Users\Tim\source\repos\game-darksouls\game-darksouls\obj\Debug\net6.0-windows
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\obj\Debug\net6.0-windows\ref\game-darksouls.dll
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\Knight.xnb
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\square.xnb
+C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\Skeleton.xnb
