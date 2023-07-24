@@ -53,8 +53,8 @@ namespace game_darksouls.Component
 
         private Vector2 JumpPlayer(GameTime gameTime,Vector2 direction)
         {
-           // Debug.WriteLine("jumping: " + IsJumping + " " + "onFloor; "
-              //  + onFloor + "up button: " + inputManager.IsJumpButtonPress());
+           //Debug.WriteLine("jumping: " + IsJumping + " " + "onFloor; "
+             //   + onFloor + "up button: " + inputManager.IsJumpButtonPress());
 
             if (!IsJumping && onFloor && inputManager.IsJumpButtonPress())
             {
@@ -86,19 +86,17 @@ namespace game_darksouls.Component
             {
                 player.drawingBox.DrawingRectangle = updatedRectangle;
             }
-            else
-            {
-                Debug.WriteLine("x collsiion");
-            }
             updatedRectangle.Y += (int)(direction.Y * speed.Y * gameTime.ElapsedGameTime.Milliseconds);
 
             if (!collisionManager.CheckForCollision(updatedRectangle))
             {
                 player.drawingBox.DrawingRectangle = updatedRectangle;
+                onFloor = false;
             }
             else
             {
-                Debug.WriteLine("x collsiion");
+                onFloor = true;
+                IsJumping = false;
             }
 
             //player.drawingBox.DrawingRectangle = updatedRectangle;
@@ -106,11 +104,16 @@ namespace game_darksouls.Component
         }
         private Vector2 ApplyGravity(Vector2 direction)
         {
+            //Debug.WriteLine("before: " + onFloor);
+            Rectangle feetRectangle = new Rectangle(player.drawingBox.DrawingRectangle.X,
+                player.drawingBox.DrawingRectangle.Y + player.drawingBox.DrawingRectangle.Height,
+                player.drawingBox.DrawingRectangle.Width, 5);
             
-            onFloor = collisionManager.CheckForCollision(player.drawingBox);
-
+            onFloor = collisionManager.CheckForCollision(feetRectangle);
+            Debug.WriteLine(onFloor);
             if (!onFloor && !IsJumping)
             {
+                //Debug.WriteLine("hit if");
                 direction.Y += 1;
             }
 
