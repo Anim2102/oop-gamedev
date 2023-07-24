@@ -10,30 +10,30 @@ namespace game_darksouls.Component
         private readonly AnimatedObject animatedObject;
         private readonly CollisionManager collisionManager;
 
-        private const float SPEED = 2F;
+        private Vector2 SPEED = new Vector2(0.2f, 0.4f);
         private Vector2 direction;
-        private bool onFloor;
 
         public NpcMovementManager(AnimatedObject animatedObject, CollisionManager collisionManager)
         {
             this.animatedObject = animatedObject;
             this.collisionManager = collisionManager;
 
-            onFloor = false;
             direction = Vector2.Zero;
+            direction.X = 1;
         }
         public void Update(GameTime gameTime)
         {
             CheckGravity();
             UpdatePosition(gameTime);
+            Debug.WriteLine(direction);
         }
 
         private void UpdatePosition(GameTime gameTime)
         {
             Rectangle updatedRectangle = animatedObject.drawingBox.DrawingRectangle;
 
-            updatedRectangle.X += (int)(direction.X * SPEED * gameTime.ElapsedGameTime.Milliseconds);
-            updatedRectangle.Y += (int)(direction.Y * SPEED * gameTime.ElapsedGameTime.Milliseconds);
+            updatedRectangle.X += (int)(direction.X * SPEED.X * gameTime.ElapsedGameTime.Milliseconds);
+            updatedRectangle.Y += (int)(direction.Y * SPEED.Y * gameTime.ElapsedGameTime.Milliseconds);
             animatedObject.drawingBox.DrawingRectangle = updatedRectangle;
             animatedObject.drawingBox.DrawingRectangle = updatedRectangle;
         }
@@ -43,21 +43,20 @@ namespace game_darksouls.Component
             Rectangle feetRectangle = new Rectangle(animatedObject.drawingBox.DrawingRectangle.X,
                animatedObject.drawingBox.DrawingRectangle.Y + animatedObject.drawingBox.DrawingRectangle.Height,
                animatedObject.drawingBox.DrawingRectangle.Width, 5);
-
+            
             if (collisionManager.CheckForCollision(feetRectangle))
             {
                 direction.Y = 0;
-                onFloor = true;
             }
             else
             {
-                onFloor = false;
                 direction.Y = 1;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            //debugging
             Rectangle feetRectangle = new Rectangle(animatedObject.drawingBox.DrawingRectangle.X,
                animatedObject.drawingBox.DrawingRectangle.Y + animatedObject.drawingBox.DrawingRectangle.Height,
                animatedObject.drawingBox.DrawingRectangle.Width, 5);
