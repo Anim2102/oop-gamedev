@@ -11,8 +11,6 @@ namespace game_darksouls.Entity
         protected Texture2D texture;
         internal Box drawingBox = new();
 
-        //temp box switch later to animation frame
-        internal Box sourceBox= new();
 
     }
 }

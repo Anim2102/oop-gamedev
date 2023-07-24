@@ -19,7 +19,6 @@ namespace game_darksouls.Entity
             playerMovement = new(this, playerAnimation);
 
             drawingBox.DrawingRectangle = new Rectangle(1, 1, 50, 50);
-            sourceBox.DrawingRectangle = new Rectangle(5, 10, 21, 26);
 
             
         }
