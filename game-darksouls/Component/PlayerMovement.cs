@@ -12,7 +12,7 @@ namespace game_darksouls.Component
     {
         private readonly Player player;
         private CollisionManager collisionManager;
-        private readonly PlayerAnimation playerAnimation;
+        private readonly AnimationManager playerAnimation;
         private MovementState currentMovingState;
         private InputManager inputManager;
 
@@ -25,7 +25,7 @@ namespace game_darksouls.Component
 
         private Vector2 speed;
 
-        public PlayerMovement(Player player, PlayerAnimation playerAnimation)
+        public PlayerMovement(Player player, AnimationManager playerAnimation)
         {
 
             //rework dependency injection either player or playeranimation or more specific

@@ -9,13 +9,13 @@ namespace game_darksouls.Entity
     public class Player : AnimatedObject, IEntity
     {
         private PlayerMovement playerMovement;
-        private PlayerAnimation playerAnimation;
+        private AnimationManager playerAnimation;
 
         public Player(Texture2D texturePlayer)
         {
             texture = texturePlayer;
 
-            playerAnimation = new();
+            playerAnimation = new(AnimationFactory.LoadPlayerAnimations());
             playerMovement = new(this, playerAnimation);
 
             drawingBox.DrawingRectangle = new Rectangle(1, 1, 50, 50);
