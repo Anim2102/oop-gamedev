@@ -33,6 +33,8 @@ namespace game_darksouls.Entity
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, drawingBox.DrawingRectangle, animationManager.currentAnimation.CurrentFrame.SourceRectangle, Color.White);
+            
+            //debug sides
             npcMovementManager.Draw(spriteBatch);
         }
     }

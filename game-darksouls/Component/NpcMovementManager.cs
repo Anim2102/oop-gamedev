@@ -10,7 +10,7 @@ namespace game_darksouls.Component
         private readonly AnimatedObject animatedObject;
         private readonly CollisionManager collisionManager;
 
-        private Vector2 SPEED = new Vector2(0.2f, 0.4f);
+        private Vector2 SPEED = new Vector2(-0.2f, 0.4f);
         private Vector2 direction;
 
         public NpcMovementManager(AnimatedObject animatedObject, CollisionManager collisionManager)
@@ -19,7 +19,6 @@ namespace game_darksouls.Component
             this.collisionManager = collisionManager;
 
             direction = Vector2.Zero;
-            direction.X = 1;
         }
         public void Update(GameTime gameTime)
         {
@@ -60,6 +59,18 @@ namespace game_darksouls.Component
             Rectangle feetRectangle = new Rectangle(animatedObject.drawingBox.DrawingRectangle.X,
                animatedObject.drawingBox.DrawingRectangle.Y + animatedObject.drawingBox.DrawingRectangle.Height,
                animatedObject.drawingBox.DrawingRectangle.Width, 5);
+
+            Rectangle sideLeftRectangle = new Rectangle(animatedObject.drawingBox.DrawingRectangle.X,
+                animatedObject.drawingBox.DrawingRectangle.Y,
+                5, animatedObject.drawingBox.DrawingRectangle.Height);
+
+            Rectangle sideRightRectangle = new Rectangle(animatedObject.drawingBox.DrawingRectangle.X + animatedObject.drawingBox.DrawingRectangle.Width,
+                animatedObject.drawingBox.DrawingRectangle.Y,
+                5, animatedObject.drawingBox.DrawingRectangle.Height);
+
+            spriteBatch.Draw(Game1.redsquareDebug, sideRightRectangle, Color.Green);
+
+            spriteBatch.Draw(Game1.redsquareDebug, sideLeftRectangle, Color.Green);
             spriteBatch.Draw(Game1.redsquareDebug, feetRectangle, Color.Black);
         }
     }
