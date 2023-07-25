@@ -1,13 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿using game_darksouls.Component;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Diagnostics;
 
 namespace game_darksouls.Entity.Behaviour
 {
-    public class LinearPatrol : IBehave
+    internal class LinearPatrol : IBehave
     {
         private readonly AnimatedObject animatedObject;
+        public readonly  NpcMovementManager npcMovementManager;
 
         private Vector2 positionA;
         private Vector2 positionB;
@@ -15,14 +17,16 @@ namespace game_darksouls.Entity.Behaviour
 
 
 
-        public LinearPatrol(Vector2 positionA, Vector2 positionB, AnimatedObject animatedObject)
+        public LinearPatrol(Vector2 positionA, Vector2 positionB,
+            AnimatedObject animatedObject, NpcMovementManager npcMovementManager)
         {
             this.positionA = positionA;
             this.positionB = positionB;
 
-            currentTarget = positionA;
+            currentTarget = positionB;
 
             this.animatedObject = animatedObject;
+            this.npcMovementManager = npcMovementManager;
         }
 
         public void Behave()
@@ -34,7 +38,9 @@ namespace game_darksouls.Entity.Behaviour
             if (currentPosition != currentTarget)
             {
                 Vector2 normalized = Vector2.Normalize(currentTarget - currentPosition);
-                Debug.WriteLine(normalized);
+                normalized.Y = 0;
+                npcMovementManager.MoveNpc(normalized);
+                
             }
 
 

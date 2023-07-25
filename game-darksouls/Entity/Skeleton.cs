@@ -22,7 +22,7 @@ namespace game_darksouls.Entity
             this.npcMovementManager = new NpcMovementManager(this, new CollisionManager());
 
             this.drawingBox.DrawingRectangle = new Rectangle(170, 20, 80, 80);
-            this.linearPatrol = new(new Vector2(170, 0), new Vector2(450, 0), this);
+            this.linearPatrol = new(new Vector2(170, 0), new Vector2(450, 0), this,npcMovementManager);
         }
       
 
