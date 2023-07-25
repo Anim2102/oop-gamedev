@@ -15,7 +15,7 @@ namespace game_darksouls.Entity.Behaviour
         private Vector2 positionB;
         private Vector2 currentTarget;
 
-
+        private const float MARGINGTARGET = 25;
 
         public LinearPatrol(Vector2 positionA, Vector2 positionB,
             AnimatedObject animatedObject, NpcMovementManager npcMovementManager)
@@ -34,17 +34,35 @@ namespace game_darksouls.Entity.Behaviour
             Vector2 currentPosition = new Vector2(animatedObject.drawingBox.DrawingRectangle.X,
                 animatedObject.drawingBox.DrawingRectangle.Y);
 
-
+            float distanceToTarget = (float)CalculateDistanceBetweenTwoVectorsOnX(currentPosition, currentTarget);
+            Debug.WriteLine(distanceToTarget);
             if (currentPosition != currentTarget)
             {
                 Vector2 normalized = Vector2.Normalize(currentTarget - currentPosition);
-                normalized.Y = 0;
                 npcMovementManager.MoveNpc(normalized);
                 
             }
 
+            if (currentPosition == currentTarget || distanceToTarget < MARGINGTARGET)
+                SwitchTargets();
+
 
         }
+
+        private void SwitchTargets()
+        {
+            if (currentTarget == positionA)
+                currentTarget = positionB;
+            else
+                currentTarget = positionA;
+        }
+
+        private float CalculateDistanceBetweenTwoVectorsOnX(Vector2 a, Vector2 b)
+        {
+            return Math.Abs(a.X - b.X);
+        }
+
+
 
         public void Draw(SpriteBatch spriteBatch)
         {
