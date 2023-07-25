@@ -14,15 +14,23 @@ namespace game_darksouls.Entity
     public class Skeleton : AnimatedObject, IEntity
     {
         private NpcMovementManager npcMovementManager;
-        private LinearPatrol linearPatrol;
+        
+        private protected Player player;
 
-        public Skeleton(Texture2D texture) {
+        //temp switch to manager
+        private LinearPatrol linearPatrol;
+        private Agressive agressive;
+
+        public Skeleton(Texture2D texture, Player player) {
             this.texture = texture;
             this.animationManager = new(AnimationFactory.LoadSkeletonAnimations());
             this.npcMovementManager = new NpcMovementManager(this, new CollisionManager(),animationManager);
 
             this.drawingBox.DrawingRectangle = new Rectangle(170, 20, 80, 80);
+
+
             this.linearPatrol = new(new Vector2(170, 0), new Vector2(450, 0), this,npcMovementManager);
+            this.agressive = new Agressive(player, this, npcMovementManager);
         }
       
 
@@ -30,7 +38,9 @@ namespace game_darksouls.Entity
         {
             animationManager.Update(gameTime);
             npcMovementManager.Update(gameTime);
-            linearPatrol.Behave(gameTime);
+
+            //agressive.Behave(gameTime);
+            //linearPatrol.Behave(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -38,7 +48,7 @@ namespace game_darksouls.Entity
             spriteBatch.Draw(texture, drawingBox.DrawingRectangle, animationManager.currentAnimation.CurrentFrame.SourceRectangle, Color.White);
             
             //debugging
-            linearPatrol.Draw(spriteBatch);
+            //linearPatrol.Draw(spriteBatch);
             npcMovementManager.Draw(spriteBatch);
         }
     }

@@ -26,10 +26,11 @@ namespace game_darksouls.Component
 
             direction = Vector2.Zero;
 
-            currentMovementState = MovementState.IDLE;
+            currentMovementState = MovementState.ATTACK;
         }
         public void Update(GameTime gameTime)
         {
+            Debug.WriteLine(currentMovementState);
             CheckGravity();
             UpdatePosition(gameTime);
             ChangeMovingState();
@@ -63,8 +64,10 @@ namespace game_darksouls.Component
 
         public void MoveNpc(Vector2 direction)
         {
+            Debug.WriteLine(direction);
             this.direction = direction;
         }
+
         public void ResetDirection()
         {
             this.direction = Vector2.Zero;
@@ -82,8 +85,9 @@ namespace game_darksouls.Component
             }
             else if (direction.X == 0 && direction.Y == 0)
             {
-                currentMovementState = MovementState.IDLE;
+                currentMovementState = MovementState.ATTACK;
             }
+
             animationManager.UpdateAnimationOnState(currentMovementState);
         }
         public void Draw(SpriteBatch spriteBatch)
