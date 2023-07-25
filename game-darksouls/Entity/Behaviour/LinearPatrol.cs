@@ -35,12 +35,11 @@ namespace game_darksouls.Entity.Behaviour
                 animatedObject.drawingBox.DrawingRectangle.Y);
 
             float distanceToTarget = (float)CalculateDistanceBetweenTwoVectorsOnX(currentPosition, currentTarget);
-            Debug.WriteLine(distanceToTarget);
+
             if (currentPosition != currentTarget)
             {
                 Vector2 normalized = Vector2.Normalize(currentTarget - currentPosition);
                 npcMovementManager.MoveNpc(normalized);
-                
             }
 
             if (currentPosition == currentTarget || distanceToTarget < MARGINGTARGET)
