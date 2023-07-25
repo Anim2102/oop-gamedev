@@ -19,7 +19,7 @@ namespace game_darksouls.Entity
         public Skeleton(Texture2D texture) {
             this.texture = texture;
             this.animationManager = new(AnimationFactory.LoadSkeletonAnimations());
-            this.npcMovementManager = new NpcMovementManager(this, new CollisionManager());
+            this.npcMovementManager = new NpcMovementManager(this, new CollisionManager(),animationManager);
 
             this.drawingBox.DrawingRectangle = new Rectangle(170, 20, 80, 80);
             this.linearPatrol = new(new Vector2(170, 0), new Vector2(450, 0), this,npcMovementManager);

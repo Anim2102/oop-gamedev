@@ -46,7 +46,8 @@ namespace game_darksouls.Component
 
         public void UpdateAnimationOnState(MovementState state)
         {
-            currentAnimation = animations[state];
+            if (animations.ContainsKey(state))
+                currentAnimation = animations[state];
         }
 
         public void Update(GameTime gameTime)
