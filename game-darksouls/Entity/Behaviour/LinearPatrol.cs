@@ -38,7 +38,6 @@ namespace game_darksouls.Entity.Behaviour
         {
             timer.Update(gameTime);
 
-
             Vector2 currentPosition = new Vector2(animatedObject.drawingBox.DrawingRectangle.X,
                 animatedObject.drawingBox.DrawingRectangle.Y);
 

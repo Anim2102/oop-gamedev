@@ -16,8 +16,7 @@ namespace game_darksouls.Utilities
         }
 
         public void Update(GameTime gameTime)
-        {
-            Debug.WriteLine("currentseconds: " + currentSeconds + "bool timerunning: " + timeRunning);
+        {            
             if (timeRunning)
             {
                 if (currentSeconds < seconds)
@@ -31,7 +30,6 @@ namespace game_darksouls.Utilities
                     timeRunning = false;
                 }
             }
-            
         }
 
         public void Reset()
