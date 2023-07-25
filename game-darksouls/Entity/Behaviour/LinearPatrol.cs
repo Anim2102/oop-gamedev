@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Diagnostics;
 
 namespace game_darksouls.Entity.Behaviour
 {
@@ -14,6 +12,8 @@ namespace game_darksouls.Entity.Behaviour
         private Vector2 positionA;
         private Vector2 positionB;
         private Vector2 currentTarget;
+
+
 
         public LinearPatrol(Vector2 positionA, Vector2 positionB, AnimatedObject animatedObject)
         {
@@ -27,7 +27,29 @@ namespace game_darksouls.Entity.Behaviour
 
         public void Behave()
         {
-            
+            Vector2 currentPosition = new Vector2(animatedObject.drawingBox.DrawingRectangle.X,
+                animatedObject.drawingBox.DrawingRectangle.Y);
+
+
+            if (currentPosition != currentTarget)
+            {
+                Vector2 normalized = Vector2.Normalize(currentTarget - currentPosition);
+                Debug.WriteLine(normalized);
+            }
+
+
         }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Rectangle pointA = new Rectangle((int)positionA.X, (int)positionA.Y,10, 10);
+            Rectangle pointB = new Rectangle((int)positionB.X, (int)positionB.Y, 10, 10);
+
+            spriteBatch.Draw(Game1.redsquareDebug, pointA, Color.Orange);
+            spriteBatch.Draw(Game1.redsquareDebug, pointB, Color.Orange);
+
+        }
+
+
     }
 }

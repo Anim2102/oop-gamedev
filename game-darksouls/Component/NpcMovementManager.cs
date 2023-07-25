@@ -53,6 +53,11 @@ namespace game_darksouls.Component
             }
         }
 
+        public void MoveNpc(Vector2 direction)
+        {
+            this.direction = direction;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             //debugging

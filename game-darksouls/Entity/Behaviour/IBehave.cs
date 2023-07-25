@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace game-darksouls.Entity.Behaviour
+namespace game_darksouls.Entity.Behaviour
 {
-    internal interface IBehave
+    public interface IBehave
 {
+        void Behave();
 }
 }
