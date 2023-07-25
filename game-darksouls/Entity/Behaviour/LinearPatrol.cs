@@ -1,4 +1,5 @@
 ﻿using game_darksouls.Component;
+using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,6 +17,8 @@ namespace game_darksouls.Entity.Behaviour
         private Vector2 currentTarget;
 
         private const float MARGINGTARGET = 25;
+        private const int waitTime = 3;
+        private Timer timer;
 
         public LinearPatrol(Vector2 positionA, Vector2 positionB,
             AnimatedObject animatedObject, NpcMovementManager npcMovementManager)
@@ -27,25 +30,34 @@ namespace game_darksouls.Entity.Behaviour
 
             this.animatedObject = animatedObject;
             this.npcMovementManager = npcMovementManager;
+
+            timer = new Timer(waitTime);
         }
 
-        public void Behave()
+        public void Behave(GameTime gameTime)
         {
+            timer.Update(gameTime);
+
+
             Vector2 currentPosition = new Vector2(animatedObject.drawingBox.DrawingRectangle.X,
                 animatedObject.drawingBox.DrawingRectangle.Y);
 
             float distanceToTarget = (float)CalculateDistanceBetweenTwoVectorsOnX(currentPosition, currentTarget);
 
-            if (currentPosition != currentTarget)
+            if (currentPosition != currentTarget && !timer.timeRunning)
             {
                 Vector2 normalized = Vector2.Normalize(currentTarget - currentPosition);
                 npcMovementManager.MoveNpc(normalized);
             }
 
             if (currentPosition == currentTarget || distanceToTarget < MARGINGTARGET)
+            {
+                timer.Reset();
+                timer.Start();
                 SwitchTargets();
-
-
+                npcMovementManager.ResetDirection();
+            }
+                
         }
 
         private void SwitchTargets()

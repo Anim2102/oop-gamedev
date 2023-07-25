@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace game_darksouls.Entity.Behaviour
 {
     public interface IBehave
 {
-        void Behave();
+        void Behave(GameTime gameTime);
 }
 }

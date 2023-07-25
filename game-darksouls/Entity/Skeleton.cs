@@ -30,7 +30,7 @@ namespace game_darksouls.Entity
         {
             animationManager.Update(gameTime);
             npcMovementManager.Update(gameTime);
-            linearPatrol.Behave();
+            linearPatrol.Behave(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)

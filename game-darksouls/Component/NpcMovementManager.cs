@@ -24,7 +24,6 @@ namespace game_darksouls.Component
         {
             CheckGravity();
             UpdatePosition(gameTime);
-            Debug.WriteLine(direction);
         }
 
         private void UpdatePosition(GameTime gameTime)
@@ -57,7 +56,10 @@ namespace game_darksouls.Component
         {
             this.direction = direction;
         }
-
+        public void ResetDirection()
+        {
+            this.direction = Vector2.Zero;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             //debugging

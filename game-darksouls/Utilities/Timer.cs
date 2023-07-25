@@ -1,12 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using System;
+using System.Diagnostics;
 
-namespace game-darksouls.Utilities
+namespace game_darksouls.Utilities
 {
     internal class Timer
-{
-}
+    {
+        private float seconds;
+        private double currentSeconds = 0;
+
+        public bool timeRunning { get; private set; } = false; 
+
+        public Timer(int seconds) { 
+            this.seconds = seconds;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            Debug.WriteLine("currentseconds: " + currentSeconds + "bool timerunning: " + timeRunning);
+            if (timeRunning)
+            {
+                if (currentSeconds < seconds)
+                {
+                    double passedTime = gameTime.ElapsedGameTime.TotalSeconds;
+                    currentSeconds += passedTime;
+                }
+
+                if (Math.Round(currentSeconds) == seconds)
+                {
+                    timeRunning = false;
+                }
+            }
+            
+        }
+
+        public void Reset()
+        {
+            currentSeconds = 0;
+        }
+
+        public void Start()
+        {
+            timeRunning = true;
+        }
+    }
 }
