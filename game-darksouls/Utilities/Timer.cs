@@ -16,7 +16,7 @@ namespace game_darksouls.Utilities
         }
 
         public void Update(GameTime gameTime)
-        {            
+        {
             if (timeRunning)
             {
                 if (currentSeconds < seconds)

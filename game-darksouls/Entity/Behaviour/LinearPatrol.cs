@@ -16,7 +16,7 @@ namespace game_darksouls.Entity.Behaviour
         private Vector2 positionB;
         private Vector2 currentTarget;
 
-        private const float MARGINGTARGET = 25;
+        private const float MARGINGTARGET = 41;
         private const int waitTime = 3;
         private Timer timer;
 
@@ -38,9 +38,10 @@ namespace game_darksouls.Entity.Behaviour
         {
             timer.Update(gameTime);
 
-            Vector2 currentPosition = new Vector2(animatedObject.drawingBox.DrawingRectangle.X,
-                animatedObject.drawingBox.DrawingRectangle.Y);
+            Vector2 currentPosition = this.animatedObject.drawingBox.CenterOfBox();
 
+
+            Debug.WriteLine("positie: " + currentPosition + "   target positie: " + currentTarget);
             float distanceToTarget = (float)CalculateDistanceBetweenTwoVectorsOnX(currentPosition, currentTarget);
 
             if (currentPosition != currentTarget && !timer.timeRunning)
@@ -78,9 +79,15 @@ namespace game_darksouls.Entity.Behaviour
         {
             Rectangle pointA = new Rectangle((int)positionA.X, (int)positionA.Y,10, 10);
             Rectangle pointB = new Rectangle((int)positionB.X, (int)positionB.Y, 10, 10);
+            
+
+            Rectangle centerPoint = new Rectangle((int)this.animatedObject.drawingBox.CenterOfBox().X,
+                (int)this.animatedObject.drawingBox.CenterOfBox().Y,10, 10);
 
             spriteBatch.Draw(Game1.redsquareDebug, pointA, Color.Orange);
             spriteBatch.Draw(Game1.redsquareDebug, pointB, Color.Orange);
+
+            spriteBatch.Draw(Game1.redsquareDebug, centerPoint, Color.Blue);
 
         }
 

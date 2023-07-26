@@ -12,7 +12,7 @@ namespace game_darksouls.Component
         private readonly CollisionManager collisionManager;
         private AnimationManager animationManager;
 
-        private Vector2 SPEED = new Vector2(0.2f, 0.4f);
+        private Vector2 SPEED = new Vector2(0.2f, 0.6f);
         private Vector2 direction;
 
         private MovementState currentMovementState;
@@ -30,7 +30,6 @@ namespace game_darksouls.Component
         }
         public void Update(GameTime gameTime)
         {
-            Debug.WriteLine(currentMovementState);
             CheckGravity();
             UpdatePosition(gameTime);
             ChangeMovingState();
@@ -64,7 +63,6 @@ namespace game_darksouls.Component
 
         public void MoveNpc(Vector2 direction)
         {
-            Debug.WriteLine(direction);
             this.direction = direction;
         }
 
@@ -85,7 +83,7 @@ namespace game_darksouls.Component
             }
             else if (direction.X == 0 && direction.Y == 0)
             {
-                currentMovementState = MovementState.ATTACK;
+                currentMovementState = MovementState.IDLE;
             }
 
             animationManager.UpdateAnimationOnState(currentMovementState);
