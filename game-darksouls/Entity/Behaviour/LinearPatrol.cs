@@ -16,7 +16,7 @@ namespace game_darksouls.Entity.Behaviour
         private Vector2 positionB;
         private Vector2 currentTarget;
 
-        private const float MARGINGTARGET = 41;
+        private const float MARGINGTARGET = 50;
         private const int waitTime = 3;
         private Timer timer;
 

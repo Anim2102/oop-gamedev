@@ -12,6 +12,7 @@ namespace game_darksouls.Component
 
         public ActionAnimation currentAnimation { get; set; }
         public Dictionary<MovementState,ActionAnimation> animations { get; set; } = new();
+        private bool currentAnimationIsRunning = false;
 
         public AnimationManager(Dictionary<MovementState, ActionAnimation> animations)
         {

@@ -14,10 +14,11 @@ namespace game_darksouls.Animation
         private double secondCounter = 0;
         public int fps = 15;
         public bool IsRunning { get; private set; }
+        public bool Loop { get; set; } = true;
+
         public ActionAnimation(string name)
         {
             frames = new List<AnimationFrame>();
-            IsRunning = true;
             this.name = name;
         }
 
@@ -42,7 +43,7 @@ namespace game_darksouls.Animation
         }
         public void Update(GameTime gameTime)
         {
-            if (!IsRunning)
+            if (!IsRunning && !Loop)
                 return;
 
             CurrentFrame = frames[counter];

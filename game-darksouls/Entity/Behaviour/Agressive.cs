@@ -17,7 +17,6 @@ namespace game_darksouls.Entity.Behaviour
         private Timer waitTimerBeforeAttack;
         private bool attacking = false;
 
-        private Vector2 currentPosition;
 
         public Agressive(Player player, AnimatedObject animatedObject, NpcMovementManager npcMovementManager, AnimationManager animationManager)
         {
@@ -57,12 +56,10 @@ namespace game_darksouls.Entity.Behaviour
             if (attacking && !waitTimerBeforeAttack.timeRunning)
             {
                 Attack();
+                //redo
                 attacking = false;
                 waitTimerBeforeAttack.Reset();
             }
-            
-
-
         }
         private void Attack()
         {

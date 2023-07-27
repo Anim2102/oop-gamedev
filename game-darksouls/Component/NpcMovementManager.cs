@@ -73,6 +73,7 @@ namespace game_darksouls.Component
 
         private void ChangeMovingState()
         {
+           
             if (direction.Y > 0)
             {
                 currentMovementState = MovementState.FALLING;
