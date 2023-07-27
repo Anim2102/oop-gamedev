@@ -2,6 +2,7 @@
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace game_darksouls.Component
 {
@@ -11,32 +12,22 @@ namespace game_darksouls.Component
 
         public ActionAnimation currentAnimation { get; set; }
         public Dictionary<MovementState,ActionAnimation> animations { get; set; } = new();
+        private bool currentAnimationIsRunning = false;
 
         public AnimationManager(Dictionary<MovementState, ActionAnimation> animations)
         {
-
             this.animations = animations;
             //temp default animation
             currentAnimation = animations[MovementState.IDLE];
         }
 
-    
-
-        public ActionAnimation LoadAnimations(int fps = 15, int amountFrames = 1, int yas = 40, int width = 32, int height = 27)
+        public void PlayAnimation(MovementState movementState)
         {
-            ActionAnimation animation = new ActionAnimation();
-            animation.fps = fps;
-            int xAs = 0;
-            int yAs = yas;
-
-
-            for (int i = 0; i < amountFrames; i++)
+            if (animations.ContainsKey(movementState))
             {
-                animation.AddFrame(new AnimationFrame(new Rectangle(xAs, yAs, width, height)));
-                xAs += width;
+                currentAnimation = animations[movementState];
+                currentAnimation.Play();
             }
-
-            return animation;
         }
 
         public void AddAnimation(MovementState state, ActionAnimation actionAnimation)
@@ -46,11 +37,13 @@ namespace game_darksouls.Component
 
         public void UpdateAnimationOnState(MovementState state)
         {
-            currentAnimation = animations[state];
+            if (animations.ContainsKey(state) && !currentAnimation.IsRunning)
+                currentAnimation = animations[state];
         }
 
         public void Update(GameTime gameTime)
         {
+            Debug.WriteLine(currentAnimation.name);
             currentAnimation.Update(gameTime);
         }
     }
