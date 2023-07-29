@@ -1,6 +1,7 @@
 ﻿using game_darksouls.Animation;
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -12,7 +13,9 @@ namespace game_darksouls.Component
 
         public ActionAnimation currentAnimation { get; set; }
         public Dictionary<MovementState,ActionAnimation> animations { get; set; } = new();
-        private bool currentAnimationIsRunning = false;
+        public bool FacingLeft { get; set; }
+        public SpriteEffects SpriteFLip => FacingLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+        
 
         public AnimationManager(Dictionary<MovementState, ActionAnimation> animations)
         {
@@ -39,8 +42,9 @@ namespace game_darksouls.Component
         {
             if (animations.ContainsKey(state) && !currentAnimation.IsRunning)
                 currentAnimation = animations[state];
+            
         }
-
+        
         public void Update(GameTime gameTime)
         {
             Debug.WriteLine(currentAnimation.name);
