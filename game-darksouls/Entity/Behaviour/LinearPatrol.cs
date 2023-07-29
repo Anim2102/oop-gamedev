@@ -1,0 +1,96 @@
+﻿using game_darksouls.Component;
+using game_darksouls.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Diagnostics;
+
+namespace game_darksouls.Entity.Behaviour
+{
+    internal class LinearPatrol : IBehave
+    {
+        private readonly AnimatedObject animatedObject;
+        public readonly  NpcMovementManager npcMovementManager;
+
+        private Vector2 positionA;
+        private Vector2 positionB;
+        private Vector2 currentTarget;
+
+        private const float MARGINGTARGET = 50;
+        private const int waitTime = 3;
+        private Timer timer;
+
+        public LinearPatrol(Vector2 positionA, Vector2 positionB,
+            AnimatedObject animatedObject, NpcMovementManager npcMovementManager)
+        {
+            this.positionA = positionA;
+            this.positionB = positionB;
+
+            currentTarget = positionB;
+
+            this.animatedObject = animatedObject;
+            this.npcMovementManager = npcMovementManager;
+
+            timer = new Timer(waitTime);
+        }
+
+        public void Behave(GameTime gameTime)
+        {
+            timer.Update(gameTime);
+
+            Vector2 currentPosition = this.animatedObject.drawingBox.CenterOfBox();
+
+
+            Debug.WriteLine("positie: " + currentPosition + "   target positie: " + currentTarget);
+            float distanceToTarget = (float)CalculateDistanceBetweenTwoVectorsOnX(currentPosition, currentTarget);
+
+            if (currentPosition != currentTarget && !timer.timeRunning)
+            {
+                Vector2 normalized = Vector2.Normalize(currentTarget - currentPosition);
+                npcMovementManager.MoveNpc(normalized);
+            }
+
+            if (currentPosition == currentTarget || distanceToTarget < MARGINGTARGET)
+            {
+                timer.Reset();
+                timer.Start();
+                SwitchTargets();
+                npcMovementManager.ResetDirection();
+            }
+                
+        }
+
+        private void SwitchTargets()
+        {
+            if (currentTarget == positionA)
+                currentTarget = positionB;
+            else
+                currentTarget = positionA;
+        }
+
+        private float CalculateDistanceBetweenTwoVectorsOnX(Vector2 a, Vector2 b)
+        {
+            return Math.Abs(a.X - b.X);
+        }
+
+
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Rectangle pointA = new Rectangle((int)positionA.X, (int)positionA.Y,10, 10);
+            Rectangle pointB = new Rectangle((int)positionB.X, (int)positionB.Y, 10, 10);
+            
+
+            Rectangle centerPoint = new Rectangle((int)this.animatedObject.drawingBox.CenterOfBox().X,
+                (int)this.animatedObject.drawingBox.CenterOfBox().Y,10, 10);
+
+            spriteBatch.Draw(Game1.redsquareDebug, pointA, Color.Orange);
+            spriteBatch.Draw(Game1.redsquareDebug, pointB, Color.Orange);
+
+            spriteBatch.Draw(Game1.redsquareDebug, centerPoint, Color.Blue);
+
+        }
+
+
+    }
+}

@@ -22,7 +22,7 @@ namespace game_darksouls.Level
                 positionX += 50;
             }
 
-            rectangles.Add(new Rectangle(100,100,SQUARESIZE, SQUARESIZE));
+            //rectangles.Add(new Rectangle(100,100,SQUARESIZE, SQUARESIZE));
         }
         public static TempLevel GetInstance()
         {

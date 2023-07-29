@@ -21,7 +21,7 @@ namespace game_darksouls.Component
         private bool IsJumping;
         private float JumpTime;
 
-        private const float maxjumpdureation = 0.2f;
+        private const float maxJumpDuration = 0.2f;
 
         private Vector2 speed;
 
@@ -33,6 +33,7 @@ namespace game_darksouls.Component
             this.playerAnimation = playerAnimation;
             this.collisionManager = new();
             this.inputManager = new();
+
             currentMovingState = MovementState.IDLE;
             speed = new Vector2(0.2f, 0.2f);
             onFloor = false;
@@ -49,6 +50,7 @@ namespace game_darksouls.Component
             direction = JumpPlayer(gameTime, direction);
             MovePlayer(direction,gameTime);
             ChangeMovingState(direction);
+            ChangeFlipOnDirection(direction);
         }
 
         private Vector2 JumpPlayer(GameTime gameTime,Vector2 direction)
@@ -58,7 +60,6 @@ namespace game_darksouls.Component
 
             if (!IsJumping && onFloor && inputManager.IsJumpButtonPress())
             {
-                Debug.WriteLine(true);
                 IsJumping = true;
                 JumpTime = 0;
             }
@@ -66,7 +67,7 @@ namespace game_darksouls.Component
             {
                 JumpTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                if (JumpTime < maxjumpdureation)
+                if (JumpTime < maxJumpDuration)
                 {
                     direction.Y -= (float)(100 * gameTime.ElapsedGameTime.TotalSeconds);
                 }
@@ -102,6 +103,7 @@ namespace game_darksouls.Component
             //player.drawingBox.DrawingRectangle = updatedRectangle;
 
         }
+
         private Vector2 ApplyGravity(Vector2 direction)
         {
             //Debug.WriteLine("before: " + onFloor);
@@ -119,6 +121,18 @@ namespace game_darksouls.Component
 
             return direction;
         }
+
+        private void ChangeFlipOnDirection(Vector2 direction)
+        {
+            if (direction.X > 0)
+            {
+                playerAnimation.FacingLeft = false;
+            }
+            else if (direction.X < 0)
+            {
+                playerAnimation.FacingLeft = true;
+            }
+        }
         private void ChangeMovingState(Vector2 direction)
         {
             if (direction.Y > 0)
@@ -135,5 +149,16 @@ namespace game_darksouls.Component
             }
             playerAnimation.UpdateAnimationOnState(currentMovingState);
         }
+
+        /*private void FlipOnMovement(Vector2 direction)
+        {
+            if (direction.X > 0)
+            {
+                playerAnimation.FlipAnimation = false;
+            }
+            else
+                playerAnimation.FlipAnimation = true;
+        }
+        */
     }
 }

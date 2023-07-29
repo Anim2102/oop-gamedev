@@ -4,7 +4,7 @@
     {
         IDLE,
         MOVING,
-        FALLING
-        
+        FALLING,
+        ATTACK
     }
 }

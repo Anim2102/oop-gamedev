@@ -18,7 +18,6 @@ namespace game_darksouls.Entity
             playerMovement = new(this, animationManager);
 
             drawingBox.DrawingRectangle = new Rectangle(1, 1, 50, 50);
-
             
         }
         public void Update(GameTime gameTime)
@@ -29,7 +28,8 @@ namespace game_darksouls.Entity
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, drawingBox.DrawingRectangle, animationManager.currentAnimation.CurrentFrame.SourceRectangle, Color.White);
+            spriteBatch.Draw(texture, drawingBox.DrawingRectangle, animationManager.currentAnimation.CurrentFrame.SourceRectangle
+               , Color.White, 0f,Vector2.Zero,animationManager.SpriteFLip,0f );
         }
     }
 }
