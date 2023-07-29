@@ -35,15 +35,24 @@ namespace game_darksouls.Entity
             animationManager.Update(gameTime);
             npcMovementManager.Update(gameTime);
 
-            agressive.Behave(gameTime);
+            //agressive.Behave(gameTime);
             //linearPatrol.Behave(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, drawingBox.DrawingRectangle, animationManager.currentAnimation.CurrentFrame.SourceRectangle, Color.White);
+            //spriteBatch.Draw(texture, drawingBox.DrawingRectangle, animationManager.currentAnimation.CurrentFrame.SourceRectangle, Color.White);
+            
+            
+            spriteBatch.Draw(texture, 
+                drawingBox.DrawingRectangle,
+                animationManager.currentAnimation.CurrentFrame.SourceRectangle,
+                Color.White,
+                0f, 
+                Vector2.Zero,
+                animationManager.SpriteFLip,
+                0f);
 
-            //debugging
             //linearPatrol.Draw(spriteBatch);
             npcMovementManager.Draw(spriteBatch);
         }

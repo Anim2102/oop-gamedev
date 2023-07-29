@@ -33,6 +33,7 @@ namespace game_darksouls.Component
             CheckGravity();
             UpdatePosition(gameTime);
             ChangeMovingState();
+            ChangeFlipOnDirection();
         }
 
         private void UpdatePosition(GameTime gameTime)
@@ -88,6 +89,18 @@ namespace game_darksouls.Component
             }
 
             animationManager.UpdateAnimationOnState(currentMovementState);
+        }
+
+        private void ChangeFlipOnDirection()
+        {
+            if (direction.X > 0)
+            {
+                animationManager.FacingLeft = false;
+            }
+            else if (direction.X < 0)
+            {
+                animationManager.FacingLeft = true;
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
