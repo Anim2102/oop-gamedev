@@ -1,5 +1,6 @@
 ﻿using game_darksouls.Entity;
 using game_darksouls.Level;
+using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,6 +18,8 @@ namespace game_darksouls
         private Player player;
         private Texture2D skeletonTexture;
         private Skeleton skeleton;
+
+        private Camera camera;
 
         private TempLevel tempLevel;
         private Texture2D redsquare;
@@ -36,6 +39,7 @@ namespace game_darksouls
             player = new Player(knightSpritesheet);
             skeleton = new Skeleton(knightSpritesheet, player);
             tempLevel = new();
+            camera = new Camera(0,0,100,100,player);
 
         }
 
@@ -58,13 +62,14 @@ namespace game_darksouls
             // TODO: Add your update logic here
             player.Update(gameTime);
             skeleton.Update(gameTime);
+            camera.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(transformMatrix: camera.CreateTransformation(GraphicsDevice));
 
             player.Draw(_spriteBatch);
             skeleton.Draw(_spriteBatch);
