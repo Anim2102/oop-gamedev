@@ -39,7 +39,8 @@ namespace game_darksouls
             player = new Player(knightSpritesheet);
             skeleton = new Skeleton(knightSpritesheet, player);
             tempLevel = new();
-            camera = new Camera(0,0,100,100,player);
+            camera = new Camera(GraphicsDevice.Viewport,player);
+
 
         }
 
@@ -62,7 +63,7 @@ namespace game_darksouls
             // TODO: Add your update logic here
             player.Update(gameTime);
             skeleton.Update(gameTime);
-            camera.Update(gameTime);
+            camera.Update();
             base.Update(gameTime);
         }
 

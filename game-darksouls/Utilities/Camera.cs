@@ -9,29 +9,29 @@ namespace game_darksouls.Utilities
         //source of knowledge: http://www.david-amador.com/2009/10/xna-camera-2d-with-zoom-and-rotation/
         public Matrix Transform { get; set; }
         public Vector2 CameraPosition { get; set; }
+        public Vector2 OriginCenter { get; set; }
 
         private Viewport viewport;
         private Player player;
 
-        public Camera(int x, int y, int width, int height, Player player)
+        public Camera(Viewport viewport, Player player)
         {
-            viewport = new Viewport(x, y, width, height);
+            this.viewport = viewport; 
             this.player = player;
+
+            OriginCenter = new Vector2(viewport.Width / 2, viewport.Height / 2);
 
         }
         public Matrix CreateTransformation(GraphicsDevice graphicsDevice)
         {
-            var newTransForm = Matrix.CreateTranslation(new Vector3(-CameraPosition.X, -CameraPosition.Y, 0)) *
+            //negative cameraposition for garanty opposite direction 
+            var newTransform = Matrix.CreateTranslation(new Vector3(-CameraPosition + OriginCenter, 0));
 
-                                         Matrix.CreateTranslation(new Vector3(viewport.Width * 0.5f, viewport.Height * 0.5f, 0));
-            return newTransForm;
+            return newTransform;
         }
-        public void Update(GameTime gameTime)
+        public void Update()
         {
-            Vector2 newCameraPosition = CameraPosition;
-            newCameraPosition.X = this.player.drawingBox.DrawingRectangle.X;
-            newCameraPosition.Y = this.player.drawingBox.DrawingRectangle.Y;
-            CameraPosition = newCameraPosition;
+            CameraPosition = this.player.drawingBox.CenterOfBox();
         }
     }
 

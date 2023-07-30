@@ -15,7 +15,7 @@ namespace game_darksouls.Level
             const int SQUARESIZE = 50;
 
             int positionX = 0;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 50; i++)
             {
                 Rectangle squareRect = new Rectangle(positionX, 150, SQUARESIZE, SQUARESIZE);
                 rectangles.Add(squareRect);
