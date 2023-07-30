@@ -38,8 +38,6 @@ namespace game_darksouls.Entity
             animationManager.Update(gameTime);
             npcMovementManager.Update(gameTime);
             entityStateController.Update(gameTime);
-            //agressive.Behave(gameTime);
-            //linearPatrol.Behave(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
