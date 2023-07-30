@@ -11,6 +11,7 @@ namespace game_darksouls.Entity
         private NpcMovementManager npcMovementManager;
 
         private protected Player player;
+        private EntityStateController entityStateController;
 
         //temp switch to manager
         private LinearPatrol linearPatrol;
@@ -27,6 +28,8 @@ namespace game_darksouls.Entity
 
             this.linearPatrol = new(new Vector2(170, 0), new Vector2(450, 0), this, npcMovementManager);
             this.agressive = new Agressive(player, this, npcMovementManager, animationManager);
+
+            entityStateController = new EntityStateController(linearPatrol, agressive, player, this);
         }
 
 
@@ -34,7 +37,7 @@ namespace game_darksouls.Entity
         {
             animationManager.Update(gameTime);
             npcMovementManager.Update(gameTime);
-
+            entityStateController.Update(gameTime);
             //agressive.Behave(gameTime);
             //linearPatrol.Behave(gameTime);
         }
