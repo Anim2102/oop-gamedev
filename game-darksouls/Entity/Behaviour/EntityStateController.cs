@@ -14,13 +14,13 @@ namespace game_darksouls.Entity.Behaviour
 
         private IBehave currentBehaviour;
 
-
         public EntityStateController(LinearPatrol linearPatrol, Agressive agressive,Player player,AnimatedObject animatedObject)
         {
             this.linearPatrol = linearPatrol;
             this.agressive = agressive;
             this.player = player;
-            this.animatedObject = animatedObject; 
+            this.animatedObject = animatedObject;
+
         }
 
         public void Update(GameTime gameTime)
@@ -31,7 +31,7 @@ namespace game_darksouls.Entity.Behaviour
 
         private void ControleState()
         {
-            Vector2 currentPosition = animatedObject.drawingBox.CenterOfBox();
+            Vector2 currentPosition = animatedObject.collisionBox.CenterOfBox();
             Vector2 playerPosition = player.drawingBox.CenterOfBox();
 
             float distanceBetweenPlayer = CalculateDistanceBetweenTwoVectorsOnX(currentPosition, playerPosition);

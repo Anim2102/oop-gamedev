@@ -12,6 +12,7 @@ namespace game_darksouls.Entity
 
         protected Texture2D texture;
         internal Box drawingBox = new();
+        internal Box collisionBox;
 
 
     }

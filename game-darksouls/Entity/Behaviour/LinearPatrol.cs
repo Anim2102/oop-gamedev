@@ -38,10 +38,10 @@ namespace game_darksouls.Entity.Behaviour
         {
             timer.Update(gameTime);
 
-            Vector2 currentPosition = this.animatedObject.drawingBox.CenterOfBox();
+            Vector2 currentPosition = this.animatedObject.collisionBox.CenterOfBox();
 
 
-            Debug.WriteLine("positie: " + currentPosition + "   target positie: " + currentTarget);
+            //Debug.WriteLine("positie: " + currentPosition + "   target positie: " + currentTarget);
             float distanceToTarget = (float)CalculateDistanceBetweenTwoVectorsOnX(currentPosition, currentTarget);
 
             if (currentPosition != currentTarget && !timer.timeRunning)

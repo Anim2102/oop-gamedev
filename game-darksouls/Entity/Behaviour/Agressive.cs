@@ -31,8 +31,8 @@ namespace game_darksouls.Entity.Behaviour
 
         public void Behave(GameTime gameTime)
         {
-            Vector2 currentPosition = new Vector2(animatedObject.drawingBox.DrawingRectangle.X,
-                animatedObject.drawingBox.DrawingRectangle.Y);
+            Vector2 currentPosition = new Vector2(animatedObject.collisionBox.Rectangle.X,
+                animatedObject.collisionBox.Rectangle.Y);
 
             Vector2 playerPosition = player.drawingBox.CenterOfBox();
 

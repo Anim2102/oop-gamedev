@@ -18,7 +18,7 @@ namespace game_darksouls.Component
 
             foreach (var block in tempLevel.rectangles)
             {
-                if (block.Intersects(hitbox.DrawingRectangle))
+                if (block.Intersects(hitbox.Rectangle))
                 {
                     return true;
                     

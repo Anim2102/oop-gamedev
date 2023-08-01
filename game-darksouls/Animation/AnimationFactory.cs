@@ -30,8 +30,8 @@ namespace game_darksouls.Animation
         public static Dictionary<MovementState, ActionAnimation> LoadSkeletonAnimations()
         {
             Dictionary<MovementState, ActionAnimation> animations = new();
-            ActionAnimation idleAnimation = LoadAnimations(amountFrames: 4, fps: 4, yas: 206, width: 69, height: 64);
-            ActionAnimation runningAnimation = LoadAnimations(amountFrames: 12, fps: 12, yas: 143, width: 69, height: 64);
+            ActionAnimation idleAnimation = LoadAnimations(amountFrames: 4, fps: 4, yas: 192, width: 64, height: 64);
+            ActionAnimation runningAnimation = LoadAnimations(amountFrames: 12, fps: 12, yas: 128, width: 64, height: 64);
             ActionAnimation attackAnimation = LoadAnimations(amountFrames: 13, fps: 9, yas: 0, width: 64, height: 64);
             animations.Add(MovementState.IDLE, idleAnimation);
             animations.Add(MovementState.MOVING, runningAnimation);

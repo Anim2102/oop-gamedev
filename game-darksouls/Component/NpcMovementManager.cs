@@ -17,7 +17,9 @@ namespace game_darksouls.Component
 
         private MovementState currentMovementState;
 
-        public NpcMovementManager(AnimatedObject animatedObject, CollisionManager collisionManager, AnimationManager animationManager)
+        private Box collisionBox;
+
+        public NpcMovementManager(AnimatedObject animatedObject, CollisionManager collisionManager, AnimationManager animationManager, Box collisionBox)
         {
             this.animatedObject = animatedObject;
             this.collisionManager = collisionManager;
@@ -27,6 +29,8 @@ namespace game_darksouls.Component
             direction = Vector2.Zero;
 
             currentMovementState = MovementState.ATTACK;
+
+            this.collisionBox = collisionBox;
         }
         public void Update(GameTime gameTime)
         {
@@ -38,19 +42,19 @@ namespace game_darksouls.Component
 
         private void UpdatePosition(GameTime gameTime)
         {
-            Rectangle updatedRectangle = animatedObject.drawingBox.DrawingRectangle;
+            Rectangle updatedRectangle = collisionBox.Rectangle;
 
             updatedRectangle.X += (int)(direction.X * SPEED.X * gameTime.ElapsedGameTime.Milliseconds);
             updatedRectangle.Y += (int)(direction.Y * SPEED.Y * gameTime.ElapsedGameTime.Milliseconds);
-            animatedObject.drawingBox.DrawingRectangle = updatedRectangle;
-            animatedObject.drawingBox.DrawingRectangle = updatedRectangle;
+            collisionBox.Rectangle = updatedRectangle;
+            collisionBox.Rectangle = updatedRectangle;
         }
 
         private void CheckGravity()
         {
-            Rectangle feetRectangle = new Rectangle(animatedObject.drawingBox.DrawingRectangle.X,
-               animatedObject.drawingBox.DrawingRectangle.Y + animatedObject.drawingBox.DrawingRectangle.Height,
-               animatedObject.drawingBox.DrawingRectangle.Width, 5);
+            Rectangle feetRectangle = new Rectangle(collisionBox.Rectangle.X,
+               collisionBox.Rectangle.Y + collisionBox.Rectangle.Height,
+               collisionBox.Rectangle.Width, 5);
             
             if (collisionManager.CheckForCollision(feetRectangle))
             {
@@ -105,17 +109,17 @@ namespace game_darksouls.Component
         public void Draw(SpriteBatch spriteBatch)
         {
             //debugging
-            Rectangle feetRectangle = new Rectangle(animatedObject.drawingBox.DrawingRectangle.X,
-               animatedObject.drawingBox.DrawingRectangle.Y + animatedObject.drawingBox.DrawingRectangle.Height,
-               animatedObject.drawingBox.DrawingRectangle.Width, 5);
+            Rectangle feetRectangle = new Rectangle(collisionBox.Rectangle.X,
+               collisionBox.Rectangle.Y + collisionBox.Rectangle.Height,
+               collisionBox.Rectangle.Width, 5);
 
-            Rectangle sideLeftRectangle = new Rectangle(animatedObject.drawingBox.DrawingRectangle.X,
-                animatedObject.drawingBox.DrawingRectangle.Y,
-                5, animatedObject.drawingBox.DrawingRectangle.Height);
+            Rectangle sideLeftRectangle = new Rectangle(collisionBox.Rectangle.X,
+                collisionBox.Rectangle.Y,
+                5, collisionBox.Rectangle.Height);
 
-            Rectangle sideRightRectangle = new Rectangle(animatedObject.drawingBox.DrawingRectangle.X + animatedObject.drawingBox.DrawingRectangle.Width,
-                animatedObject.drawingBox.DrawingRectangle.Y,
-                5, animatedObject.drawingBox.DrawingRectangle.Height);
+            Rectangle sideRightRectangle = new Rectangle(collisionBox.Rectangle.X + collisionBox.Rectangle.Width,
+                collisionBox.Rectangle.Y,
+                5, collisionBox.Rectangle.Height);
 
             spriteBatch.Draw(Game1.redsquareDebug, sideRightRectangle, Color.Green);
 
