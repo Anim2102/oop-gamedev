@@ -37,7 +37,7 @@ namespace game_darksouls
             // TODO: Add your initialization logic here
             base.Initialize();
             player = new Player(knightSpritesheet);
-            skeleton = new Skeleton(knightSpritesheet, player);
+            skeleton = new Skeleton(skeletonTexture, player);
             tempLevel = new();
             camera = new Camera(GraphicsDevice.Viewport,player);
 

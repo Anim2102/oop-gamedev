@@ -20,7 +20,7 @@ namespace game_darksouls.Entity
         public Skeleton(Texture2D texture, Player player)
         {
             this.texture = texture;
-            this.animationManager = new(AnimationFactory.LoadPlayerAnimations());
+            this.animationManager = new(AnimationFactory.LoadSkeletonAnimations());
             this.npcMovementManager = new NpcMovementManager(this, new CollisionManager(), animationManager);
 
             this.drawingBox.DrawingRectangle = new Rectangle(170, 20, 60, 50);
@@ -55,7 +55,7 @@ namespace game_darksouls.Entity
                 0f);
 
             //linearPatrol.Draw(spriteBatch);
-            npcMovementManager.Draw(spriteBatch);
+            //npcMovementManager.Draw(spriteBatch);
         }
     }
 }
