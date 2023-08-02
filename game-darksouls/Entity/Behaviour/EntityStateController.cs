@@ -7,15 +7,17 @@ namespace game_darksouls.Entity.Behaviour
 {
     internal class EntityStateController : IComponent
     {
-        private LinearPatrol linearPatrol;
-        private Agressive agressive;
+        
         private readonly Player player;
         private readonly NpcMovementManager npcMovementManager;
         private readonly AnimatedObject animatedObject;
 
-        private IBehave currentBehaviour;
 
-        public EntityStateController(LinearPatrol linearPatrol, Agressive agressive,Player player,AnimatedObject animatedObject)
+        private  IBehave linearPatrol;
+        private  IBehave agressive;
+        private  IBehave currentBehaviour;
+
+        public EntityStateController(IBehave linearPatrol, IBehave agressive,Player player,AnimatedObject animatedObject)
         {
             this.linearPatrol = linearPatrol;
             this.agressive = agressive;

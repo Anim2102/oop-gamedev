@@ -61,18 +61,19 @@ namespace game_darksouls.Component
             {
                 attackFinished = true;
             }
-            
-
         }
-
+        public void RemoveAttackFrame()
+        {
+            this.attackFrame = Rectangle.Empty;
+        }
         private void AttackAnimation()
         {
             animationManager.PlayAnimation(MovementState.ATTACK);
         }
-        public void Draw(SpriteBatch spriteBatch)
+        /*public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Game1.redsquareDebug, attackFrame, Color.Black);
-        }
+        }*/
 
 
     }

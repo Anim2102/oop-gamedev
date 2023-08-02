@@ -15,6 +15,7 @@ namespace game_darksouls.Entity.Behaviour
         private readonly NpcMovementManager npcMovementManager;
 
         private Timer waitTimerBeforeAttack;
+
         private bool attacking = false;
         private bool attackPossible = false;
 
@@ -42,9 +43,10 @@ namespace game_darksouls.Entity.Behaviour
             //waitTimerBeforeAttack.Update(gameTime);
             float distanceBetweenPlayer = ReturnDistanceBetweenPlayer();
 
-            Debug.WriteLine("mogelijk om aan te vallen" + attackPossible);
+            /*Debug.WriteLine("mogelijk om aan te vallen" + attackPossible);
             Debug.WriteLine("bezig met aantevallen" + attacking);
             Debug.WriteLine("animatie klaar: " + attackBox.attackFinished);
+            */
 
             if (!attacking && distanceBetweenPlayer < RangeOfAttack)
             {
@@ -64,7 +66,6 @@ namespace game_darksouls.Entity.Behaviour
                 }
             }
 
-
             //eerste animatie finishe
             if (attacking && distanceBetweenPlayer > RangeOfAttack)
             {
@@ -73,6 +74,7 @@ namespace game_darksouls.Entity.Behaviour
             }
             if (!attacking && !attackPossible &&currentPosition != playerPosition)
             {
+                attackBox.RemoveAttackFrame();
                 Vector2 normalized = Vector2.Normalize(playerPosition - currentPosition);
                 npcMovementManager.MoveNpc(normalized);
             }
@@ -96,10 +98,5 @@ namespace game_darksouls.Entity.Behaviour
             return Math.Abs(a.X - b.X);
         }
 
-        /*test*/
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            attackBox.Draw(spriteBatch);
-        }
     }
 }
