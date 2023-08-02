@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Skeleton.png</SourceFile>
-  <SourceTime>2023-07-24T22:00:00.8900868+02:00</SourceTime>
-  <DestFile>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/bin/Windows/Skeleton.xnb</DestFile>
-  <DestTime>2023-08-02T20:40:40.6713113+02:00</DestTime>
+  <SourceFile>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Brain Mole.png</SourceFile>
+  <SourceTime>2023-01-25T17:01:03.299888+01:00</SourceTime>
+  <DestFile>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/bin/Windows/Brain Mole.xnb</DestFile>
+  <DestTime>2023-08-02T20:40:40.5699211+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

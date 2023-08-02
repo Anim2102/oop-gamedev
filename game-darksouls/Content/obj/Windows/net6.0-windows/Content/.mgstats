@@ -1,4 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Brain Mole.png","C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/bin/Windows/Content/Brain Mole.xnb","TextureProcessor","Texture2DContent",8838,229461,0.1109078
 "C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Knight Sprite Sheet.png","C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/bin/Windows/Content/Knight.xnb","TextureProcessor","Texture2DContent",14661,471125,0.1639611
 "C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Skeleton.png","C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/bin/Windows/Content/Skeleton.xnb","TextureProcessor","Texture2DContent",40479,2130005,0.2050885
 "C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/square.png","C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/bin/Windows/Content/square.xnb","TextureProcessor","Texture2DContent",548,202585,0.1256647

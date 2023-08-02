@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace game_darksouls.Animation
 {
-    public class AnimationFactory
+    public static class AnimationFactory
 {
         public static Dictionary<MovementState,ActionAnimation> LoadPlayerAnimations()
         {
@@ -41,7 +41,14 @@ namespace game_darksouls.Animation
 
             return animations;
         }
+        public static Dictionary<MovementState, ActionAnimation> LoadBrainMobAnimations()
+        {
+            Dictionary<MovementState, ActionAnimation> animations = new();
+            ActionAnimation idleAnimation = LoadAnimations("idle", amountFrames: 4, fps: 4, yas: 64, width: 32, height: 32);
 
+            animations.Add(MovementState.IDLE, idleAnimation);
+            return animations;
+        }
         private static ActionAnimation LoadAnimations(string name = "none",int fps = 15, int amountFrames = 1, int yas = 40, int width = 32, int height = 27, bool loop = true)
         {
             ActionAnimation animation = new ActionAnimation(name);

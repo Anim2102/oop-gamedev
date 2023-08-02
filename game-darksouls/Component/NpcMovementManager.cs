@@ -112,23 +112,25 @@ namespace game_darksouls.Component
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            //debugging
-            Rectangle feetRectangle = new Rectangle(collisionBox.Rectangle.X,
-               collisionBox.Rectangle.Y + collisionBox.Rectangle.Height,
-               collisionBox.Rectangle.Width, 5);
+            /*
+           //debugging
+           Rectangle feetRectangle = new Rectangle(collisionBox.Rectangle.X,
+              collisionBox.Rectangle.Y + collisionBox.Rectangle.Height,
+              collisionBox.Rectangle.Width, 5);
 
-            Rectangle sideLeftRectangle = new Rectangle(collisionBox.Rectangle.X,
-                collisionBox.Rectangle.Y,
-                5, collisionBox.Rectangle.Height);
+           Rectangle sideLeftRectangle = new Rectangle(collisionBox.Rectangle.X,
+               collisionBox.Rectangle.Y,
+               5, collisionBox.Rectangle.Height);
 
-            Rectangle sideRightRectangle = new Rectangle(collisionBox.Rectangle.X + collisionBox.Rectangle.Width,
-                collisionBox.Rectangle.Y,
-                5, collisionBox.Rectangle.Height);
+           Rectangle sideRightRectangle = new Rectangle(collisionBox.Rectangle.X + collisionBox.Rectangle.Width,
+               collisionBox.Rectangle.Y,
+               5, collisionBox.Rectangle.Height);
 
-            spriteBatch.Draw(Game1.redsquareDebug, sideRightRectangle, Color.Green);
+           spriteBatch.Draw(Game1.redsquareDebug, sideRightRectangle, Color.Green);
 
-            spriteBatch.Draw(Game1.redsquareDebug, sideLeftRectangle, Color.Green);
-            spriteBatch.Draw(Game1.redsquareDebug, feetRectangle, Color.Black);
+           spriteBatch.Draw(Game1.redsquareDebug, sideLeftRectangle, Color.Green);
+           spriteBatch.Draw(Game1.redsquareDebug, feetRectangle, Color.Black);
+           */
         }
     }
 }
