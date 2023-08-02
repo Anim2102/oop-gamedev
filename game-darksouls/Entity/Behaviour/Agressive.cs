@@ -64,12 +64,14 @@ namespace game_darksouls.Entity.Behaviour
                 }
             }
 
-            if (attacking && distanceBetweenPlayer > RangeOfAttack && attackBox.attackFinished)
+
+            //eerste animatie finishe
+            if (attacking && distanceBetweenPlayer > RangeOfAttack)
             {
                 attacking = false;
                 attackPossible = false;
             }
-            if (!attacking && currentPosition != playerPosition)
+            if (!attacking && !attackPossible &&currentPosition != playerPosition)
             {
                 Vector2 normalized = Vector2.Normalize(playerPosition - currentPosition);
                 npcMovementManager.MoveNpc(normalized);
