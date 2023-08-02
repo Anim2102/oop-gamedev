@@ -13,9 +13,9 @@ namespace game_darksouls.Entity.Behaviour
         private readonly AnimatedObject animatedObject;
 
 
-        private  IBehave linearPatrol;
-        private  IBehave agressive;
-        private  IBehave currentBehaviour;
+        private IBehave linearPatrol;
+        private IBehave agressive;
+        private IBehave currentBehaviour;
 
         public EntityStateController(IBehave linearPatrol, IBehave agressive,Player player,AnimatedObject animatedObject)
         {
