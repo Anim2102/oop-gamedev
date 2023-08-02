@@ -19,6 +19,8 @@ namespace game_darksouls.Component
 
         private Box collisionBox;
 
+        
+
         public NpcMovementManager(AnimatedObject animatedObject, CollisionManager collisionManager, AnimationManager animationManager, Box collisionBox)
         {
             this.animatedObject = animatedObject;
@@ -38,6 +40,8 @@ namespace game_darksouls.Component
             UpdatePosition(gameTime);
             ChangeMovingState();
             ChangeFlipOnDirection();
+
+           // Debug.WriteLine(direction);
         }
 
         private void UpdatePosition(GameTime gameTime)

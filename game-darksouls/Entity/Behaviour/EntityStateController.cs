@@ -1,6 +1,7 @@
 ﻿using game_darksouls.Component;
 using Microsoft.Xna.Framework;
 using System;
+using System.Diagnostics;
 
 namespace game_darksouls.Entity.Behaviour
 {
@@ -36,13 +37,14 @@ namespace game_darksouls.Entity.Behaviour
 
             float distanceBetweenPlayer = CalculateDistanceBetweenTwoVectorsOnX(currentPosition, playerPosition);
             
-            if (distanceBetweenPlayer < 200)
+            if (distanceBetweenPlayer < 10000)
             {
                 currentBehaviour = agressive;
             }
             else
             {
-                currentBehaviour = linearPatrol;
+                Debug.WriteLine("linear patrol");
+                //currentBehaviour = linearPatrol;
             }
         }
 

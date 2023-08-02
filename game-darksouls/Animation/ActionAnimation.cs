@@ -10,7 +10,7 @@ namespace game_darksouls.Animation
         public AnimationFrame CurrentFrame { get; set; }
         private List<AnimationFrame> frames;
         public string name;
-        private int counter;
+        public int Counter { get; private set; }
         private double secondCounter = 0;
         public int fps = 15;
         public bool IsRunning { get; private set; }
@@ -35,7 +35,7 @@ namespace game_darksouls.Animation
         public void Stop()
         {
             IsRunning = false;
-            counter = 0;
+            Counter = 0;
             secondCounter = 0;
 
             //handy for death animation
@@ -46,18 +46,18 @@ namespace game_darksouls.Animation
             if (!IsRunning && !Loop)
                 return;
 
-            CurrentFrame = frames[counter];
+            CurrentFrame = frames[Counter];
             secondCounter += gameTime.ElapsedGameTime.TotalSeconds;
 
             if (secondCounter >= 1d / fps)
             {
-                counter++;
+                Counter++;
                 secondCounter = 0;
             }
 
-            if (counter >= frames.Count)
+            if (Counter >= frames.Count)
             {
-                counter = 0;
+                Counter = 0;
                 
                 if (IsRunning)
                     Stop();

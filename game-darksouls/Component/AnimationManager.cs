@@ -44,10 +44,16 @@ namespace game_darksouls.Component
                 currentAnimation = animations[state];
             
         }
-        
+        public ActionAnimation ReturnAnimationOnState(MovementState state)
+        {
+            if (animations.ContainsKey(state))
+                return animations.GetValueOrDefault(state);
+
+            return null;
+        }
         public void Update(GameTime gameTime)
         {
-            Debug.WriteLine(currentAnimation.name);
+            
             currentAnimation.Update(gameTime);
         }
     }

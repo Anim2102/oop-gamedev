@@ -42,7 +42,8 @@ namespace game_darksouls.Entity
 
         public void Update(GameTime gameTime)
         {
-            Debug.WriteLine(collisionBox.Position);
+            //Debug.WriteLine(collisionBox.Position);
+
             animationManager.Update(gameTime);
             npcMovementManager.Update(gameTime);
             drawingBox.UpdatePosition(collisionBox.Position);
@@ -59,6 +60,8 @@ namespace game_darksouls.Entity
             */
             
             //spriteBatch.Draw(Game1.redsquareDebug, drawingBox.Rectangle, Color.Green);
+            agressive.Draw(spriteBatch);
+
             spriteBatch.Draw(texture, 
                 drawingBox.Rectangle,
                 animationManager.currentAnimation.CurrentFrame.SourceRectangle,

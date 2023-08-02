@@ -27,8 +27,10 @@ namespace game_darksouls.Component
         public void UpdatePosition(Vector2 position)
         {
             Rectangle newPosition = new Rectangle((int)(position.X + Offset.X),
-                (int)(position.Y + Offset.Y)
-                ,Rectangle.Width,Rectangle.Height);
+                (int)(position.Y + Offset.Y),
+                Rectangle.Width,
+                Rectangle.Height);
+
             this.Rectangle = newPosition;
         }
     }
