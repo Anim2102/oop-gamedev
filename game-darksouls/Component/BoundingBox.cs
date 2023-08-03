@@ -15,6 +15,13 @@ namespace game_darksouls.Component
             Rectangle = new Rectangle((int)(posX + offset.X), (int)(posY + offset.Y), width, height);
         }
 
+        public Box(int posX, int posY, int width, int height)
+        {
+            
+            Rectangle = new Rectangle(posX, posY, width, height);
+        }
+
+
         public Vector2 CenterOfBox()
         {
             Vector2 centerPoint = new Vector2(Rectangle.X + (Rectangle.Width / 2),

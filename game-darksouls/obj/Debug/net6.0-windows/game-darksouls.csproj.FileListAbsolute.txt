@@ -39,3 +39,4 @@ C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\square.xnb
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\Skeleton.xnb
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\Brain Mole.xnb
+C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\archer.xnb

@@ -9,7 +9,7 @@ namespace game_darksouls.Entity.EntityMovement
         private readonly CollisionManager collisionManager;
         private readonly AnimationManager animationManager;
 
-        private Vector2 SPEED = new Vector2(0.2f, 0.6f);
+        private Vector2 speed = new Vector2(0.1f, 0.6f);
         private Vector2 direction;
 
         private MovementState currentMovementState;
@@ -35,14 +35,16 @@ namespace game_darksouls.Entity.EntityMovement
             UpdatePosition(gameTime);
             ChangeMovingState();
             ChangeFlipOnDirection();
+
+            
         }
 
         private void UpdatePosition(GameTime gameTime)
         {
             Rectangle updatedRectangle = collisionBox.Rectangle;
 
-            updatedRectangle.X += (int)(direction.X * SPEED.X * gameTime.ElapsedGameTime.Milliseconds);
-            updatedRectangle.Y += (int)(direction.Y * SPEED.Y * gameTime.ElapsedGameTime.Milliseconds);
+            updatedRectangle.X += (int)(direction.X * speed.X * gameTime.ElapsedGameTime.Milliseconds);
+            updatedRectangle.Y += (int)(direction.Y * speed.Y * gameTime.ElapsedGameTime.Milliseconds);
             collisionBox.Rectangle = updatedRectangle;
             collisionBox.Rectangle = updatedRectangle;
         }

@@ -83,12 +83,12 @@ namespace game_darksouls.Entity.Behaviour
                 Vector2 normalized = Vector2.Normalize(playerPosition - currentPosition);
                 //Debug.WriteLine(normalized );
                 npcMovementManager.MoveNpc(normalized);
-                Debug.WriteLine(true);
+                //Debug.WriteLine(true);
 
             }
             else
             {
-                Debug.WriteLine(false);
+                //Debug.WriteLine(false);
             }
 
 

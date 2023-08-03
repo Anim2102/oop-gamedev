@@ -30,9 +30,6 @@ namespace game_darksouls.Entity
             this.animationManager = new(AnimationFactory.LoadSkeletonAnimations());
             this.npcMovementManager = new GroundMovement(new CollisionManager(), animationManager,collisionBox);
 
-        
-
-
             this.linearPatrol = new(new Vector2(170, 0), new Vector2(450, 0), this, npcMovementManager);
             this.agressive = new Agressive(player, this, npcMovementManager, animationManager);
 

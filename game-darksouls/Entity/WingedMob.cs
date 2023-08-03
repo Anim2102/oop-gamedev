@@ -22,9 +22,10 @@ namespace game_darksouls.Entity
         {
             this.texture = texture;
             this.animationManager = new AnimationManager(AnimationFactory.LoadBrainMobAnimations());
-            this.collisionBox = new Box(50, 50, 50, 50, Vector2.Zero);
+            this.collisionBox = new Box(50, 50, 50, 50);
+            this.drawingBox = new Box(50, 50, 50, 50);
+
             this.npcMovementManager = new FlyMovement(new CollisionManager(), animationManager, collisionBox);
-            this.drawingBox = new Box(50, 50, 50, 50, Vector2.Zero);
             this.player = player;
             this.linearPatrol = new(new Vector2(170, 0), new Vector2(450, 0), this, npcMovementManager);
             this.agressive = new Agressive(player, this, npcMovementManager, animationManager);
