@@ -42,7 +42,7 @@ namespace game_darksouls
             base.Initialize();
             player = new Player(knightSpritesheet);
             skeleton = new Skeleton(skeletonTexture, player);
-            wingedMob = new WingedMob(wingedMobTexture);
+            wingedMob = new WingedMob(wingedMobTexture, player);
             tempLevel = new();
 
             camera = new Camera(GraphicsDevice.Viewport,player);

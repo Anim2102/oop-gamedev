@@ -33,11 +33,10 @@ namespace game_darksouls.Animation
             ActionAnimation idleAnimation = LoadAnimations("idle",amountFrames: 4, fps: 4, yas: 192, width: 64, height: 64);
             ActionAnimation runningAnimation = LoadAnimations("running",amountFrames: 12, fps: 12, yas: 128, width: 64, height: 64);
             ActionAnimation attackAnimation = LoadAnimations("attack",amountFrames: 13, fps: 9, yas: 0, width: 64, height: 64);
+
             animations.Add(MovementState.IDLE, idleAnimation);
             animations.Add(MovementState.MOVING, runningAnimation);
             animations.Add(MovementState.ATTACK, attackAnimation);
-
-            
 
             return animations;
         }
@@ -45,7 +44,11 @@ namespace game_darksouls.Animation
         {
             Dictionary<MovementState, ActionAnimation> animations = new();
             ActionAnimation idleAnimation = LoadAnimations("idle", amountFrames: 4, fps: 4, yas: 64, width: 32, height: 32);
+            ActionAnimation movingAnimation = LoadAnimations("moving", amountFrames: 4, fps: 4, yas: 0, width: 32, height: 32);
+            ActionAnimation attackAnimation = LoadAnimations("attack", amountFrames: 4, fps: 4, yas: 32, width: 32, height: 32);
 
+            animations.Add(MovementState.ATTACK, attackAnimation);
+            animations.Add(MovementState.MOVING, movingAnimation);
             animations.Add(MovementState.IDLE, idleAnimation);
             return animations;
         }

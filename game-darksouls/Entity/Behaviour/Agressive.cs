@@ -1,4 +1,5 @@
 ﻿using game_darksouls.Component;
+using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,7 +13,7 @@ namespace game_darksouls.Entity.Behaviour
         private readonly Player player;
         private readonly AnimatedObject animatedObject;
         private readonly AnimationManager animationManager;
-        private readonly NpcMovementManager npcMovementManager;
+        private readonly IMovementBehaviour npcMovementManager;
 
         private Timer waitTimerBeforeAttack;
 
@@ -26,7 +27,7 @@ namespace game_darksouls.Entity.Behaviour
 
         public float RangeOfAttack { get; set; } = 40f;
 
-        public Agressive(Player player, AnimatedObject animatedObject, NpcMovementManager npcMovementManager, AnimationManager animationManager)
+        public Agressive(Player player, AnimatedObject animatedObject, IMovementBehaviour npcMovementManager, AnimationManager animationManager)
         {
             this.player = player;
             this.animatedObject = animatedObject;
@@ -66,20 +67,31 @@ namespace game_darksouls.Entity.Behaviour
                 }
             }
 
+
             //eerste animatie finishe
             if (attacking && distanceBetweenPlayer > RangeOfAttack)
             {
                 attacking = false;
                 attackPossible = false;
             }
-            if (!attacking && !attackPossible &&currentPosition != playerPosition)
+            
+
+            if (!attacking && currentPosition != playerPosition)
             {
+                //animationManager.PlayAnimation(Enum.MovementState.MOVING);
                 attackBox.RemoveAttackFrame();
                 Vector2 normalized = Vector2.Normalize(playerPosition - currentPosition);
+                //Debug.WriteLine(normalized );
                 npcMovementManager.MoveNpc(normalized);
+                Debug.WriteLine(true);
+
             }
-            
-            
+            else
+            {
+                Debug.WriteLine(false);
+            }
+
+
         }
 
         private float ReturnDistanceBetweenPlayer()

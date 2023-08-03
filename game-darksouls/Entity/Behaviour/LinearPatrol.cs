@@ -1,4 +1,5 @@
 ﻿using game_darksouls.Component;
+using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +11,7 @@ namespace game_darksouls.Entity.Behaviour
     internal class LinearPatrol : IBehave
     {
         private readonly AnimatedObject animatedObject;
-        public readonly  NpcMovementManager npcMovementManager;
+        public readonly  IMovementBehaviour npcMovementManager;
 
         private Vector2 positionA;
         private Vector2 positionB;
@@ -21,7 +22,7 @@ namespace game_darksouls.Entity.Behaviour
         private Timer timer;
 
         public LinearPatrol(Vector2 positionA, Vector2 positionB,
-            AnimatedObject animatedObject, NpcMovementManager npcMovementManager)
+            AnimatedObject animatedObject, IMovementBehaviour npcMovementManager)
         {
             this.positionA = positionA;
             this.positionB = positionB;

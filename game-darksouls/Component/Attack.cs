@@ -1,5 +1,6 @@
 ﻿using game_darksouls.Animation;
 using game_darksouls.Entity;
+using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +12,7 @@ namespace game_darksouls.Component
     {
         private readonly AnimationManager animationManager;
         private readonly AnimatedObject animatedObject;
-        private readonly NpcMovementManager npcMovementManager;
+        private readonly IMovementBehaviour npcMovementManager;
         private readonly ActionAnimation attackAnimation;
         
         private Rectangle attackFrame;
@@ -28,7 +29,7 @@ namespace game_darksouls.Component
             int attackEndFrame, 
             AnimationManager animationManager,
             AnimatedObject animatedObject,
-            NpcMovementManager npcMovementManager
+            IMovementBehaviour npcMovementManager
 
             )
         {

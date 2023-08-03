@@ -1,6 +1,7 @@
 ﻿using game_darksouls.Animation;
 using game_darksouls.Component;
 using game_darksouls.Entity.Behaviour;
+using game_darksouls.Entity.EntityMovement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
@@ -9,7 +10,7 @@ namespace game_darksouls.Entity
 {
     public class Skeleton : AnimatedObject, IEntity
     {
-        private NpcMovementManager npcMovementManager;
+        private IMovementBehaviour npcMovementManager;
 
         private protected Player player;
         private EntityStateController entityStateController;
@@ -27,7 +28,7 @@ namespace game_darksouls.Entity
 
             this.texture = texture;
             this.animationManager = new(AnimationFactory.LoadSkeletonAnimations());
-            this.npcMovementManager = new NpcMovementManager(this, new CollisionManager(), animationManager,collisionBox);
+            this.npcMovementManager = new GroundMovement(new CollisionManager(), animationManager,collisionBox);
 
         
 
@@ -72,7 +73,7 @@ namespace game_darksouls.Entity
                 0f);
 
             //linearPatrol.Draw(spriteBatch);
-            npcMovementManager.Draw(spriteBatch);
+            //npcMovementManager.Draw(spriteBatch);
         }
     }
 }
