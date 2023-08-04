@@ -76,8 +76,8 @@ namespace game_darksouls
 
             // TODO: Add your update logic here
             player.Update(gameTime);
-            //skeleton.Update(gameTime);
-            //wingedMob.Update(gameTime);
+            skeleton.Update(gameTime);
+            wingedMob.Update(gameTime);
             wizard.Update(gameTime);
             camera.Update();
             base.Update(gameTime);
@@ -89,8 +89,8 @@ namespace game_darksouls
             _spriteBatch.Begin(transformMatrix: camera.CreateTransformation(GraphicsDevice));
 
             player.Draw(_spriteBatch);
-            //skeleton.Draw(_spriteBatch);
-            //wingedMob.Draw(_spriteBatch);
+            skeleton.Draw(_spriteBatch);
+            wingedMob.Draw(_spriteBatch);
             wizard.Draw(_spriteBatch);
             tempLevel.Draw(_spriteBatch,redsquare);
             _spriteBatch.End();
