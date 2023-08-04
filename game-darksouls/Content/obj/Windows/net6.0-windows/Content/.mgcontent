@@ -6,15 +6,15 @@
   <SourceFiles>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Brain Mole.png</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Knight Sprite Sheet.png</File>
+    <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Necromancer_creativekind-Sheet.png</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Skeleton.png</File>
-    <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/spritesheet.png</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/square.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
     <File>Knight.png</File>
+    <File>wizard.png</File>
     <File xsi:nil="true" />
-    <File>archer.png</File>
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

@@ -33,6 +33,7 @@ namespace game_darksouls.Animation
             ActionAnimation idleAnimation = LoadAnimations("idle",amountFrames: 4, fps: 4, yas: 192, width: 64, height: 64);
             ActionAnimation runningAnimation = LoadAnimations("running",amountFrames: 12, fps: 12, yas: 128, width: 64, height: 64);
             ActionAnimation attackAnimation = LoadAnimations("attack",amountFrames: 13, fps: 9, yas: 0, width: 64, height: 64);
+            
 
             animations.Add(MovementState.IDLE, idleAnimation);
             animations.Add(MovementState.MOVING, runningAnimation);
@@ -54,16 +55,14 @@ namespace game_darksouls.Animation
             return animations;
         }
 
-        public static Dictionary<MovementState, ActionAnimation> LoadArcherAnimations()
+        public static Dictionary<MovementState, ActionAnimation> LoadWizardAnimations()
         {
             Dictionary<MovementState, ActionAnimation> animations = new();
-            ActionAnimation runningAnimation = LoadAnimations("running", amountFrames: 8, fps: 8, yas: 0, width: 64, height: 64);
-            ActionAnimation idleAnimation = LoadAnimations("idle", amountFrames: 4, fps: 4, yas: 320, width: 64, height: 64);
-            ActionAnimation shootAnimation = LoadAnimations("shoot", amountFrames: 7, fps: 7, yas: 192, width: 64, height: 64);
+            ActionAnimation idleAnimation = LoadAnimations("idle", amountFrames: 8, fps: 8, yas: 0, width: 160, height: 128);
+            ActionAnimation attackAnimation = LoadAnimations("attack", amountFrames: 13, fps: 13, yas: 256, width: 160, height: 128);
 
-            animations.Add(MovementState.ATTACK, shootAnimation);
             animations.Add(MovementState.IDLE, idleAnimation);
-            animations.Add(MovementState.MOVING, runningAnimation);
+            animations.Add(MovementState.ATTACK, attackAnimation);
 
             return animations;
         }

@@ -34,8 +34,7 @@ namespace game_darksouls.Entity.Behaviour
         {
             if (ReturnDistanceBetweenPlayer() <= AIMRANGE)
             {
-                Vector2 normalized = Vector2.Normalize(player.collisionBox.Position - currentPosition);
-                movementBehaviour.MoveNpc(normalized);
+                animationManager.PlayAnimation(MovementState.ATTACK);
             }
            
         }

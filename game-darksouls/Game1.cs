@@ -23,8 +23,8 @@ namespace game_darksouls
         private Texture2D wingedMobTexture;
         private WingedMob wingedMob;
 
-        private Texture2D archerTexture;
-        private StaticArcher archer;
+        private Texture2D wizardTexture;
+        private Wizard wizard;
 
         private Camera camera;
 
@@ -46,7 +46,7 @@ namespace game_darksouls
             player = new Player(knightSpritesheet);
             skeleton = new Skeleton(skeletonTexture, player);
             wingedMob = new WingedMob(wingedMobTexture, player);
-            archer = new StaticArcher(archerTexture, player);
+            wizard = new Wizard(wizardTexture, player);
             tempLevel = new();
 
             camera = new Camera(GraphicsDevice.Viewport,player);
@@ -63,7 +63,7 @@ namespace game_darksouls
 
             skeletonTexture = Content.Load<Texture2D>("Skeleton");
             wingedMobTexture = Content.Load<Texture2D>("Brain Mole");
-            archerTexture = Content.Load<Texture2D>("archer");
+            wizardTexture = Content.Load<Texture2D>("wizard");
 
             
             // TODO: use this.Content to load your game content here
@@ -76,9 +76,9 @@ namespace game_darksouls
 
             // TODO: Add your update logic here
             player.Update(gameTime);
-            skeleton.Update(gameTime);
-            wingedMob.Update(gameTime);
-            archer.Update(gameTime);
+            //skeleton.Update(gameTime);
+            //wingedMob.Update(gameTime);
+            wizard.Update(gameTime);
             camera.Update();
             base.Update(gameTime);
         }
@@ -89,9 +89,9 @@ namespace game_darksouls
             _spriteBatch.Begin(transformMatrix: camera.CreateTransformation(GraphicsDevice));
 
             player.Draw(_spriteBatch);
-            skeleton.Draw(_spriteBatch);
-            wingedMob.Draw(_spriteBatch);
-            archer.Draw(_spriteBatch);
+            //skeleton.Draw(_spriteBatch);
+            //wingedMob.Draw(_spriteBatch);
+            wizard.Draw(_spriteBatch);
             tempLevel.Draw(_spriteBatch,redsquare);
             _spriteBatch.End();
 
