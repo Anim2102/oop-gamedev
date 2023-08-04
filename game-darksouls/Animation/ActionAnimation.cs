@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace game_darksouls.Animation
 {
@@ -15,6 +13,8 @@ namespace game_darksouls.Animation
         public int fps = 15;
         public bool IsRunning { get; private set; }
         public bool Loop { get; set; } = true;
+        public bool Stopped { get; set; } = false;
+        public bool Complete { get; set; } = false;
 
         public ActionAnimation(string name)
         {
@@ -30,6 +30,7 @@ namespace game_darksouls.Animation
         public void Play()
         {
             IsRunning = true;
+
         }
 
         public void Stop()
@@ -43,14 +44,13 @@ namespace game_darksouls.Animation
         }
         public void Update(GameTime gameTime)
         {
-            if (!IsRunning && !Loop)
-                return;
-
+          
             CurrentFrame = frames[Counter];
             secondCounter += gameTime.ElapsedGameTime.TotalSeconds;
 
             if (secondCounter >= 1d / fps)
             {
+                Complete = false;
                 Counter++;
                 secondCounter = 0;
             }
@@ -58,9 +58,7 @@ namespace game_darksouls.Animation
             if (Counter >= frames.Count)
             {
                 Counter = 0;
-                
-                if (IsRunning)
-                    Stop();
+                Complete = true;
             }
 
         }

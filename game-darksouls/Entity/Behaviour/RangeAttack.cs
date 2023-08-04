@@ -44,6 +44,20 @@ namespace game_darksouls.Entity.Behaviour
             spelBlock = new Box((int)currentPosition.X, (int)currentPosition.Y, 10, 10);
         }
 
+        public void Behave(GameTime gameTime)
+        {
+            if (ReturnDistanceBetweenPlayer() <= AIMRANGE)
+            {
+                animationManager.FacingLeft = PlayerOnLeft();
+                animationManager.PlayAnimation(MovementState.ATTACK);
+
+                if (animationManager.currentAnimation.Complete)
+                    shootSpell = true;
+            }
+            else
+                animationManager.PlayAnimation(MovementState.IDLE);
+        }
+
         public void UpdateSpell(GameTime gameTime)
         {
             if (!shootSpell)
@@ -53,36 +67,32 @@ namespace game_darksouls.Entity.Behaviour
             {
                 shootSpell = false;
                 spelBlock= null;
+                ResetSpellBlock();
                 return;
             }
                 
 
             Vector2 direction = playerPosition - currentPosition;
 
-            // Normalize the direction vector
+            
             Vector2 normalizedDirection = Vector2.Normalize(direction);
             Rectangle updatedRectangle = spelBlock.Rectangle;
 
             updatedRectangle.X += (int)(normalizedDirection.X * 0.5f * gameTime.ElapsedGameTime.Milliseconds);
-            updatedRectangle.Y += (int)(1 * 0.5f * gameTime.ElapsedGameTime.Milliseconds);
+            updatedRectangle.Y += (int)(normalizedDirection.Y * 0.5f * gameTime.ElapsedGameTime.Milliseconds);
             spelBlock.Rectangle = updatedRectangle;
             spelBlock.Rectangle = updatedRectangle;
 
         }
-        public void Behave(GameTime gameTime)
+        
+        private void ResetSpellBlock()
         {
-            if (ReturnDistanceBetweenPlayer() <= AIMRANGE)
-            {
-                animationManager.FacingLeft = PlayerOnLeft();
-                animationManager.PlayAnimation(MovementState.ATTACK);
+            spelBlock = new Box((int)currentPosition.X, (int)currentPosition.Y, 10, 10);
 
-                shootSpell = true;
-            }
         }
-
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (spelBlock != null)
+            
             spriteBatch.Draw(Game1.redsquareDebug, spelBlock.Rectangle, Color.Green);
         }
 
