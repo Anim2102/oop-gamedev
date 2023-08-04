@@ -11,6 +11,7 @@ namespace game_darksouls.Entity
     {
         
         private IMovementBehaviour movementBehaviour;
+        private CollisionManager collisionManager;
 
         private RangeAttack rangeAttack;
 
@@ -18,13 +19,14 @@ namespace game_darksouls.Entity
         {
             this.texture = texture;
             this.animationManager = new AnimationManager(AnimationFactory.LoadWizardAnimations());
+            this.collisionManager = new CollisionManager();
 
             this.drawingBox = new Box(250, 20, 64 * 4, 64 * 4, new Vector2(-100, -130));
             this.collisionBox = new Box(250, 20, 64, 100, new Vector2(0, 0));
 
             this.movementBehaviour = new GroundMovement(new CollisionManager(), animationManager, collisionBox);
 
-            rangeAttack = new RangeAttack(player, this, animationManager, movementBehaviour);
+            rangeAttack = new RangeAttack(player, this, animationManager, movementBehaviour, collisionManager);
               
         }
 
@@ -34,14 +36,16 @@ namespace game_darksouls.Entity
             this.animationManager.Update(gameTime);
             this.movementBehaviour.Update(gameTime);
 
+            rangeAttack.UpdateSpell(gameTime);
             rangeAttack.Behave(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(Game1.redsquareDebug, drawingBox.Rectangle, Color.Green);
-            spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Green);
+            //spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Green);
 
+            rangeAttack.Draw(spriteBatch);
             spriteBatch.Draw(texture,
                 drawingBox.Rectangle,
                 animationManager.currentAnimation.CurrentFrame.SourceRectangle,

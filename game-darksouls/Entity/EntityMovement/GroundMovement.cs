@@ -35,8 +35,6 @@ namespace game_darksouls.Entity.EntityMovement
             UpdatePosition(gameTime);
             ChangeMovingState();
             ChangeFlipOnDirection();
-
-            MoveNpc(new Vector2(1, 0));
         }
 
         private void UpdatePosition(GameTime gameTime)
