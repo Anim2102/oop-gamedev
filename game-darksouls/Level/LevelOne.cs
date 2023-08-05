@@ -52,13 +52,18 @@ namespace game_darksouls.Level
         {
             for (int i = 0; i < tileArray.GetLength(0); i++)
             {
-                for (int j = 0; j < tileArray.GetLength(1) -1; j++)
+                for (int j = 0; j < tileArray.GetLength(1); j++)
                 {
                     int tileId = tileArray[i, j];
                     if (tileId != 0)
                     {
                         Tile newTile = new Tile();
                         newTile.TileBox = new Rectangle(j * TILESIZE,i * TILESIZE, TILESIZE,TILESIZE);
+
+                        int sourceX = tileId % columns;
+                        int sourceY = tileId / columns;
+
+                        newTile.SourceRectangle = new Rectangle(sourceX * TILESIZE, sourceY*TILESIZE, TILESIZE, TILESIZE);
                         Tiles.Add(newTile);
                     }
                 }
@@ -70,7 +75,7 @@ namespace game_darksouls.Level
             foreach (Tile tile in Tiles)
             {
                 spriteBatch.Draw(Game1.redsquareDebug, tile.TileBox, Color.Red);
-                //spriteBatch.Draw(Game1.dungeonTexture, tile.TileBox,tile.SourceRectangle,Color.White);
+                spriteBatch.Draw(Game1.dungeonTexture, tile.TileBox,tile.SourceRectangle,Color.White);
             }
         }
         private int[,] ReadCsv()
