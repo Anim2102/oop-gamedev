@@ -4,7 +4,6 @@ using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Drawing;
 
 namespace game_darksouls
 {
@@ -84,22 +83,22 @@ namespace game_darksouls
 
             // TODO: Add your update logic here
             player.Update(gameTime);
-           //skeleton.Update(gameTime);
-           //wingedMob.Update(gameTime);
-           //wizard.Update(gameTime);
+            skeleton.Update(gameTime);
+            wingedMob.Update(gameTime);
+            wizard.Update(gameTime);
             camera.Update();
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin(transformMatrix: camera.CreateTransformation(GraphicsDevice));
 
             player.Draw(_spriteBatch);
-            //skeleton.Draw(_spriteBatch);
-            //wingedMob.Draw(_spriteBatch);
-            //wizard.Draw(_spriteBatch);
+            skeleton.Draw(_spriteBatch);
+            wingedMob.Draw(_spriteBatch);
+            wizard.Draw(_spriteBatch);
             
             levelOne.Draw(_spriteBatch);
             //tempLevel.Draw(_spriteBatch,redsquare);

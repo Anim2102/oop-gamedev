@@ -69,7 +69,7 @@ namespace game_darksouls.Component
 
                 if (JumpTime < maxJumpDuration)
                 {
-                    direction.Y -= (float)(100 * gameTime.ElapsedGameTime.TotalSeconds);
+                    direction.Y -= (float)(0.1f * gameTime.ElapsedGameTime.Milliseconds);
                 }
                 else
                     IsJumping = false;
@@ -147,6 +147,7 @@ namespace game_darksouls.Component
             {
                 currentMovingState = MovementState.IDLE;
             }
+
             playerAnimation.UpdateAnimationOnState(currentMovingState);
         }
 

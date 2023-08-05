@@ -22,6 +22,7 @@ namespace game_darksouls.Level
         private int[,] tileArray;
 
         public List<Tile> Tiles { get; private set; } = new();
+        
 
         public LevelOne()
         {
@@ -50,7 +51,8 @@ namespace game_darksouls.Level
 
         private void CreateTileSet()
         {
-            for (int i = 0; i < tileArray.GetLength(0); i++)
+            
+            for(int i = 0; i < tileArray.GetLength(0); i++)
             {
                 for (int j = 0; j < tileArray.GetLength(1); j++)
                 {
@@ -60,6 +62,8 @@ namespace game_darksouls.Level
                         Tile newTile = new Tile();
                         newTile.TileBox = new Rectangle(j * TILESIZE,i * TILESIZE, TILESIZE,TILESIZE);
 
+                        //bron voor de 'formule': https://l.facebook.com/l.php?u=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F41094534%2Ftile-id-on-grid-from-x-y-position%3Ffbclid%3DIwAR3K2L55mB_xApg2Ty_N8JSUtGvsDMro2F1AAEXtNd2vMWB5WJkYwuXpJG0&h=AT37FF3rLk6cJt5OFCmz0JjOuaC0f1MkC_RaWzCUNasXUNfbUVAIOc9R-wqVp2YGkd71TRIp0ccHfEc1k8rb7a2ol1JkxzRuUjWJg75eCgPZ865hpTv_46iZ8s4fi37cM4CXplp4oeFs5rs-ZtCYIw
+                        // de id's verwijzen naar het correcte vakje op de texture.
                         int sourceX = tileId % columns;
                         int sourceY = tileId / columns;
 

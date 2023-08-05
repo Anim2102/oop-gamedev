@@ -12,7 +12,7 @@ namespace game_darksouls.Entity
     {
         private IMovementBehaviour npcMovementManager;
 
-        private protected Player player;
+        private readonly Player player;
         private EntityStateController entityStateController;
 
         //temp switch to manager
