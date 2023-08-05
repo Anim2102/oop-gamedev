@@ -17,7 +17,7 @@ namespace game_darksouls.Entity
             animationManager = new(AnimationFactory.LoadPlayerAnimations());
             playerMovement = new(this, animationManager);
 
-            drawingBox.Rectangle = new Rectangle(1, 1, 50, 50);
+            drawingBox.Rectangle = new Rectangle(850, 136, 50, 50);
             
         }
         public void Update(GameTime gameTime)

@@ -16,12 +16,12 @@ namespace game_darksouls.Component
         public bool CheckForCollision(Box hitbox)
         {
 
-            foreach (var block in tempLevel.rectangles)
+            foreach (var block in LevelOne.GetInstance().Tiles)
             {
-                if (block.Intersects(hitbox.Rectangle))
+                if (block.TileBox.Intersects(hitbox.Rectangle))
                 {
                     return true;
-                    
+
                 }
             }
             return false;
@@ -30,9 +30,9 @@ namespace game_darksouls.Component
         public bool CheckForCollision(Rectangle hitbox)
         {
 
-            foreach (var block in tempLevel.rectangles)
+            foreach (var block in LevelOne.GetInstance().Tiles)
             {
-                if (block.Intersects(hitbox))
+                if (block.TileBox.Intersects(hitbox))
                 {
                     return true;
 

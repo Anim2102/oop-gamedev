@@ -11,5 +11,6 @@ namespace game_darksouls.Level
         {
             TileBox = new Rectangle(x,y,width,height);
         }
+        public Tile() { }
     }
 }

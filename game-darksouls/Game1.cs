@@ -30,7 +30,7 @@ namespace game_darksouls
         private Camera camera;
 
         private TempLevel tempLevel;
-        private Texture2D dungeonTexture;
+        public static Texture2D dungeonTexture;
 
         private LevelOne levelOne;
 
@@ -53,7 +53,7 @@ namespace game_darksouls
             wingedMob = new WingedMob(wingedMobTexture, player);
             wizard = new Wizard(wizardTexture, player);
             tempLevel = new();
-            levelOne = new LevelOne(dungeonTexture);
+            levelOne = new LevelOne();
             camera = new Camera(GraphicsDevice.Viewport,player);
 
             _graphics.PreferredBackBufferWidth = 1250;   
