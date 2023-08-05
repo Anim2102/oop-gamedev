@@ -4,6 +4,7 @@ using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Drawing;
 
 namespace game_darksouls
 {
@@ -29,6 +30,10 @@ namespace game_darksouls
         private Camera camera;
 
         private TempLevel tempLevel;
+        private Texture2D dungeonTexture;
+
+        private LevelOne levelOne;
+
         private Texture2D redsquare;
         public static Texture2D redsquareDebug;
 
@@ -48,9 +53,12 @@ namespace game_darksouls
             wingedMob = new WingedMob(wingedMobTexture, player);
             wizard = new Wizard(wizardTexture, player);
             tempLevel = new();
-
+            levelOne = new LevelOne(dungeonTexture);
             camera = new Camera(GraphicsDevice.Viewport,player);
 
+            _graphics.PreferredBackBufferWidth = 1250;   
+            _graphics.PreferredBackBufferHeight = 700;
+            _graphics.ApplyChanges();
 
         }
 
@@ -65,7 +73,7 @@ namespace game_darksouls
             wingedMobTexture = Content.Load<Texture2D>("Brain Mole");
             wizardTexture = Content.Load<Texture2D>("wizard");
 
-            
+            dungeonTexture = Content.Load<Texture2D>("Dungeon Tile Set");
             // TODO: use this.Content to load your game content here
         }
 
@@ -76,23 +84,25 @@ namespace game_darksouls
 
             // TODO: Add your update logic here
             player.Update(gameTime);
-            //skeleton.Update(gameTime);
-            //wingedMob.Update(gameTime);
-            //wizard.Update(gameTime);
+           //skeleton.Update(gameTime);
+           //wingedMob.Update(gameTime);
+           //wizard.Update(gameTime);
             camera.Update();
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
             _spriteBatch.Begin(transformMatrix: camera.CreateTransformation(GraphicsDevice));
 
             player.Draw(_spriteBatch);
             //skeleton.Draw(_spriteBatch);
             //wingedMob.Draw(_spriteBatch);
             //wizard.Draw(_spriteBatch);
-            tempLevel.Draw(_spriteBatch,redsquare);
+            
+            levelOne.Draw(_spriteBatch);
+            //tempLevel.Draw(_spriteBatch,redsquare);
             _spriteBatch.End();
 
             base.Draw(gameTime);
