@@ -80,18 +80,18 @@ namespace game_darksouls.Component
         private void MovePlayer(Vector2 direction, GameTime gameTime)
         {
             
-            Rectangle updatedRectangle = player.drawingBox.Rectangle;
+            Rectangle updatedRectangle = player.collisionBox.Rectangle;
 
             updatedRectangle.X += (int)(direction.X * speed.X * gameTime.ElapsedGameTime.Milliseconds);
             if (!collisionManager.CheckForCollision(updatedRectangle))
             {
-                player.drawingBox.Rectangle = updatedRectangle;
+                player.collisionBox.Rectangle = updatedRectangle;
             }
             updatedRectangle.Y += (int)(direction.Y * speed.Y * gameTime.ElapsedGameTime.Milliseconds);
 
             if (!collisionManager.CheckForCollision(updatedRectangle))
             {
-                player.drawingBox.Rectangle = updatedRectangle;
+                player.collisionBox.Rectangle = updatedRectangle;
                 onFloor = false;
             }
             else
@@ -107,9 +107,9 @@ namespace game_darksouls.Component
         private Vector2 ApplyGravity(Vector2 direction)
         {
             //Debug.WriteLine("before: " + onFloor);
-            Rectangle feetRectangle = new Rectangle(player.drawingBox.Rectangle.X,
-                player.drawingBox.Rectangle.Y + player.drawingBox.Rectangle.Height,
-                player.drawingBox.Rectangle.Width, 5);
+            Rectangle feetRectangle = new Rectangle(player.collisionBox.Rectangle.X,
+                player.collisionBox.Rectangle.Y + player.collisionBox.Rectangle.Height,
+                player.collisionBox.Rectangle.Width, 5);
             
             onFloor = collisionManager.CheckForCollision(feetRectangle);
            // Debug.WriteLine(onFloor);
