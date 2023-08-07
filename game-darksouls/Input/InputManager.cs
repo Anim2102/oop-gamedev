@@ -26,7 +26,7 @@ namespace game_darksouls.Input
 
         public bool IsJumpButtonPress()
         {
-            bool jumped = Keyboard.GetState().IsKeyDown(Keys.Up);
+            bool jumped = Keyboard.GetState().IsKeyDown(Keys.Space);
             return jumped;
         }
 

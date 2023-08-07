@@ -15,7 +15,7 @@ namespace game_darksouls.Entity
             texture = texturePlayer;
 
             animationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
-            playerMovement = new(this, animationManager);
+            playerMovement = new(this,new CollisionManager(),animationManager,new());
 
             collisionBox = new Box(100, 950, 30, 40);
             drawingBox.Rectangle = new Rectangle(0, 0, 50, 50);
@@ -31,9 +31,9 @@ namespace game_darksouls.Entity
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Red);
+            //spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Red);
             //spriteBatch.Draw(Game1.redsquareDebug, drawingBox.Rectangle, Color.Red);
-
+            playerMovement.Draw(spriteBatch);
             spriteBatch.Draw(texture, 
                 drawingBox.Rectangle,
                 animationManager.currentAnimation.CurrentFrame.SourceRectangle,

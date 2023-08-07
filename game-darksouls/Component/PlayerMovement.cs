@@ -1,10 +1,8 @@
 ﻿using game_darksouls.Entity;
 using game_darksouls.Enum;
 using game_darksouls.Input;
-using game_darksouls.Level;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace game_darksouls.Component
 {
@@ -16,7 +14,92 @@ namespace game_darksouls.Component
         private MovementState currentMovingState;
         private InputManager inputManager;
 
+        private Vector2 direction;
+        private Vector2 speed;
+        private Vector2 velocity;
 
+        private bool onFloor;
+
+        public PlayerMovement(Player player, CollisionManager collisionManager, AnimationManager playerAnimation, InputManager inputManager)
+        {
+            this.player = player;
+            this.collisionManager = collisionManager;
+            this.playerAnimation = playerAnimation;
+            this.inputManager = inputManager;
+
+            this.direction = Vector2.Zero;
+            this.onFloor = false;
+
+            speed = new Vector2(0.3f, 0.3f);
+            velocity = new Vector2(1, 1);
+        }
+
+        public void Update(GameTime gameTime)
+        {
+
+            //direction = ApplyGravity(direction);
+            //direction = JumpPlayer(gameTime, direction);
+            //MovePlayer(direction,gameTime);
+            CheckFloor();
+            ApplyGravity(gameTime);
+            Move(gameTime);
+            ChangeMovingState(direction);
+            ChangeFlipOnDirection(direction);
+
+
+        }
+        private void Move(GameTime gameTime)
+        {
+            direction = inputManager.GetInput();
+            Vector2 currentPosition = this.player.collisionBox.Position;
+            Vector2 futurePosition = currentPosition;
+
+            if (!direction.Equals(Vector2.Zero))
+            {
+                currentPosition = this.player.collisionBox.Position;
+                futurePosition = currentPosition + direction * velocity * speed * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            }
+
+            Rectangle newPosition = new Rectangle((int)futurePosition.X, (int)futurePosition.Y, player.collisionBox.Rectangle.Width,
+                player.collisionBox.Rectangle.Height);
+
+            if (!collisionManager.CheckForCollision(newPosition))
+                this.player.collisionBox.UpdatePosition(futurePosition);
+        }
+
+
+        private void ApplyGravity(GameTime gameTime)
+        {
+            if (!onFloor)
+            {
+                Vector2 currentPosition = this.player.collisionBox.Position;
+                Vector2 futurePosition = currentPosition + new Vector2(0, velocity.Y * speed.Y * (float)gameTime.ElapsedGameTime.TotalMilliseconds);
+
+                this.player.collisionBox.UpdatePosition(futurePosition);
+            }
+
+        }
+        private void CheckFloor()
+        {
+            Rectangle feet = new Rectangle(this.player.collisionBox.Rectangle.X,
+                this.player.collisionBox.Rectangle.Y + this.player.collisionBox.Rectangle.Height,
+                this.player.collisionBox.Rectangle.Width,
+                10);
+
+            onFloor = collisionManager.CheckForCollision(feet);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Rectangle feet = new Rectangle(this.player.collisionBox.Rectangle.X,
+                this.player.collisionBox.Rectangle.Y + this.player.collisionBox.Rectangle.Height - 10,
+                this.player.collisionBox.Rectangle.Width,
+                10);
+
+            spriteBatch.Draw(Game1.redsquareDebug, feet, Color.Red);
+        }
+        /*
         private bool onFloor;
         private bool IsJumping;
         private float JumpTime;
@@ -24,6 +107,7 @@ namespace game_darksouls.Component
         private const float maxJumpDuration = 0.2f;
 
         private Vector2 speed;
+
 
         public PlayerMovement(Player player, AnimationManager playerAnimation)
         {
@@ -41,19 +125,10 @@ namespace game_darksouls.Component
             JumpTime = 0;
 
         }
+        */
 
-        public void Update(GameTime gameTime)
-        {
-            var direction = inputManager.GetInput();
-            
-            direction = ApplyGravity(direction);
-            direction = JumpPlayer(gameTime, direction);
-            MovePlayer(direction,gameTime);
-            ChangeMovingState(direction);
-            ChangeFlipOnDirection(direction);
-        }
 
-        private Vector2 JumpPlayer(GameTime gameTime,Vector2 direction)
+        /*private Vector2 JumpPlayer(GameTime gameTime,Vector2 direction)
         {
            //Debug.WriteLine("jumping: " + IsJumping + " " + "onFloor; "
              //   + onFloor + "up button: " + inputManager.IsJumpButtonPress());
@@ -77,6 +152,8 @@ namespace game_darksouls.Component
             return direction;
 
         }
+        */
+        /*
         private void MovePlayer(Vector2 direction, GameTime gameTime)
         {
             
@@ -103,7 +180,8 @@ namespace game_darksouls.Component
             //player.drawingBox.DrawingRectangle = updatedRectangle;
 
         }
-
+        */
+        /*
         private Vector2 ApplyGravity(Vector2 direction)
         {
             //Debug.WriteLine("before: " + onFloor);
@@ -121,7 +199,7 @@ namespace game_darksouls.Component
 
             return direction;
         }
-
+        */
         private void ChangeFlipOnDirection(Vector2 direction)
         {
             if (direction.X > 0)
@@ -135,7 +213,7 @@ namespace game_darksouls.Component
         }
         private void ChangeMovingState(Vector2 direction)
         {
-            if (direction.Y > 0)
+            if (!onFloor)
             {
                 currentMovingState = MovementState.FALLING;
             }
@@ -143,7 +221,7 @@ namespace game_darksouls.Component
             {
                 currentMovingState = MovementState.MOVING;
             }
-            else if (direction.X == 0 && direction.Y == 0)
+            else if (direction.X == 0 && onFloor)
             {
                 currentMovingState = MovementState.IDLE;
             }
