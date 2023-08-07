@@ -28,9 +28,7 @@ namespace game_darksouls.Component
         {
             if (animations.ContainsKey(movementState))
             {
-                currentAnimation = animations[movementState];
-                Debug.WriteLine($"PlayAnimation - Animation changed to: {currentAnimation.name}");
-                
+                currentAnimation = animations[movementState];                
             }
         }
 

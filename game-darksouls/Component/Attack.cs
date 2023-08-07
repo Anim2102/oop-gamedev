@@ -14,6 +14,7 @@ namespace game_darksouls.Component
         private readonly AnimatedObject animatedObject;
         private readonly IMovementBehaviour npcMovementManager;
         private readonly ActionAnimation attackAnimation;
+        private readonly Player player;
         
         private Rectangle attackFrame;
         private int attackStartFrame;
@@ -29,7 +30,8 @@ namespace game_darksouls.Component
             int attackEndFrame, 
             AnimationManager animationManager,
             AnimatedObject animatedObject,
-            IMovementBehaviour npcMovementManager
+            IMovementBehaviour npcMovementManager,
+            Player player
 
             )
         {
@@ -40,6 +42,7 @@ namespace game_darksouls.Component
             this.attackEndFrame = attackEndFrame;
             this.animationManager = animationManager;
             this.animatedObject = animatedObject;
+            this.player = player;
             this.attackAnimation = animationManager.ReturnAnimationOnState(MovementState.ATTACK);
 
             this.attackStartFrame = 5;
@@ -54,7 +57,8 @@ namespace game_darksouls.Component
 
             if (indexAnimationFrame >= attackStartFrame && indexAnimationFrame <= attackEndFrame)
             {
-                this.attackFrame = new Rectangle(collisionBox.X, collisionBox.Y, 50, 50);
+                this.attackFrame = new Rectangle(collisionBox.X, collisionBox.Y, 100, 100);
+                CheckHit();
                 attackFinished = false;
             }
             
@@ -63,19 +67,23 @@ namespace game_darksouls.Component
                 attackFinished = true;
             }
         }
+       
+        private void CheckHit()
+        {
+            if (attackFrame.Intersects(player.collisionBox.Rectangle))
+            {
+                Debug.WriteLine("hit");
+            }
+        }
         public void RemoveAttackFrame()
         {
             this.attackFrame = Rectangle.Empty;
         }
         private void AttackAnimation()
         {
-            Debug.WriteLine("play animation: attack");
             animationManager.PlayAnimation(MovementState.ATTACK);
         }
-        /*public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Game1.redsquareDebug, attackFrame, Color.Black);
-        }*/
+     
 
 
     }

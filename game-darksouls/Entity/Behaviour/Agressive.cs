@@ -35,7 +35,7 @@ namespace game_darksouls.Entity.Behaviour
             this.animationManager = animationManager;
 
             //waitTimerBeforeAttack = new Timer(3);
-            attackBox = new Attack(Rectangle.Empty, 0, 0, animationManager, animatedObject, npcMovementManager);
+            attackBox = new Attack(Rectangle.Empty, 0, 0, animationManager, animatedObject, npcMovementManager, player);
 
         }
 
@@ -111,5 +111,6 @@ namespace game_darksouls.Entity.Behaviour
             return Math.Abs(a.X - b.X);
         }
 
+        
     }
 }

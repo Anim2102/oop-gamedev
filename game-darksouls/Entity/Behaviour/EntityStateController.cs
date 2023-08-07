@@ -1,5 +1,6 @@
 ﻿using game_darksouls.Component;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Diagnostics;
 
@@ -14,7 +15,7 @@ namespace game_darksouls.Entity.Behaviour
 
 
         private IBehave linearPatrol;
-        private IBehave agressive;
+        public IBehave agressive;
         private IBehave currentBehaviour;
 
         public EntityStateController(IBehave linearPatrol, IBehave agressive,Player player,AnimatedObject animatedObject)
@@ -56,6 +57,8 @@ namespace game_darksouls.Entity.Behaviour
         {
             return Math.Abs(a.X - b.X);
         }
+
+       
 
     }
 }

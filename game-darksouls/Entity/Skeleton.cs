@@ -58,7 +58,7 @@ namespace game_darksouls.Entity
             
             //spriteBatch.Draw(Game1.redsquareDebug, drawingBox.Rectangle, Color.Green);
             
-
+            
             spriteBatch.Draw(texture, 
                 drawingBox.Rectangle,
                 animationManager.currentAnimation.CurrentFrame.SourceRectangle,
