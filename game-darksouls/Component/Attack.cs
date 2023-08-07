@@ -83,8 +83,5 @@ namespace game_darksouls.Component
         {
             animationManager.PlayAnimation(MovementState.ATTACK);
         }
-     
-
-
     }
 }

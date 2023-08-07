@@ -22,13 +22,15 @@ namespace game_darksouls.Entity.Behaviour
 
         private Vector2 currentPosition => animatedObject.collisionBox.Position;
         private Vector2 playerPosition => player.drawingBox.Position;
+        private Vector2 target;
 
-        private const double AIMRANGE = 200;
+
+        private const double AIMRANGE = 800;
 
         private Box spelBlock;
         private bool shootSpell = false;
 
-
+        private bool projectFlying = false;
         public RangeAttack(Player player, 
             AnimatedObject animatedObject, 
             AnimationManager animationManager, 
@@ -52,10 +54,17 @@ namespace game_darksouls.Entity.Behaviour
                 animationManager.PlayAnimation(MovementState.ATTACK);
 
                 if (animationManager.currentAnimation.Complete)
+                {
                     shootSpell = true;
+                    ResetSpellBlock();
+                    target = this.playerPosition;
+                }
             }
             else
+            {
                 animationManager.PlayAnimation(MovementState.IDLE);
+                
+            }
         }
 
         public void UpdateSpell(GameTime gameTime)
@@ -63,28 +72,39 @@ namespace game_darksouls.Entity.Behaviour
             if (!shootSpell)
                 return;
 
-            if (collisionManager.CheckForCollision(spelBlock))
-            {
-                shootSpell = false;
-                spelBlock= null;
-                ResetSpellBlock();
-                return;
-            }
-                
-
-            Vector2 direction = playerPosition - currentPosition;
-
             
+            if (projectFlying)
+            {
+                if (collisionManager.CheckForCollision(spelBlock))
+                {
+                    shootSpell = false;
+                    spelBlock = null;
+                    ResetSpellBlock();
+                    return;
+                }
+                MoveSpell(gameTime);
+            }
+            else
+            {
+                if(animationManager.currentAnimation.Complete && ReturnDistanceBetweenPlayer() <= AIMRANGE)
+                {
+                    projectFlying = true;
+                }
+            }
+
+        }
+        private void MoveSpell(GameTime gameTime)
+        {
+            Vector2 direction = this.player.collisionBox.CenterOfBox() - currentPosition;
+
+
             Vector2 normalizedDirection = Vector2.Normalize(direction);
             Rectangle updatedRectangle = spelBlock.Rectangle;
 
             updatedRectangle.X += (int)(normalizedDirection.X * 0.5f * gameTime.ElapsedGameTime.Milliseconds);
             updatedRectangle.Y += (int)(normalizedDirection.Y * 0.5f * gameTime.ElapsedGameTime.Milliseconds);
             spelBlock.Rectangle = updatedRectangle;
-            spelBlock.Rectangle = updatedRectangle;
-
         }
-        
         private void ResetSpellBlock()
         {
             spelBlock = new Box((int)currentPosition.X, (int)currentPosition.Y, 10, 10);

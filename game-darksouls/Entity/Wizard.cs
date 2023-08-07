@@ -36,8 +36,9 @@ namespace game_darksouls.Entity
             this.animationManager.Update(gameTime);
             this.movementBehaviour.Update(gameTime);
 
-            rangeAttack.UpdateSpell(gameTime);
             rangeAttack.Behave(gameTime);
+            rangeAttack.UpdateSpell(gameTime);
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

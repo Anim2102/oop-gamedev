@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace game_darksouls.Component
 {
@@ -39,6 +40,8 @@ namespace game_darksouls.Component
                 Rectangle.Height);
 
             this.Rectangle = newPosition;
+
+            
         }
     }
 }
