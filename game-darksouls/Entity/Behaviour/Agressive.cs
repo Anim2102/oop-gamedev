@@ -83,7 +83,7 @@ namespace game_darksouls.Entity.Behaviour
                 attackBox.RemoveAttackFrame();
                 Vector2 normalized = Vector2.Normalize(playerPosition - currentPosition);
                 //Debug.WriteLine(normalized );
-                npcMovementManager.MoveNpc(normalized);
+                npcMovementManager.Push(normalized);
                 //Debug.WriteLine(true);
 
             }

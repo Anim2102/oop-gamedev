@@ -49,7 +49,7 @@ namespace game_darksouls.Entity.Behaviour
             if (distanceToTarget > MARGINGTARGET && !timer.timeRunning)
             {
                 Vector2 normalized = Vector2.Normalize(currentTarget - currentPosition);
-                npcMovementManager.MoveNpc(normalized);
+                npcMovementManager.Push(normalized);
             }
 
             if (distanceToTarget <= MARGINGTARGET)

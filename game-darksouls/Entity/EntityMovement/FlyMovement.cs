@@ -8,24 +8,25 @@ namespace game_darksouls.Entity.EntityMovement
 {
     internal class FlyMovement : IMovementBehaviour
     {
-        private readonly CollisionManager collisionManager;
-        private readonly AnimationManager animationManager;
+        public CollisionManager CollisionManager { get; set; }
+        public AnimationManager AnimationManager { get; set; }
+        public Box CollisionBox { get; set; }
+        public MovementState CurrentMovementState { get; set; }
 
         private Vector2 SPEED = new Vector2(0.1f, 0.1f);
         private Vector2 direction;
 
-        private MovementState currentMovementState;
 
-        private Box collisionBox;
+
 
         public FlyMovement(CollisionManager collisionManager, AnimationManager animationManager, Box collisionBox)
         {
-            this.collisionManager = collisionManager;
-            this.animationManager = animationManager;
-            this.collisionBox = collisionBox;
+            this.CollisionManager = collisionManager;
+            this.AnimationManager = animationManager;
+            this.CollisionBox = collisionBox;
 
+            CurrentMovementState = MovementState.ATTACK;
             direction = Vector2.Zero;
-            currentMovementState = MovementState.ATTACK;
         }
 
         public void Update(GameTime gameTime)
@@ -37,15 +38,15 @@ namespace game_darksouls.Entity.EntityMovement
 
         private void UpdatePosition(GameTime gameTime)
         {
-            Rectangle updatedRectangle = collisionBox.Rectangle;
+            Rectangle updatedRectangle = CollisionBox.Rectangle;
 
             updatedRectangle.X += (int)(direction.X * SPEED.X * gameTime.ElapsedGameTime.Milliseconds);
             updatedRectangle.Y += (int)(direction.Y * SPEED.Y * gameTime.ElapsedGameTime.Milliseconds);
-            collisionBox.Rectangle = updatedRectangle;
-            collisionBox.Rectangle = updatedRectangle;
+            CollisionBox.Rectangle = updatedRectangle;
+            CollisionBox.Rectangle = updatedRectangle;
         }
 
-        public void MoveNpc(Vector2 direction)
+        void IMovementBehaviour.Push(Vector2 direction)
         {
             this.direction = direction;
         }
@@ -59,46 +60,48 @@ namespace game_darksouls.Entity.EntityMovement
         {
             if (direction.X != 0)
             {
-                currentMovementState = MovementState.MOVING;
+                CurrentMovementState = MovementState.MOVING;
             }
             else if (direction.X == 0 && direction.Y == 0)
             {
-                currentMovementState = MovementState.IDLE;
+                CurrentMovementState = MovementState.IDLE;
             }
 
-            animationManager.UpdateAnimationOnState(currentMovementState);
+            AnimationManager.UpdateAnimationOnState(CurrentMovementState);
         }
 
         private void ChangeFlipOnDirection()
         {
             if (direction.X > 0)
             {
-                animationManager.FacingLeft = false;
+                AnimationManager.FacingLeft = false;
             }
             else if (direction.X < 0)
             {
-                animationManager.FacingLeft = true;
+                AnimationManager.FacingLeft = true;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle feetRectangle = new Rectangle(collisionBox.Rectangle.X,
-              collisionBox.Rectangle.Y + collisionBox.Rectangle.Height,
-              collisionBox.Rectangle.Width, 5);
+            Rectangle feetRectangle = new Rectangle(CollisionBox.Rectangle.X,
+              CollisionBox.Rectangle.Y + CollisionBox.Rectangle.Height,
+              CollisionBox.Rectangle.Width, 5);
 
-            Rectangle sideLeftRectangle = new Rectangle(collisionBox.Rectangle.X,
-                collisionBox.Rectangle.Y,
-                5, collisionBox.Rectangle.Height);
+            Rectangle sideLeftRectangle = new Rectangle(CollisionBox.Rectangle.X,
+                CollisionBox.Rectangle.Y,
+                5, CollisionBox.Rectangle.Height);
 
-            Rectangle sideRightRectangle = new Rectangle(collisionBox.Rectangle.X + collisionBox.Rectangle.Width,
-                collisionBox.Rectangle.Y,
-                5, collisionBox.Rectangle.Height);
+            Rectangle sideRightRectangle = new Rectangle(CollisionBox.Rectangle.X + CollisionBox.Rectangle.Width,
+                CollisionBox.Rectangle.Y,
+                5, CollisionBox.Rectangle.Height);
 
             spriteBatch.Draw(Game1.redsquareDebug, sideRightRectangle, Color.Green);
 
             spriteBatch.Draw(Game1.redsquareDebug, sideLeftRectangle, Color.Green);
             spriteBatch.Draw(Game1.redsquareDebug, feetRectangle, Color.Black);
         }
+
+        
     }
 }

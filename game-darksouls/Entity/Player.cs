@@ -10,6 +10,7 @@ namespace game_darksouls.Entity
     public class Player : AnimatedObject, IEntity
     {
         private PlayerMovement playerMovement;
+        private Attack attack;
 
         public Player(Texture2D texturePlayer)
         {
@@ -17,7 +18,7 @@ namespace game_darksouls.Entity
 
             animationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
             playerMovement = new(this,new CollisionManager(),animationManager,new());
-
+            //attack = new Attack(new Rectangle(),1,1,animationManager,this,npcMovementManager,this)
             collisionBox = new Box(350, 600, 30, 40);
             drawingBox.Rectangle = new Rectangle(0, 0, 50, 50);
             drawingBox.Offset = new Vector2(-10, -10);

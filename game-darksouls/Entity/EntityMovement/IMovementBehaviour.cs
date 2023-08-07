@@ -4,11 +4,17 @@ using Microsoft.Xna.Framework;
 
 namespace game_darksouls.Entity.EntityMovement
 {
-    public interface IMovementBehaviour
+    internal interface IMovementBehaviour
     {
+
+        CollisionManager CollisionManager { get; set; }
+        AnimationManager AnimationManager { get; set; }
+        Box CollisionBox { get; set; }
+        MovementState CurrentMovementState { get; set; }
+
         void Update(GameTime gameTime);
         void UpdatePosition(GameTime gameTime) { }
-        void MoveNpc(Vector2 direction) { }
+        void Push(Vector2 direction);
         void ResetDirection() { }
         void ChangeMovingState() { }
         void ChangeFlipOnDirection() { }

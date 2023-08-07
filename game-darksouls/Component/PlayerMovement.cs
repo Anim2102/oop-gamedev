@@ -23,6 +23,7 @@ namespace game_darksouls.Component
         private bool jumping;
         private bool onFloor;
         private const float MAXJUMP = 200f;
+        private const float JUMPFORCE = 15f;
         private float currentJumpTime;
 
         public PlayerMovement(Player player, CollisionManager collisionManager, AnimationManager playerAnimation, InputManager inputManager)
@@ -42,17 +43,14 @@ namespace game_darksouls.Component
 
         public void Update(GameTime gameTime)
         {
-
-           
             CheckFloor();
             JumpPlayer(gameTime);
             ApplyGravity(gameTime);
             Move(gameTime);
             ChangeMovingState(direction);
             ChangeFlipOnDirection(direction);
-
-
         }
+
         private void Move(GameTime gameTime)
         {
             direction = inputManager.GetInput();
@@ -67,6 +65,7 @@ namespace game_darksouls.Component
             MoveWithCollision(futurePosition);
 
         }
+
         private void MoveWithCollision(Vector2 futurePosition)
         {
             Rectangle newPosition = new Rectangle((int)futurePosition.X, (int)futurePosition.Y, player.collisionBox.Rectangle.Width,
@@ -102,7 +101,7 @@ namespace game_darksouls.Component
                 if (currentJumpTime < MAXJUMP)
                 {
                     Vector2 futurePosition = this.player.collisionBox.Position;
-                    futurePosition.Y -= 15f;
+                    futurePosition.Y -= JUMPFORCE;
                     MoveWithCollision(futurePosition);
                 }
                 else
@@ -112,6 +111,7 @@ namespace game_darksouls.Component
 
             }
         }
+
         private void CheckFloor()
         {
             Rectangle feet = new Rectangle(this.player.collisionBox.Rectangle.X,
@@ -121,18 +121,7 @@ namespace game_darksouls.Component
 
             onFloor = collisionManager.CheckForCollision(feet);
         }
-        /*
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Rectangle feet = new Rectangle(this.player.collisionBox.Rectangle.X,
-                this.player.collisionBox.Rectangle.Y + this.player.collisionBox.Rectangle.Height - 10,
-                this.player.collisionBox.Rectangle.Width,
-                10);
-
-            spriteBatch.Draw(Game1.redsquareDebug, feet, Color.Red);
-        }
-        */
-
+        
         private void ChangeFlipOnDirection(Vector2 direction)
         {
             if (direction.X > 0)
@@ -144,6 +133,7 @@ namespace game_darksouls.Component
                 playerAnimation.FacingLeft = true;
             }
         }
+
         private void ChangeMovingState(Vector2 direction)
         {
             if (!onFloor || jumping)

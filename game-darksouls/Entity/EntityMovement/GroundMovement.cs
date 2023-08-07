@@ -1,33 +1,31 @@
 ﻿using game_darksouls.Component;
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
+using System;
 using System.Diagnostics;
 
 namespace game_darksouls.Entity.EntityMovement
 {
     internal class GroundMovement : IMovementBehaviour
     {
-        private readonly CollisionManager collisionManager;
-        private readonly AnimationManager animationManager;
+        public CollisionManager CollisionManager { get; set; }
+        public AnimationManager AnimationManager { get; set; }
+        public Box CollisionBox { get; set; }
+        public MovementState CurrentMovementState { get; set; }
 
         private Vector2 speed = new Vector2(0.1f, 0.6f);
         private Vector2 direction;
 
-        private MovementState currentMovementState;
-
-        private Box collisionBox;
-
         public GroundMovement(CollisionManager collisionManager, AnimationManager animationManager, Box collisionBox)
         {
-            this.collisionManager = collisionManager;
-            this.animationManager = animationManager;
-
+            this.CollisionManager = collisionManager;
+            this.AnimationManager = animationManager;
+            this.CurrentMovementState = MovementState.ATTACK;
+            this.CollisionBox = collisionBox;
 
             direction = Vector2.Zero;
 
-            currentMovementState = MovementState.ATTACK;
 
-            this.collisionBox = collisionBox;
         }
 
         public void Update(GameTime gameTime)
@@ -41,21 +39,21 @@ namespace game_darksouls.Entity.EntityMovement
 
         private void UpdatePosition(GameTime gameTime)
         {
-            Rectangle updatedRectangle = collisionBox.Rectangle;
+            Rectangle updatedRectangle = CollisionBox.Rectangle;
 
             updatedRectangle.X += (int)(direction.X * speed.X * gameTime.ElapsedGameTime.Milliseconds);
             updatedRectangle.Y += (int)(direction.Y * speed.Y * gameTime.ElapsedGameTime.Milliseconds);
-            collisionBox.Rectangle = updatedRectangle;
-            collisionBox.Rectangle = updatedRectangle;
+            CollisionBox.Rectangle = updatedRectangle;
+            CollisionBox.Rectangle = updatedRectangle;
         }
 
         private void CheckGravity()
         {
-            Rectangle feetRectangle = new Rectangle(collisionBox.Rectangle.X,
-               collisionBox.Rectangle.Y + collisionBox.Rectangle.Height,
-               collisionBox.Rectangle.Width, 5);
+            Rectangle feetRectangle = new Rectangle(CollisionBox.Rectangle.X,
+               CollisionBox.Rectangle.Y + CollisionBox.Rectangle.Height,
+               CollisionBox.Rectangle.Width, 5);
 
-            if (collisionManager.CheckForCollision(feetRectangle))
+            if (CollisionManager.CheckForCollision(feetRectangle))
             {
                 direction.Y = 0;
             }
@@ -65,7 +63,7 @@ namespace game_darksouls.Entity.EntityMovement
             }
         }
 
-        public void MoveNpc(Vector2 direction)
+        void IMovementBehaviour.Push(Vector2 direction)
         {
             this.direction = direction;
         }
@@ -79,29 +77,29 @@ namespace game_darksouls.Entity.EntityMovement
         {
             if (direction.Y > 0)
             {
-                currentMovementState = MovementState.FALLING;
+                this.CurrentMovementState = MovementState.FALLING;
             }
             if (direction.X != 0)
             {
-                currentMovementState = MovementState.MOVING;
+                this.CurrentMovementState = MovementState.MOVING;
             }
             else if (direction.X == 0 && direction.Y == 0)
             {
-                currentMovementState = MovementState.IDLE;
+                this.CurrentMovementState = MovementState.IDLE;
             }
 
-            animationManager.UpdateAnimationOnState(currentMovementState);
+            AnimationManager.UpdateAnimationOnState(this.CurrentMovementState);
         }
 
         public void ChangeFlipOnDirection()
         {
             if (direction.X > 0)
             {
-                animationManager.FacingLeft = false;
+                AnimationManager.FacingLeft = false;
             }
             else if (direction.X < 0)
             {
-                animationManager.FacingLeft = true;
+                AnimationManager.FacingLeft = true;
             }
         }
     }

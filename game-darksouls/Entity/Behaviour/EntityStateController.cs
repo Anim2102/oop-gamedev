@@ -10,7 +10,6 @@ namespace game_darksouls.Entity.Behaviour
     {
         
         private readonly Player player;
-        private readonly NpcMovementManager npcMovementManager;
         private readonly AnimatedObject animatedObject;
 
 

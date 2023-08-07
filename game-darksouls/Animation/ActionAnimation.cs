@@ -31,15 +31,21 @@ namespace game_darksouls.Animation
         {
             IsRunning = true;
         }
-
+        public void ResetAnimation()
+        {
+            Counter = 0; 
+            secondCounter = 0;
+        }
         public void Stop()
         {
             IsRunning = false;
-            Counter = 0;
             secondCounter = 0;
 
-            //handy for death animation
-            CurrentFrame = frames[0];
+            if (!Loop)
+            {
+                Counter = frames.Count - 1; // Set to the last frame
+                Complete = true;
+            }
         }
         public void Update(GameTime gameTime)
         {
@@ -56,7 +62,16 @@ namespace game_darksouls.Animation
 
             if (Counter >= frames.Count)
             {
-                Counter = 0;
+                if (Loop)
+                {
+                    Counter = 0;
+                    Complete = true;
+                }
+                else
+                {
+                    Counter = frames.Count - 1;
+                    Stop();
+                }
                 Complete = true;
             }
 

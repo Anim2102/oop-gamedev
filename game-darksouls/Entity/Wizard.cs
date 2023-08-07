@@ -22,7 +22,7 @@ namespace game_darksouls.Entity
             this.collisionManager = new CollisionManager();
 
             this.drawingBox = new Box(250, 20, 64 * 4, 64 * 4, new Vector2(-100, -130));
-            this.collisionBox = new Box(250, 20, 64, 100, new Vector2(0, 0));
+            this.collisionBox = new Box(2575, 720, 64, 100, new Vector2(0, 0));
 
             this.movementBehaviour = new GroundMovement(new CollisionManager(), animationManager, collisionBox);
 
