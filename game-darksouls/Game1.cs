@@ -83,7 +83,7 @@ namespace game_darksouls
 
             // TODO: Add your update logic here
             player.Update(gameTime);
-            //skeleton.Update(gameTime);
+            skeleton.Update(gameTime);
             //wingedMob.Update(gameTime);
             wizard.Update(gameTime);
             camera.Update();

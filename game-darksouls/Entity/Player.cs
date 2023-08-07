@@ -3,6 +3,7 @@ using game_darksouls.Component;
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace game_darksouls.Entity
 {
@@ -24,6 +25,7 @@ namespace game_darksouls.Entity
         }
         public void Update(GameTime gameTime)
         {
+            Debug.WriteLine(collisionBox.Position);
             drawingBox.UpdatePosition(collisionBox.Position);
             playerMovement.Update(gameTime);
             animationManager.Update(gameTime);
