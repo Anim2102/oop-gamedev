@@ -117,7 +117,7 @@ namespace game_darksouls.Component
             Rectangle feet = new Rectangle(this.player.collisionBox.Rectangle.X,
                 this.player.collisionBox.Rectangle.Y + this.player.collisionBox.Rectangle.Height,
                 this.player.collisionBox.Rectangle.Width,
-                10);
+                8);
 
             onFloor = collisionManager.CheckForCollision(feet);
         }

@@ -17,7 +17,7 @@ namespace game_darksouls.Entity
             animationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
             playerMovement = new(this,new CollisionManager(),animationManager,new());
 
-            collisionBox = new Box(100, 950, 30, 40);
+            collisionBox = new Box(350, 600, 30, 40);
             drawingBox.Rectangle = new Rectangle(0, 0, 50, 50);
             drawingBox.Offset = new Vector2(-10, -10);
             

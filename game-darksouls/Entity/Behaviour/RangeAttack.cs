@@ -22,8 +22,6 @@ namespace game_darksouls.Entity.Behaviour
 
         private Vector2 currentPosition => animatedObject.collisionBox.Position;
         private Vector2 playerPosition => player.drawingBox.Position;
-        private Vector2 target;
-
 
         private const double AIMRANGE = 800;
 
@@ -31,6 +29,8 @@ namespace game_darksouls.Entity.Behaviour
         private bool shootSpell = false;
 
         private bool projectFlying = false;
+
+
         public RangeAttack(Player player, 
             AnimatedObject animatedObject, 
             AnimationManager animationManager, 
@@ -57,7 +57,6 @@ namespace game_darksouls.Entity.Behaviour
                 {
                     shootSpell = true;
                     ResetSpellBlock();
-                    target = this.playerPosition;
                 }
             }
             else

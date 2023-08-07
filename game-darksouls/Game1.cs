@@ -92,7 +92,7 @@ namespace game_darksouls
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin(transformMatrix: camera.CreateTransformation(GraphicsDevice));
 
             player.Draw(_spriteBatch);

@@ -78,13 +78,13 @@ namespace game_darksouls.Level
         {
             foreach (Tile tile in Tiles)
             {
-                spriteBatch.Draw(Game1.redsquareDebug, tile.TileBox, Color.Red);
+               // spriteBatch.Draw(Game1.redsquareDebug, tile.TileBox, Color.Red);
                 spriteBatch.Draw(Game1.dungeonTexture, tile.TileBox,tile.SourceRectangle,Color.White);
             }
         }
         private int[,] ReadCsv()
         {
-            string[] lines = File.ReadAllLines("C:\\Users\\Tim\\source\\repos\\game-darksouls\\game-darksouls\\Level\\csv levels\\test2.csv");
+            string[] lines = File.ReadAllLines("C:\\Users\\Tim\\source\\repos\\game-darksouls\\game-darksouls\\Level\\csv levels\\test3.csv");
             int rows = lines.Length;
             //Debug.Write(lines[0]);
             int columns = lines[0].Split(',').Length;
