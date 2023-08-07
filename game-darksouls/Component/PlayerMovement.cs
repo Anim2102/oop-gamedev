@@ -23,7 +23,7 @@ namespace game_darksouls.Component
         private bool jumping;
         private bool onFloor;
         private const float MAXJUMP = 200f;
-        private float currentJumpTime = 0f;
+        private float currentJumpTime;
 
         public PlayerMovement(Player player, CollisionManager collisionManager, AnimationManager playerAnimation, InputManager inputManager)
         {
@@ -43,9 +43,7 @@ namespace game_darksouls.Component
         public void Update(GameTime gameTime)
         {
 
-            //direction = ApplyGravity(direction);
-            //direction = JumpPlayer(gameTime, direction);
-            //MovePlayer(direction,gameTime);
+           
             CheckFloor();
             JumpPlayer(gameTime);
             ApplyGravity(gameTime);
@@ -148,11 +146,11 @@ namespace game_darksouls.Component
         }
         private void ChangeMovingState(Vector2 direction)
         {
-            if (!onFloor)
+            if (!onFloor || jumping)
             {
                 currentMovingState = MovementState.FALLING;
             }
-            if (direction.X != 0)
+            if (direction.X != 0 && !jumping && onFloor)
             {
                 currentMovingState = MovementState.MOVING;
             }
