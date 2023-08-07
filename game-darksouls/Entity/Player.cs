@@ -35,7 +35,7 @@ namespace game_darksouls.Entity
         {
             //spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Red);
             //spriteBatch.Draw(Game1.redsquareDebug, drawingBox.Rectangle, Color.Red);
-            playerMovement.Draw(spriteBatch);
+            //playerMovement.Draw(spriteBatch);
             spriteBatch.Draw(texture, 
                 drawingBox.Rectangle,
                 animationManager.currentAnimation.CurrentFrame.SourceRectangle,

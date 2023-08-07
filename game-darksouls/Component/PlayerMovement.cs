@@ -35,7 +35,7 @@ namespace game_darksouls.Component
             this.direction = Vector2.Zero;
             this.onFloor = false;
 
-            speed = new Vector2(0.3f, 0.3f);
+            speed = new Vector2(0.3f, 0.4f);
             velocity = new Vector2(1, 1);
             jumping = false;
         }
@@ -121,7 +121,7 @@ namespace game_darksouls.Component
 
             onFloor = collisionManager.CheckForCollision(feet);
         }
-
+        /*
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle feet = new Rectangle(this.player.collisionBox.Rectangle.X,
@@ -131,7 +131,7 @@ namespace game_darksouls.Component
 
             spriteBatch.Draw(Game1.redsquareDebug, feet, Color.Red);
         }
-
+        */
 
         private void ChangeFlipOnDirection(Vector2 direction)
         {
