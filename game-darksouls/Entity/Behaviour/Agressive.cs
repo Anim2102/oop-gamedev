@@ -41,6 +41,7 @@ namespace game_darksouls.Entity.Behaviour
 
         public void Behave(GameTime gameTime)
         {
+            Debug.WriteLine("attack behave");
             //waitTimerBeforeAttack.Update(gameTime);
             float distanceBetweenPlayer = ReturnDistanceBetweenPlayer();
 

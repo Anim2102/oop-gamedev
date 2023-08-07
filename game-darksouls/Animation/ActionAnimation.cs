@@ -30,7 +30,6 @@ namespace game_darksouls.Animation
         public void Play()
         {
             IsRunning = true;
-
         }
 
         public void Stop()

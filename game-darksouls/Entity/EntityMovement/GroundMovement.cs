@@ -1,6 +1,7 @@
 ﻿using game_darksouls.Component;
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace game_darksouls.Entity.EntityMovement
 {
@@ -31,6 +32,7 @@ namespace game_darksouls.Entity.EntityMovement
 
         public void Update(GameTime gameTime)
         {
+            //Debug.WriteLine(currentMovementState);
             CheckGravity();
             UpdatePosition(gameTime);
             ChangeMovingState();

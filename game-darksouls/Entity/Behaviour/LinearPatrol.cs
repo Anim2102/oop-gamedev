@@ -38,7 +38,7 @@ namespace game_darksouls.Entity.Behaviour
         public void Behave(GameTime gameTime)
         {
             timer.Update(gameTime);
-
+            npcMovementManager.ChangeMovingState();
 
             Vector2 currentPosition = this.animatedObject.collisionBox.CenterOfBox();
 

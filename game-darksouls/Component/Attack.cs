@@ -69,6 +69,7 @@ namespace game_darksouls.Component
         }
         private void AttackAnimation()
         {
+            Debug.WriteLine("play animation: attack");
             animationManager.PlayAnimation(MovementState.ATTACK);
         }
         /*public void Draw(SpriteBatch spriteBatch)

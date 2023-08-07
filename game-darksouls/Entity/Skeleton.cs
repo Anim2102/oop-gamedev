@@ -41,7 +41,6 @@ namespace game_darksouls.Entity
         public void Update(GameTime gameTime)
         {
             //Debug.WriteLine(collisionBox.Position);
-
             animationManager.Update(gameTime);
             npcMovementManager.Update(gameTime);
             drawingBox.UpdatePosition(collisionBox.Position);
@@ -68,7 +67,7 @@ namespace game_darksouls.Entity
                 Vector2.Zero,
                 animationManager.SpriteFLip,
                 0f);
-            Debug.WriteLine(this.collisionBox.CenterOfBox());
+           // Debug.WriteLine(this.collisionBox.CenterOfBox());
             linearPatrol.Draw(spriteBatch);
             //npcMovementManager.Draw(spriteBatch);
         }

@@ -28,6 +28,7 @@ namespace game_darksouls.Entity.Behaviour
 
         public void Update(GameTime gameTime)
         {
+           
             ControleState();
             currentBehaviour.Behave(gameTime);
         }
@@ -47,7 +48,7 @@ namespace game_darksouls.Entity.Behaviour
                 currentBehaviour = linearPatrol;
             }
 
-            Debug.WriteLine(currentBehaviour.ToString());
+            //Debug.WriteLine(currentBehaviour.ToString());
 
         }
 
