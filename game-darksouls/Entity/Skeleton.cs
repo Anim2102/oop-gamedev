@@ -23,14 +23,14 @@ namespace game_darksouls.Entity
         public Skeleton(Texture2D texture, Player player)
         {
             collisionBox = new Box();
-            collisionBox.Rectangle = new Rectangle(170, 20, 60, 50);
+            collisionBox.Rectangle = new Rectangle(200, 909, 60, 50);
             this.drawingBox = new Box(170, 20, 64 * 2, 64 * 2 , new Vector2(-35, -50));
 
             this.texture = texture;
             this.animationManager = new(AnimationFactory.LoadSkeletonAnimations());
             this.npcMovementManager = new GroundMovement(new CollisionManager(), animationManager,collisionBox);
 
-            this.linearPatrol = new(new Vector2(170, 0), new Vector2(450, 0), this, npcMovementManager);
+            this.linearPatrol = new(new Vector2(170, 909), new Vector2(450, 909), this, npcMovementManager);
             this.agressive = new Agressive(player, this, npcMovementManager, animationManager);
 
             entityStateController = new EntityStateController(linearPatrol, agressive, player, this);
@@ -68,8 +68,8 @@ namespace game_darksouls.Entity
                 Vector2.Zero,
                 animationManager.SpriteFLip,
                 0f);
-
-            //linearPatrol.Draw(spriteBatch);
+            Debug.WriteLine(this.collisionBox.CenterOfBox());
+            linearPatrol.Draw(spriteBatch);
             //npcMovementManager.Draw(spriteBatch);
         }
     }

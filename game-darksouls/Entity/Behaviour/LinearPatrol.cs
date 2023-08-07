@@ -17,7 +17,7 @@ namespace game_darksouls.Entity.Behaviour
         private Vector2 positionB;
         private Vector2 currentTarget;
 
-        private const float MARGINGTARGET = 50;
+        private const float MARGINGTARGET = 100f;
         private const int waitTime = 3;
         private Timer timer;
 
@@ -39,19 +39,20 @@ namespace game_darksouls.Entity.Behaviour
         {
             timer.Update(gameTime);
 
+
             Vector2 currentPosition = this.animatedObject.collisionBox.CenterOfBox();
 
 
             //Debug.WriteLine("positie: " + currentPosition + "   target positie: " + currentTarget);
             float distanceToTarget = (float)CalculateDistanceBetweenTwoVectorsOnX(currentPosition, currentTarget);
 
-            if (currentPosition != currentTarget && !timer.timeRunning)
+            if (distanceToTarget > MARGINGTARGET && !timer.timeRunning)
             {
                 Vector2 normalized = Vector2.Normalize(currentTarget - currentPosition);
                 npcMovementManager.MoveNpc(normalized);
             }
 
-            if (currentPosition == currentTarget || distanceToTarget < MARGINGTARGET)
+            if (distanceToTarget <= MARGINGTARGET)
             {
                 timer.Reset();
                 timer.Start();
@@ -85,8 +86,8 @@ namespace game_darksouls.Entity.Behaviour
             Rectangle centerPoint = new Rectangle((int)this.animatedObject.drawingBox.CenterOfBox().X,
                 (int)this.animatedObject.drawingBox.CenterOfBox().Y,10, 10);
 
-            spriteBatch.Draw(Game1.redsquareDebug, pointA, Color.Orange);
-            spriteBatch.Draw(Game1.redsquareDebug, pointB, Color.Orange);
+            spriteBatch.Draw(Game1.redsquareDebug, pointA, Color.Red);
+            spriteBatch.Draw(Game1.redsquareDebug, pointB, Color.Red);
 
             spriteBatch.Draw(Game1.redsquareDebug, centerPoint, Color.Blue);
 

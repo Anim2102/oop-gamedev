@@ -84,21 +84,21 @@ namespace game_darksouls
             // TODO: Add your update logic here
             player.Update(gameTime);
             skeleton.Update(gameTime);
-            wingedMob.Update(gameTime);
-            wizard.Update(gameTime);
+            //wingedMob.Update(gameTime);
+            //wizard.Update(gameTime);
             camera.Update();
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.White);
             _spriteBatch.Begin(transformMatrix: camera.CreateTransformation(GraphicsDevice));
 
             player.Draw(_spriteBatch);
             skeleton.Draw(_spriteBatch);
-            wingedMob.Draw(_spriteBatch);
-            wizard.Draw(_spriteBatch);
+            //wingedMob.Draw(_spriteBatch);
+            //wizard.Draw(_spriteBatch);
             
             levelOne.Draw(_spriteBatch);
             //tempLevel.Draw(_spriteBatch,redsquare);
