@@ -18,13 +18,13 @@ namespace game_darksouls
         private Player player;
 
         private Texture2D skeletonTexture;
-        private Skeleton skeleton;
+        public static Skeleton skeleton;
 
         private Texture2D wingedMobTexture;
-        private WingedMob wingedMob;
+        public static WingedMob wingedMob;
 
         private Texture2D wizardTexture;
-        private Wizard wizard;
+        public static Wizard wizard;
 
         private Camera camera;
 

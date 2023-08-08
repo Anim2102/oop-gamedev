@@ -54,9 +54,16 @@ namespace game_darksouls.Component
 
             return null;
         }
+        public void ResetAnimationOnState(MovementState state)
+        {
+            if (animations.ContainsKey(state))
+            {
+                ActionAnimation animation = animations.GetValueOrDefault(state);
+                animation.ResetAnimation();
+            }
+        }
         public void Update(GameTime gameTime)
         {
-            //Debug.WriteLine(currentAnimation.name);
             currentAnimation.Update(gameTime);
         }
     }

@@ -1,9 +1,7 @@
 ﻿using game_darksouls.Animation;
 using game_darksouls.Entity;
-using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 
 namespace game_darksouls.Component
@@ -11,77 +9,72 @@ namespace game_darksouls.Component
     internal class Attack
     {
         private readonly AnimationManager animationManager;
-        private readonly AnimatedObject animatedObject;
-        private readonly IMovementBehaviour npcMovementManager;
+        private readonly Box collisionBox;
         private readonly ActionAnimation attackAnimation;
-        private readonly Player player;
-        
-        private Rectangle attackFrame;
-        private int attackStartFrame;
-        private int attackEndFrame; 
 
-        private Rectangle collisionBox => animatedObject.collisionBox.Rectangle;
+        public Rectangle attackFrame;
+        public int WidthAttackFrame { get; set; }
+        public int HeightAttackFrame { get; set; }
+
+        public int AttackStartFrame { get; set; }
+        public int AttackEndFrame { get; set; }
+        private Rectangle collisionBoxRec => collisionBox.Rectangle;
+
         private int indexAnimationFrame => attackAnimation.Counter;
 
         public bool attackFinished { get; private set; } = false;
 
-        public Attack(Rectangle attackFrame, 
-            int attackStartFrame, 
-            int attackEndFrame, 
-            AnimationManager animationManager,
-            AnimatedObject animatedObject,
-            IMovementBehaviour npcMovementManager,
-            Player player
-
-            )
+        public Attack(AnimationManager animationManager, Box collisionBox)
         {
-            this.npcMovementManager = npcMovementManager;
-
-            this.attackFrame = attackFrame;
-            this.attackStartFrame = attackStartFrame;
-            this.attackEndFrame = attackEndFrame;
+            this.collisionBox = collisionBox;
             this.animationManager = animationManager;
-            this.animatedObject = animatedObject;
-            this.player = player;
             this.attackAnimation = animationManager.ReturnAnimationOnState(MovementState.ATTACK);
-
-            this.attackStartFrame = 5;
-            this.attackEndFrame = 10;
-
         }
-       
 
-        public void AttackWithFrame()
+
+        public bool AttackWithFrame(AnimatedObject animatedObject)
         {
             AttackAnimation();
-
-            if (indexAnimationFrame >= attackStartFrame && indexAnimationFrame <= attackEndFrame)
+            bool hit = false;
+            if (indexAnimationFrame >= AttackStartFrame && indexAnimationFrame <= AttackEndFrame)
             {
-                this.attackFrame = new Rectangle(collisionBox.X, collisionBox.Y, 100, 100);
-                CheckHit();
+                attackFrame = new Rectangle(collisionBoxRec.X, collisionBoxRec.Y, WidthAttackFrame, HeightAttackFrame);
+                hit = CheckHit(animatedObject.collisionBox);
                 attackFinished = false;
             }
             
-            if (indexAnimationFrame > attackEndFrame)
+
+            if (indexAnimationFrame >= AttackEndFrame)
             {
+                this.attackAnimation.ResetAnimation();
                 attackFinished = true;
             }
-        }
-       
-        private void CheckHit()
-        {
-            if (attackFrame.Intersects(player.collisionBox.Rectangle))
+            if (attackFinished)
             {
-                Debug.WriteLine("hit");
+                ResetAttackAnimation();
+                RemoveAttackFrame();
+                attackFinished = false;
             }
+
+            return hit;
+        }
+
+        private bool CheckHit(Box collisionBoxTarget)
+        {
+            return attackFrame.Intersects(collisionBoxTarget.Rectangle);
+        }
+
+        public void ResetAttackAnimation()
+        {
+            animationManager.ResetAnimationOnState(MovementState.ATTACK);
         }
         public void RemoveAttackFrame()
         {
-            this.attackFrame = Rectangle.Empty;
+            attackFrame = Rectangle.Empty;
         }
         private void AttackAnimation()
         {
-            animationManager.PlayAnimation(MovementState.ATTACK);
+            animationManager.UpdateAnimationOnState(MovementState.ATTACK);
         }
     }
 }

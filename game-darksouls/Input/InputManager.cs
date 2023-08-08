@@ -20,10 +20,18 @@ namespace game_darksouls.Input
             {
                 direction.X = +1;
             }
-            
+
             return direction;
         }
 
+        public bool PressedAttack()
+        {
+            var state = Keyboard.GetState();
+
+            return state.IsKeyDown(Keys.A);
+
+
+        }
         public bool IsJumpButtonPress()
         {
             bool jumped = Keyboard.GetState().IsKeyDown(Keys.Space);

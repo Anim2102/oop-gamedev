@@ -41,7 +41,6 @@ namespace game_darksouls.Entity
 
         public void Update(GameTime gameTime)
         {
-            //Debug.WriteLine(collisionBox.Position);
             animationManager.Update(gameTime);
             npcMovementManager.Update(gameTime);
             drawingBox.UpdatePosition(collisionBox.Position);
@@ -50,16 +49,6 @@ namespace game_darksouls.Entity
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw(texture, drawingBox.DrawingRectangle, animationManager.currentAnimation.CurrentFrame.SourceRectangle, Color.White);
-
-            /*Rectangle rec = this.drawingBox.DrawingRectangle;
-            rec.Width = rec.Width * 2;
-            rec.Height = rec.Height * 2;
-            */
-            
-            //spriteBatch.Draw(Game1.redsquareDebug, drawingBox.Rectangle, Color.Green);
-            
-            
             spriteBatch.Draw(texture, 
                 drawingBox.Rectangle,
                 animationManager.currentAnimation.CurrentFrame.SourceRectangle,
@@ -68,9 +57,7 @@ namespace game_darksouls.Entity
                 Vector2.Zero,
                 animationManager.SpriteFLip,
                 0f);
-           // Debug.WriteLine(this.collisionBox.CenterOfBox());
-            linearPatrol.Draw(spriteBatch);
-            //npcMovementManager.Draw(spriteBatch);
+            //linearPatrol.Draw(spriteBatch);
         }
     }
 }

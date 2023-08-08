@@ -15,7 +15,7 @@ namespace game_darksouls.Entity.Behaviour
         private readonly AnimationManager animationManager;
         private readonly IMovementBehaviour npcMovementManager;
 
-        private Timer waitTimerBeforeAttack;
+        //private Timer waitTimerBeforeAttack;
 
         private bool attacking = false;
         private bool attackPossible = false;
@@ -35,8 +35,12 @@ namespace game_darksouls.Entity.Behaviour
             this.animationManager = animationManager;
 
             //waitTimerBeforeAttack = new Timer(3);
-            attackBox = new Attack(Rectangle.Empty, 0, 0, animationManager, animatedObject, npcMovementManager, player);
-
+            attackBox = new Attack(animationManager,animatedObject.collisionBox);
+            attackBox.AttackStartFrame = 5;
+            attackBox.AttackEndFrame = 10;
+            attackBox.WidthAttackFrame = 5;
+            attackBox.HeightAttackFrame = 5;
+            
         }
 
         public void Behave(GameTime gameTime)
@@ -59,7 +63,7 @@ namespace game_darksouls.Entity.Behaviour
             {
                 attacking = true;
                 npcMovementManager.ResetDirection();
-                attackBox.AttackWithFrame();
+                attackBox.AttackWithFrame(animatedObject);
 
                 if (attackBox.attackFinished)
                 {

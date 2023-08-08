@@ -30,11 +30,15 @@ namespace game_darksouls.Animation
         public void Play()
         {
             IsRunning = true;
+            Counter = 0;
+            secondCounter = 0;
         }
         public void ResetAnimation()
         {
+            Complete = false;
             Counter = 0; 
             secondCounter = 0;
+            IsRunning = false;
         }
         public void Stop()
         {

@@ -47,9 +47,6 @@ namespace game_darksouls.Entity.Behaviour
             {
                 currentBehaviour = linearPatrol;
             }
-
-            //Debug.WriteLine(currentBehaviour.ToString());
-
         }
 
         private float CalculateDistanceBetweenTwoVectorsOnX(Vector2 a, Vector2 b)

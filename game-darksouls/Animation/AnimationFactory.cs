@@ -17,7 +17,7 @@ namespace game_darksouls.Animation
             ActionAnimation idleAnimation = LoadAnimations("idle",amountFrames: 4, fps: 8, yas: 0, width: 32, height: 32);
             ActionAnimation runningAnimation = LoadAnimations("running",amountFrames: 8, fps: 16, yas: 32, width: 32, height: 32);
             ActionAnimation fallingAnimation = LoadAnimations("falling",amountFrames: 3, fps: 2, yas: 192, width: 32, height: 32);
-            ActionAnimation attackAnimation = LoadAnimations("attack",amountFrames: 5, fps: 8,yas: 64, width: 32, height: 32, loop: false);
+            ActionAnimation attackAnimation = LoadAnimations("attack", amountFrames: 5, fps: 8, yas: 64, width: 32, height: 32);
 
             animations.Add(MovementState.FALLING, fallingAnimation);
             animations.Add(MovementState.IDLE, idleAnimation);
