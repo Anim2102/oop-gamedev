@@ -4,13 +4,13 @@ using Microsoft.Xna.Framework;
 
 namespace game_darksouls.Entity.EntityMovement
 {
-    internal interface IMovementBehaviour
+    public interface IMovementBehaviour
     {
 
-        CollisionManager CollisionManager { get; set; }
-        AnimationManager AnimationManager { get; set; }
-        Box CollisionBox { get; set; }
-        MovementState CurrentMovementState { get; set; }
+        public CollisionManager CollisionManager { get; set; }
+        public AnimationManager AnimationManager { get; set; }
+        public Box CollisionBox { get; set; }
+        public MovementState CurrentMovementState { get; set; }
 
         void Update(GameTime gameTime);
         void UpdatePosition(GameTime gameTime) { }

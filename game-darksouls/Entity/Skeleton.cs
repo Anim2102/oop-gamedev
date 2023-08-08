@@ -27,10 +27,10 @@ namespace game_darksouls.Entity
             collisionBox.Rectangle = new Rectangle(1795, 655, 60, 50);
             this.drawingBox = new Box(170, 20, 64 * 2, 64 * 2 , new Vector2(-35, -50));
 
-            this.HealthManager = new Health(5);
             this.texture = texture;
             this.animationManager = new(AnimationFactory.LoadSkeletonAnimations());
             this.npcMovementManager = new GroundMovement(new CollisionManager(), animationManager,collisionBox);
+            this.HealthManager = new Health(5, npcMovementManager);
 
             this.linearPatrol = new(new Vector2(1450, 650), new Vector2(2000, 650), this, npcMovementManager);
             this.agressive = new Agressive(player, this, npcMovementManager, animationManager);
@@ -58,7 +58,8 @@ namespace game_darksouls.Entity
                 Vector2.Zero,
                 animationManager.SpriteFLip,
                 0f);
-            //linearPatrol.Draw(spriteBatch);
+            
+            agressive.Draw(spriteBatch);
         }
     }
 }

@@ -35,24 +35,19 @@ namespace game_darksouls.Entity.Behaviour
             this.animationManager = animationManager;
 
             //waitTimerBeforeAttack = new Timer(3);
-            attackBox = new Attack(animationManager,animatedObject.collisionBox);
+            attackBox = new Attack(animationManager,animatedObject.collisionBox,Vector2.Zero);
             attackBox.AttackStartFrame = 5;
             attackBox.AttackEndFrame = 10;
-            attackBox.WidthAttackFrame = 5;
-            attackBox.HeightAttackFrame = 5;
+            attackBox.WidthAttackFrame = 90;
+            attackBox.HeightAttackFrame = 50;
+          
             
         }
 
         public void Behave(GameTime gameTime)
         {
-            //Debug.WriteLine("attack behave");
-            //waitTimerBeforeAttack.Update(gameTime);
-            float distanceBetweenPlayer = ReturnDistanceBetweenPlayer();
 
-            /*Debug.WriteLine("mogelijk om aan te vallen" + attackPossible);
-            Debug.WriteLine("bezig met aantevallen" + attacking);
-            Debug.WriteLine("animatie klaar: " + attackBox.attackFinished);
-            */
+            float distanceBetweenPlayer = ReturnDistanceBetweenPlayer();
 
             if (!attacking && distanceBetweenPlayer < RangeOfAttack)
             {
@@ -65,15 +60,13 @@ namespace game_darksouls.Entity.Behaviour
                 npcMovementManager.ResetDirection();
                 attackBox.AttackWithFrame(player);
 
-                if (attackBox.attackFinished)
+                if (attackBox.AttackFinished)
                 {
                     attacking = false;
                     attackPossible = false;
                 }
             }
 
-
-            //eerste animatie finishe
             if (attacking && distanceBetweenPlayer > RangeOfAttack)
             {
                 attacking = false;
@@ -83,22 +76,15 @@ namespace game_darksouls.Entity.Behaviour
 
             if (!attacking && currentPosition != playerPosition)
             {
-                //animationManager.PlayAnimation(Enum.MovementState.MOVING);
                 attackBox.RemoveAttackFrame();
                 Vector2 normalized = Vector2.Normalize(playerPosition - currentPosition);
-                //Debug.WriteLine(normalized );
                 npcMovementManager.Push(normalized);
-                //Debug.WriteLine(true);
-
             }
-            else
-            {
-                //Debug.WriteLine(false);
-            }
-
-
         }
-
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Game1.redsquareDebug,attackBox.attackFrame,Color.Red);
+        }
         private float ReturnDistanceBetweenPlayer()
         {
             Vector2 currentPosition = new Vector2(animatedObject.collisionBox.Rectangle.X,

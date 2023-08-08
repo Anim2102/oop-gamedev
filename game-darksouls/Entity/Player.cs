@@ -19,26 +19,27 @@ namespace game_darksouls.Entity
         public Player(Texture2D texturePlayer)
         {
             texture = texturePlayer;
-
-            collisionBox = new Box(350, 600, 30, 40);
+            
+            collisionBox = new Box(2405, 700, 30, 40);
             drawingBox.Rectangle = new Rectangle(0, 0, 50, 50);
             drawingBox.Offset = new Vector2(-10, -10);
 
             animationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
             playerMovement = new PlayerMovement(new CollisionManager(),collisionBox,animationManager,new(), this);
 
-            attack = new Attack(animationManager,collisionBox);
+            attack = new Attack(animationManager,collisionBox,Vector2.Zero);
             attack.WidthAttackFrame = 40;
             attack.HeightAttackFrame = 32;
             attack.AttackStartFrame = 2;
             attack.AttackEndFrame = 4;
 
-            HealthManager = new Health(5);
+            HealthManager = new Health(5, playerMovement);
             playerAbilities = new PlayerAbilities(playerMovement, attack, new(),animationManager);
             
         }
         public void Update(GameTime gameTime)
         {
+            //Debug.WriteLine(collisionBox.Position);
             drawingBox.UpdatePosition(collisionBox.Position);
             playerMovement.Update(gameTime);
             animationManager.Update(gameTime);
@@ -54,7 +55,7 @@ namespace game_darksouls.Entity
             //playerMovement.Draw(spriteBatch);
             //playerAbilities.Draw(spriteBatch);
             
-
+            attack.Draw(spriteBatch);
             spriteBatch.Draw(texture, 
                 drawingBox.Rectangle,
                 animationManager.currentAnimation.CurrentFrame.SourceRectangle,

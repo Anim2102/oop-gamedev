@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace game_darksouls.Component
 {
-    internal class CollisionManager
+    public class CollisionManager
     {
         private readonly TempLevel tempLevel;
         public CollisionManager()

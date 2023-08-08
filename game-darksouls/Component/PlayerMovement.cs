@@ -161,7 +161,7 @@ namespace game_darksouls.Component
 
         public void Push(Vector2 direction)
         {
-            throw new NotImplementedException();
+            this.direction = direction;
         }
 
         public void ResetDirection()

@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace game_darksouls.Component
 {
-    internal class AnimationManager : IComponent
+    public class AnimationManager : IComponent
     {
         //private Dictionary<MovementState, ActionAnimation> animations = new();
 

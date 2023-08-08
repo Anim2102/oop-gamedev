@@ -22,12 +22,14 @@ namespace game_darksouls.Entity
         {
             this.texture = texture;
             this.animationManager = new AnimationManager(AnimationFactory.LoadBrainMobAnimations());
-            this.collisionBox = new Box(50, 50, 50, 50);
-            this.drawingBox = new Box(50, 50, 50, 50);
+
+            this.collisionBox = new Box(2405, 700, 50, 50);
+            this.drawingBox = new Box(2405, 700, 50, 50);
 
             this.npcMovementManager = new FlyMovement(new CollisionManager(), animationManager, collisionBox);
             this.player = player;
-            this.linearPatrol = new(new Vector2(170, 0), new Vector2(450, 0), this, npcMovementManager);
+
+            this.linearPatrol = new(new Vector2(2275, 799), new Vector2(2500, 799), this, npcMovementManager);
             this.agressive = new Agressive(player, this, npcMovementManager, animationManager);
 
             entityStateController = new EntityStateController(linearPatrol, agressive, player, this);
@@ -36,12 +38,11 @@ namespace game_darksouls.Entity
 
         public void Update(GameTime gameTime)
         {
-            this.npcMovementManager.Update(gameTime);
-            this.animationManager.Update(gameTime);
-            this.entityStateController.Update(gameTime);
-
             drawingBox.UpdatePosition(collisionBox.Position);
-           
+            Debug.WriteLine(collisionBox.Position);
+            npcMovementManager.Update(gameTime);
+            animationManager.Update(gameTime);
+            entityStateController.Update(gameTime);           
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -50,6 +51,7 @@ namespace game_darksouls.Entity
             spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Green);
             Debug.WriteLine(animationManager.currentAnimation.name);
             */
+            entityStateController.Draw(spriteBatch);
             spriteBatch.Draw(texture,
                 drawingBox.Rectangle,
                 animationManager.currentAnimation.CurrentFrame.SourceRectangle,

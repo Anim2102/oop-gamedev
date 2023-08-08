@@ -25,28 +25,27 @@ namespace game_darksouls.Component
 
         public void Update(GameTime gameTime)
         {
-
+            Attacking = false;
             if (inputManager.PressedAttack())
             {
                 Attacking = true;
                 playerMovement.ResetDirection();
             }
-            else
-            {
-                Attacking = false;
-            }
-
+            
 
             if (Attacking)
             {
                 attackBox.AttackWithFrame(Game1.skeleton);
             }
 
-            if (attackBox.attackFinished && Attacking)
+            if (attackBox.AttackFinished && Attacking)
             {
                 Attacking = false;
                 attackBox.ResetAttackAnimation();
             }
+
+            if (!Attacking)
+                attackBox.RemoveAttackFrame();
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -2,6 +2,8 @@
 using game_darksouls.Entity;
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using SharpDX.MediaFoundation;
 using System.Diagnostics;
 
 namespace game_darksouls.Component
@@ -15,20 +17,24 @@ namespace game_darksouls.Component
         public Rectangle attackFrame;
         public int WidthAttackFrame { get; set; }
         public int HeightAttackFrame { get; set; }
+        public Vector2 Offset { get; set; }
 
         public int AttackStartFrame { get; set; }
         public int AttackEndFrame { get; set; }
         private Rectangle collisionBoxRec => collisionBox.Rectangle;
 
+
         private int indexAnimationFrame => attackAnimation.Counter;
 
-        public bool attackFinished { get; private set; } = false;
+        public bool AttackFinished { get; private set; } = false;
 
-        public Attack(AnimationManager animationManager, Box collisionBox)
+
+        public Attack(AnimationManager animationManager, Box collisionBox, Vector2 offsetAttackFrame)
         {
             this.collisionBox = collisionBox;
             this.animationManager = animationManager;
             this.attackAnimation = animationManager.ReturnAnimationOnState(MovementState.ATTACK);
+            Offset = offsetAttackFrame;
         }
 
 
@@ -36,6 +42,7 @@ namespace game_darksouls.Component
         {
             AttackAnimation();
             bool hit = false;
+
             if (indexAnimationFrame >= AttackStartFrame && indexAnimationFrame <= AttackEndFrame)
             {
                 attackFrame = new Rectangle(collisionBoxRec.X, collisionBoxRec.Y, WidthAttackFrame, HeightAttackFrame);
@@ -44,21 +51,22 @@ namespace game_darksouls.Component
                 if (hit)
                 {
                     targetObject.HealthManager.TakeDamage();
+
                 }
-                attackFinished = false;
+                AttackFinished = false;
             }
             
-
             if (indexAnimationFrame >= AttackEndFrame)
             {
                 this.attackAnimation.ResetAnimation();
-                attackFinished = true;
+                AttackFinished = true;
             }
-            if (attackFinished)
+
+            if (AttackFinished)
             {
                 ResetAttackAnimation();
                 RemoveAttackFrame();
-                attackFinished = false;
+                AttackFinished = false;
             }
 
             return hit;
@@ -73,13 +81,21 @@ namespace game_darksouls.Component
         {
             animationManager.ResetAnimationOnState(MovementState.ATTACK);
         }
+
+        private void AttackAnimation()
+        {
+            animationManager.UpdateAnimationOnState(MovementState.ATTACK);
+        }
+
         public void RemoveAttackFrame()
         {
             attackFrame = Rectangle.Empty;
         }
-        private void AttackAnimation()
+        
+
+        public void Draw(SpriteBatch spriteBatch)
         {
-            animationManager.UpdateAnimationOnState(MovementState.ATTACK);
+            spriteBatch.Draw(Game1.redsquareDebug, attackFrame, Color.White);
         }
     }
 }

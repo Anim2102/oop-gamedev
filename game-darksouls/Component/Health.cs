@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using game_darksouls.Entity.EntityMovement;
+using Microsoft.Xna.Framework;
 using System.Diagnostics;
 
 namespace game_darksouls.Component
@@ -10,6 +11,7 @@ namespace game_darksouls.Component
         public Color CurrentColor { get; private set; }
         public bool Alive { get; private set; }
         public bool Invurnable { get; private set; }
+        public IMovementBehaviour MovementBehaviour { get; set; }
 
         private float invurnableTime = 3f;
         private float currentInvurnableTime = 0f;
@@ -20,8 +22,9 @@ namespace game_darksouls.Component
 
         private int maxHealthPoints;
 
-        public Health(int maxHealth)
+        public Health(int maxHealth, IMovementBehaviour movementBehaviour)
         {
+            this.MovementBehaviour = movementBehaviour;
             maxHealthPoints = maxHealth;
             HealthPoints = maxHealth;
             CurrentColor = Color.White;
@@ -38,17 +41,15 @@ namespace game_darksouls.Component
             {
                 Alive = false;
             }
-
+            
             Hit = true;
 
-            
-        }
 
+        }
 
         public void Update(GameTime gameTime)
         {
-
-            Debug.WriteLine("Hp: " + HealthPoints + "geraakt: " + Hit + "onzichtbaar: " + Invurnable);
+           // Debug.WriteLine("Hp: " + HealthPoints + "geraakt: " + Hit + "onzichtbaar: " + Invurnable);
             ChangeInvurnableTime(gameTime);
             ChangeColor(gameTime);
         }
@@ -59,8 +60,8 @@ namespace game_darksouls.Component
                 return;
 
             currentInvurnableTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-         
-            
+
+
             if (currentInvurnableTime < invurnableTime)
             {
                 Invurnable = true;
@@ -88,6 +89,7 @@ namespace game_darksouls.Component
                 }
             }
         }
+        
 
     }
 }

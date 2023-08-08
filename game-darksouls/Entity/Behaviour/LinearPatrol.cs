@@ -77,7 +77,7 @@ namespace game_darksouls.Entity.Behaviour
 
 
 
-       /* public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle pointA = new Rectangle((int)positionA.X, (int)positionA.Y,10, 10);
             Rectangle pointB = new Rectangle((int)positionB.X, (int)positionB.Y, 10, 10);
@@ -92,7 +92,7 @@ namespace game_darksouls.Entity.Behaviour
             spriteBatch.Draw(Game1.redsquareDebug, centerPoint, Color.Blue);
 
         }
-       */
+       
 
 
     }

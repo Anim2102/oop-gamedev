@@ -13,13 +13,13 @@ namespace game_darksouls.Entity.Behaviour
         private readonly AnimatedObject animatedObject;
 
 
-        private IBehave linearPatrol;
+        private IBehave Patrol;
         public IBehave agressive;
         private IBehave currentBehaviour;
 
-        public EntityStateController(IBehave linearPatrol, IBehave agressive,Player player,AnimatedObject animatedObject)
+        public EntityStateController(IBehave Patrol, IBehave agressive,Player player,AnimatedObject animatedObject)
         {
-            this.linearPatrol = linearPatrol;
+            this.Patrol = Patrol;
             this.agressive = agressive;
             this.player = player;
             this.animatedObject = animatedObject;
@@ -36,16 +36,17 @@ namespace game_darksouls.Entity.Behaviour
         private void ControleState()
         {
             Vector2 currentPosition = animatedObject.collisionBox.CenterOfBox();
-            Vector2 playerPosition = player.drawingBox.CenterOfBox();
+            Vector2 playerPosition = player.collisionBox.CenterOfBox();
 
             float distanceBetweenPlayer = CalculateDistanceBetweenTwoVectorsOnX(currentPosition, playerPosition);
+
             if (distanceBetweenPlayer < 100)
             {
                 currentBehaviour = agressive;
             }
             else
             {
-                currentBehaviour = linearPatrol;
+                currentBehaviour = Patrol;
             }
         }
 
@@ -54,6 +55,10 @@ namespace game_darksouls.Entity.Behaviour
             return Math.Abs(a.X - b.X);
         }
 
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Patrol.Draw(spriteBatch);
+        }
        
 
     }

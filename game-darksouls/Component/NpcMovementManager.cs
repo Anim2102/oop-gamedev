@@ -12,7 +12,7 @@ namespace game_darksouls.Component
         public Box CollisionBox { get; set; }
 
         private Vector2 SPEED = new Vector2(0.2f, 0.6f);
-        private Vector2 direction;
+        private Vector2 Direction;
 
 
         public NpcMovementManager(CollisionManager collisionManager, AnimationManager animationManager, Box collisionBox)
@@ -22,7 +22,7 @@ namespace game_darksouls.Component
             this.CollisionBox = collisionBox;
 
 
-            direction = Vector2.Zero;
+            Direction = Vector2.Zero;
 
             CurrentMovementState = MovementState.ATTACK;
 
@@ -41,8 +41,8 @@ namespace game_darksouls.Component
         {
             Rectangle updatedRectangle = CollisionBox.Rectangle;
 
-            updatedRectangle.X += (int)(direction.X * SPEED.X * gameTime.ElapsedGameTime.Milliseconds);
-            updatedRectangle.Y += (int)(direction.Y * SPEED.Y * gameTime.ElapsedGameTime.Milliseconds);
+            updatedRectangle.X += (int)(Direction.X * SPEED.X * gameTime.ElapsedGameTime.Milliseconds);
+            updatedRectangle.Y += (int)(Direction.Y * SPEED.Y * gameTime.ElapsedGameTime.Milliseconds);
             CollisionBox.Rectangle = updatedRectangle;
             CollisionBox.Rectangle = updatedRectangle;
         }
@@ -55,35 +55,35 @@ namespace game_darksouls.Component
 
             if (CollisionManager.CheckForCollision(feetRectangle))
             {
-                direction.Y = 0;
+                Direction.Y = 0;
             }
             else
             {
-                direction.Y = 1;
+                Direction.Y = 1;
             }
         }
 
         public void Push(Vector2 direction)
         {
-            this.direction = direction;
+            this.Direction = direction;
         }
 
         public void ResetDirection()
         {
-            this.direction = Vector2.Zero;
+            this.Direction = Vector2.Zero;
         }
 
         private void ChangeMovingState()
         {
-            if (direction.Y > 0)
+            if (Direction.Y > 0)
             {
                 CurrentMovementState = MovementState.FALLING;
             }
-            if (direction.X != 0)
+            if (Direction.X != 0)
             {
                 CurrentMovementState = MovementState.MOVING;
             }
-            else if (direction.X == 0 && direction.Y == 0)
+            else if (Direction.X == 0 && Direction.Y == 0)
             {
                 CurrentMovementState = MovementState.IDLE;
             }
@@ -93,11 +93,11 @@ namespace game_darksouls.Component
 
         private void ChangeFlipOnDirection()
         {
-            if (direction.X > 0)
+            if (Direction.X > 0)
             {
                 AnimationManager.FacingLeft = false;
             }
-            else if (direction.X < 0)
+            else if (Direction.X < 0)
             {
                 AnimationManager.FacingLeft = true;
             }

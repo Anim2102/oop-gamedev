@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,8 @@ namespace game_darksouls.Entity.Behaviour
     public interface IBehave
 {
         void Behave(GameTime gameTime);
+
+        //temp
+        void Draw(SpriteBatch spriteBatch);
 }
 }
