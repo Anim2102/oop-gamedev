@@ -73,6 +73,7 @@ namespace game_darksouls.Component
             if (attackFrame.Intersects(player.collisionBox.Rectangle))
             {
                 Debug.WriteLine("hit");
+                player.particles.SpawnParticles();
             }
         }
         public void RemoveAttackFrame()

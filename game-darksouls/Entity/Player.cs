@@ -1,5 +1,6 @@
 ﻿using game_darksouls.Animation;
 using game_darksouls.Component;
+using game_darksouls.Entity.Behaviour;
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,6 +12,7 @@ namespace game_darksouls.Entity
     {
         private PlayerMovement playerMovement;
         private Attack attack;
+        public Particles particles;
 
         public Player(Texture2D texturePlayer)
         {
@@ -22,6 +24,8 @@ namespace game_darksouls.Entity
             collisionBox = new Box(350, 600, 30, 40);
             drawingBox.Rectangle = new Rectangle(0, 0, 50, 50);
             drawingBox.Offset = new Vector2(-10, -10);
+
+            particles = new Particles(collisionBox);
             
         }
         public void Update(GameTime gameTime)
@@ -30,6 +34,7 @@ namespace game_darksouls.Entity
             drawingBox.UpdatePosition(collisionBox.Position);
             playerMovement.Update(gameTime);
             animationManager.Update(gameTime);
+            particles.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -45,6 +50,8 @@ namespace game_darksouls.Entity
                 Vector2.Zero,
                 animationManager.SpriteFLip,
                 0f );
+
+            particles.Draw(spriteBatch);
         }
     }
 }
