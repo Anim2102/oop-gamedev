@@ -32,14 +32,19 @@ namespace game_darksouls.Component
         }
 
 
-        public bool AttackWithFrame(AnimatedObject animatedObject)
+        public bool AttackWithFrame(AnimatedObject targetObject)
         {
             AttackAnimation();
             bool hit = false;
             if (indexAnimationFrame >= AttackStartFrame && indexAnimationFrame <= AttackEndFrame)
             {
                 attackFrame = new Rectangle(collisionBoxRec.X, collisionBoxRec.Y, WidthAttackFrame, HeightAttackFrame);
-                hit = CheckHit(animatedObject.collisionBox);
+                hit = CheckHit(targetObject.collisionBox);
+
+                if (hit)
+                {
+                    targetObject.HealthManager.TakeDamage();
+                }
                 attackFinished = false;
             }
             

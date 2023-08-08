@@ -45,7 +45,7 @@ namespace game_darksouls.Entity.Behaviour
 
         public void Behave(GameTime gameTime)
         {
-            Debug.WriteLine("attack behave");
+            //Debug.WriteLine("attack behave");
             //waitTimerBeforeAttack.Update(gameTime);
             float distanceBetweenPlayer = ReturnDistanceBetweenPlayer();
 
@@ -63,7 +63,7 @@ namespace game_darksouls.Entity.Behaviour
             {
                 attacking = true;
                 npcMovementManager.ResetDirection();
-                attackBox.AttackWithFrame(animatedObject);
+                attackBox.AttackWithFrame(player);
 
                 if (attackBox.attackFinished)
                 {

@@ -32,6 +32,8 @@ namespace game_darksouls.Entity
             attack.HeightAttackFrame = 32;
             attack.AttackStartFrame = 2;
             attack.AttackEndFrame = 4;
+
+            HealthManager = new Health(5);
             playerAbilities = new PlayerAbilities(playerMovement, attack, new(),animationManager);
             
         }
@@ -40,7 +42,9 @@ namespace game_darksouls.Entity
             drawingBox.UpdatePosition(collisionBox.Position);
             playerMovement.Update(gameTime);
             animationManager.Update(gameTime);
+            HealthManager.Update(gameTime);
             playerAbilities.Update(gameTime);
+            HealthManager.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -48,12 +52,13 @@ namespace game_darksouls.Entity
             //spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Red);
             //spriteBatch.Draw(Game1.redsquareDebug, attack, Color.Red);
             //playerMovement.Draw(spriteBatch);
-            playerAbilities.Draw(spriteBatch);
+            //playerAbilities.Draw(spriteBatch);
+            
 
             spriteBatch.Draw(texture, 
                 drawingBox.Rectangle,
                 animationManager.currentAnimation.CurrentFrame.SourceRectangle,
-                Color.White, 
+                HealthManager.CurrentColor, 
                 0f,
                 Vector2.Zero,
                 animationManager.SpriteFLip,

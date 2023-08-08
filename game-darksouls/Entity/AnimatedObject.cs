@@ -9,8 +9,8 @@ namespace game_darksouls.Entity
     public abstract class AnimatedObject
     {
         private protected AnimationManager animationManager;
-
-        protected Texture2D texture;
+        public Health HealthManager { get; set; }
+        private protected Texture2D texture;
         internal Box drawingBox = new();
         internal Box collisionBox;
 
