@@ -45,13 +45,12 @@ namespace game_darksouls.Component
 
             if (indexAnimationFrame >= AttackStartFrame && indexAnimationFrame <= AttackEndFrame)
             {
-                attackFrame = new Rectangle(collisionBoxRec.X, collisionBoxRec.Y, WidthAttackFrame, HeightAttackFrame);
+                SpawnAttackFrame();
                 hit = CheckHit(targetObject.collisionBox);
 
                 if (hit)
                 {
                     targetObject.HealthManager.TakeDamage();
-
                 }
                 AttackFinished = false;
             }
@@ -59,6 +58,7 @@ namespace game_darksouls.Component
             if (indexAnimationFrame >= AttackEndFrame)
             {
                 this.attackAnimation.ResetAnimation();
+                
                 AttackFinished = true;
             }
 
@@ -67,11 +67,22 @@ namespace game_darksouls.Component
                 ResetAttackAnimation();
                 RemoveAttackFrame();
                 AttackFinished = false;
-            }
-            Debug.WriteLine(hit);
+            }            
             return hit;
         }
 
+        private void SpawnAttackFrame()
+        {
+            if (animationManager.FacingLeft)
+            {
+                attackFrame = new Rectangle((int)collisionBox.CenterOfBox().X - attackFrame.Width, collisionBoxRec.Y, WidthAttackFrame, HeightAttackFrame);
+            }
+            else
+            {
+                attackFrame = new Rectangle((int)collisionBox.CenterOfBox().X, collisionBoxRec.Y, WidthAttackFrame, HeightAttackFrame);
+
+            }
+        }
         private bool CheckHit(Box collisionBoxTarget)
         {
             return attackFrame.Intersects(collisionBoxTarget.Rectangle);
