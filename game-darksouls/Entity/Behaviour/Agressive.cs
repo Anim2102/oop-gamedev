@@ -10,6 +10,7 @@ namespace game_darksouls.Entity.Behaviour
 {
     internal class Agressive : IBehave
     {
+        private EntityMovementType entityMovement;
         private readonly Player player;
         private readonly AnimatedObject animatedObject;
         private readonly AnimationManager animationManager;
@@ -23,11 +24,11 @@ namespace game_darksouls.Entity.Behaviour
         private Attack attackBox;
 
         private Vector2 currentPosition => animatedObject.collisionBox.Position;
-        private Vector2 playerPosition => player.drawingBox.CenterOfBox();
+        private Vector2 playerPosition => player.collisionBox.CenterOfBox();
 
         public float RangeOfAttack { get; set; } = 40f;
 
-        public Agressive(Player player, AnimatedObject animatedObject, IMovementBehaviour npcMovementManager, AnimationManager animationManager)
+        public Agressive(EntityMovementType movementType,Player player, AnimatedObject animatedObject, IMovementBehaviour npcMovementManager, AnimationManager animationManager, Attack attackBox)
         {
             this.player = player;
             this.animatedObject = animatedObject;
@@ -35,20 +36,27 @@ namespace game_darksouls.Entity.Behaviour
             this.animationManager = animationManager;
 
             //waitTimerBeforeAttack = new Timer(3);
-            attackBox = new Attack(animationManager,animatedObject.collisionBox,Vector2.Zero);
-            attackBox.AttackStartFrame = 5;
-            attackBox.AttackEndFrame = 10;
-            attackBox.WidthAttackFrame = 90;
-            attackBox.HeightAttackFrame = 50;
-          
-            
+            this.attackBox = attackBox;
+
         }
 
         public void Behave(GameTime gameTime)
         {
+            float distanceBetweenPlayer = 0f;
+            if (entityMovement == EntityMovementType.FLYING)
+            {
+                 distanceBetweenPlayer = VectorHelpingClass.ReturnDistanceBetweenPlayerXandY(currentPosition, player.collisionBox);
+            }
 
-            float distanceBetweenPlayer = ReturnDistanceBetweenPlayer();
+            if (entityMovement == EntityMovementType.GROUND)
+            {
+                distanceBetweenPlayer = VectorHelpingClass.ReturnDistanceBetweenPlayerLinear(currentPosition, player.collisionBox);
 
+            }
+            //Debug.WriteLine("currentposition" + currentPosition);
+            //Debug.WriteLine("player position" + playerPosition);
+            //Debug.WriteLine("attacking: " + attacking + " aaval mogelijk: " + attackPossible);
+            //Debug.WriteLine(distanceBetweenPlayer);
             if (!attacking && distanceBetweenPlayer < RangeOfAttack)
             {
                 attackPossible = true;
@@ -78,29 +86,18 @@ namespace game_darksouls.Entity.Behaviour
             {
                 attackBox.RemoveAttackFrame();
                 Vector2 normalized = Vector2.Normalize(playerPosition - currentPosition);
+                //Debug.WriteLine("onderweg:" + normalized);
                 npcMovementManager.Push(normalized);
             }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(Game1.redsquareDebug, new Rectangle((int)currentPosition.X, (int)currentPosition.Y, 2, 2), Color.Red);
+            spriteBatch.Draw(Game1.redsquareDebug, new Rectangle((int)playerPosition.X, (int)playerPosition.Y, 2, 2), Color.Red);
+
             spriteBatch.Draw(Game1.redsquareDebug,attackBox.attackFrame,Color.Red);
         }
-        private float ReturnDistanceBetweenPlayer()
-        {
-            Vector2 currentPosition = new Vector2(animatedObject.collisionBox.Rectangle.X,
-                animatedObject.collisionBox.Rectangle.Y);
-
-            Vector2 playerPosition = player.drawingBox.CenterOfBox();
-
-            return CalculateDistanceBetweenTwoVectorsOnX(currentPosition, playerPosition);
-        }
-
-
-        private float CalculateDistanceBetweenTwoVectorsOnX(Vector2 a, Vector2 b)
-        {
-            return Math.Abs(a.X - b.X);
-        }
-
+        
         
     }
 }

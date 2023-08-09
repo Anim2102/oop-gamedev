@@ -68,7 +68,7 @@ namespace game_darksouls.Component
                 RemoveAttackFrame();
                 AttackFinished = false;
             }
-
+            Debug.WriteLine(hit);
             return hit;
         }
 

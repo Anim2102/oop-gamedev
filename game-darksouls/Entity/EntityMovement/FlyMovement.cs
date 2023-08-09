@@ -42,10 +42,16 @@ namespace game_darksouls.Entity.EntityMovement
 
             updatedRectangle.X += (int)(direction.X * SPEED.X * gameTime.ElapsedGameTime.Milliseconds);
             updatedRectangle.Y += (int)(direction.Y * SPEED.Y * gameTime.ElapsedGameTime.Milliseconds);
-            CollisionBox.Rectangle = updatedRectangle;
-            CollisionBox.Rectangle = updatedRectangle;
+            MoveWithCollision(updatedRectangle);
         }
-
+        private void MoveWithCollision(Rectangle futurePosition)
+        {
+            if (!CollisionManager.CheckForCollision(futurePosition))
+            {
+                Vector2 future = new Vector2(futurePosition.X, futurePosition.Y);
+                CollisionBox.UpdatePosition(future);
+            }
+        }
         void IMovementBehaviour.Push(Vector2 direction)
         {
             this.direction = direction;

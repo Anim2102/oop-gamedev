@@ -43,8 +43,11 @@ namespace game_darksouls.Entity.EntityMovement
 
             updatedRectangle.X += (int)(direction.X * speed.X * gameTime.ElapsedGameTime.Milliseconds);
             updatedRectangle.Y += (int)(direction.Y * speed.Y * gameTime.ElapsedGameTime.Milliseconds);
-            CollisionBox.Rectangle = updatedRectangle;
-            CollisionBox.Rectangle = updatedRectangle;
+
+            if (!CollisionManager.CheckForCollision(updatedRectangle))
+            {
+                CollisionBox.Rectangle = updatedRectangle;
+            }
         }
 
         private void CheckGravity()

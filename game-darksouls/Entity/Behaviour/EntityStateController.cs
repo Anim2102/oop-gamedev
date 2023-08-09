@@ -23,7 +23,6 @@ namespace game_darksouls.Entity.Behaviour
             this.agressive = agressive;
             this.player = player;
             this.animatedObject = animatedObject;
-
         }
 
         public void Update(GameTime gameTime)
@@ -58,6 +57,7 @@ namespace game_darksouls.Entity.Behaviour
         public void Draw(SpriteBatch spriteBatch)
         {
             Patrol.Draw(spriteBatch);
+            agressive.Draw(spriteBatch);
         }
        
 

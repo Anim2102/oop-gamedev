@@ -3,7 +3,7 @@ using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
 
 namespace game_darksouls.Component
-{
+{/*
     internal class NpcMovementManager : IMovementBehaviour, IComponent
     {
         public CollisionManager CollisionManager { get; set; }
@@ -103,4 +103,5 @@ namespace game_darksouls.Component
             }
         }
     }
+    */
 }

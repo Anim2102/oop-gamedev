@@ -19,12 +19,11 @@ namespace game_darksouls.Entity
         private LinearPatrol linearPatrol;
         private Agressive agressive;
 
-
+        private Attack attackBox;
         public Skeleton(Texture2D texture, Player player)
         {
             collisionBox = new Box();
-            
-            collisionBox.Rectangle = new Rectangle(1795, 655, 60, 50);
+            collisionBox.Rectangle = new Rectangle(2405, 700, 60, 50);
             this.drawingBox = new Box(170, 20, 64 * 2, 64 * 2 , new Vector2(-35, -50));
 
             this.texture = texture;
@@ -33,7 +32,13 @@ namespace game_darksouls.Entity
             this.HealthManager = new Health(5, npcMovementManager);
 
             this.linearPatrol = new(new Vector2(1450, 650), new Vector2(2000, 650), this, npcMovementManager);
-            this.agressive = new Agressive(player, this, npcMovementManager, animationManager);
+
+            this.attackBox = new Attack(animationManager, collisionBox, Vector2.Zero);
+            attackBox.AttackStartFrame = 5;
+            attackBox.AttackEndFrame = 10;
+            attackBox.WidthAttackFrame = 90;
+            attackBox.HeightAttackFrame = 50;
+            this.agressive = new Agressive(EntityMovementType.GROUND,player, this, npcMovementManager, animationManager,attackBox);
 
             entityStateController = new EntityStateController(linearPatrol, agressive, player, this);
             
