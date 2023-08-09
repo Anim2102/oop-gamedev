@@ -42,9 +42,9 @@ namespace game_darksouls.Entity
             drawingBox.UpdatePosition(collisionBox.Position);  
             movementBehaviour.Update(gameTime);
 
-            Debug.WriteLine(animationManager.currentAnimation.name);
-            Debug.WriteLine(animationManager.currentAnimation.Counter);
-            Debug.WriteLine(animationManager.currentAnimation.Complete);
+            //Debug.WriteLine(animationManager.currentAnimation.name);
+            //Debug.WriteLine(animationManager.currentAnimation.Counter);
+            //Debug.WriteLine(animationManager.currentAnimation.Complete);
 
         }
 
