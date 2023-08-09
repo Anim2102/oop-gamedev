@@ -76,8 +76,6 @@ namespace game_darksouls.Entity.Behaviour
           
             if (!shootSpell)
                 return;
-            
-
 
             if (projectFlying)
             {
@@ -118,7 +116,8 @@ namespace game_darksouls.Entity.Behaviour
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(fireBallTexure, spelBlock.Rectangle, Color.White);
+            if (shootSpell)
+                spriteBatch.Draw(fireBallTexure, spelBlock.Rectangle, Color.White);
         }
 
         private bool PlayerOnLeft()
