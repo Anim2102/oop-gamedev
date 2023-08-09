@@ -1,6 +1,7 @@
 ﻿using game_darksouls.Component;
 using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Enum;
+using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -19,11 +20,12 @@ namespace game_darksouls.Entity.Behaviour
         private readonly AnimationManager animationManager;
         private readonly IMovementBehaviour movementBehaviour;
         private readonly CollisionManager collisionManager;
+        private Texture2D fireBallTexure;
 
         private Vector2 currentPosition => animatedObject.collisionBox.Position;
         private Vector2 playerPosition => player.drawingBox.Position;
 
-        private const double AIMRANGE = 800;
+        public double RangeOfAttack { get; set; }
 
         private Box spelBlock;
         private bool shootSpell = false;
@@ -32,10 +34,11 @@ namespace game_darksouls.Entity.Behaviour
 
 
         public RangeAttack(Player player, 
-            AnimatedObject animatedObject, 
-            AnimationManager animationManager, 
-            IMovementBehaviour movementBehaviour,
-            CollisionManager collisionManager)
+        AnimatedObject animatedObject, 
+        AnimationManager animationManager, 
+        IMovementBehaviour movementBehaviour,
+        CollisionManager collisionManager,
+        Texture2D fireball)
         {
             this.player = player;
             this.animatedObject = animatedObject;
@@ -43,12 +46,14 @@ namespace game_darksouls.Entity.Behaviour
             this.movementBehaviour = movementBehaviour;
             this.collisionManager = collisionManager;
 
-            spelBlock = new Box((int)currentPosition.X, (int)currentPosition.Y, 10, 10);
+            this.spelBlock = new();
+            this.fireBallTexure = fireball;
         }
 
         public void Behave(GameTime gameTime)
         {
-            if (ReturnDistanceBetweenPlayer() <= AIMRANGE)
+            
+            if (ReturnDistanceBetweenPlayer() <= RangeOfAttack)
             {
                 animationManager.FacingLeft = PlayerOnLeft();
                 animationManager.PlayAnimation(MovementState.ATTACK);
@@ -61,17 +66,19 @@ namespace game_darksouls.Entity.Behaviour
             }
             else
             {
+                animationManager.ResetAnimationOnState(MovementState.ATTACK);
                 animationManager.PlayAnimation(MovementState.IDLE);
-                
             }
         }
 
         public void UpdateSpell(GameTime gameTime)
         {
+          
             if (!shootSpell)
                 return;
-
             
+
+
             if (projectFlying)
             {
                 if (collisionManager.CheckForCollision(spelBlock))
@@ -81,11 +88,11 @@ namespace game_darksouls.Entity.Behaviour
                     ResetSpellBlock();
                     return;
                 }
-                MoveSpell(gameTime);
+               MoveSpell(gameTime);
             }
             else
             {
-                if(animationManager.currentAnimation.Complete && ReturnDistanceBetweenPlayer() <= AIMRANGE)
+                if(animationManager.currentAnimation.Complete && ReturnDistanceBetweenPlayer() <= RangeOfAttack)
                 {
                     projectFlying = true;
                 }
@@ -111,8 +118,7 @@ namespace game_darksouls.Entity.Behaviour
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            
-            spriteBatch.Draw(Game1.redsquareDebug, spelBlock.Rectangle, Color.Green);
+            spriteBatch.Draw(fireBallTexure, spelBlock.Rectangle, Color.White);
         }
 
         private bool PlayerOnLeft()

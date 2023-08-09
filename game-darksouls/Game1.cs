@@ -21,10 +21,11 @@ namespace game_darksouls
         public static Skeleton skeleton;
 
         private Texture2D wingedMobTexture;
-        public static WingedMob wingedMob;
+        public  WingedMob wingedMob;
 
         private Texture2D wizardTexture;
-        public static Wizard wizard;
+        public  Wizard wizard;
+        private Texture2D wizardFireBall;
 
         private Camera camera;
 
@@ -50,7 +51,7 @@ namespace game_darksouls
             player = new Player(knightSpritesheet);
             skeleton = new Skeleton(skeletonTexture, player);
             wingedMob = new WingedMob(wingedMobTexture, player);
-            wizard = new Wizard(wizardTexture, player);
+            wizard = new Wizard(wizardTexture,wizardFireBall, player);
             tempLevel = new();
             levelOne = new LevelOne();
             camera = new Camera(GraphicsDevice.Viewport,player);
@@ -71,6 +72,7 @@ namespace game_darksouls
             skeletonTexture = Content.Load<Texture2D>("Skeleton");
             wingedMobTexture = Content.Load<Texture2D>("Brain Mole");
             wizardTexture = Content.Load<Texture2D>("wizard");
+            wizardFireBall = Content.Load<Texture2D>("fireball");
 
             dungeonTexture = Content.Load<Texture2D>("Dungeon Tile Set");
             // TODO: use this.Content to load your game content here
@@ -84,8 +86,8 @@ namespace game_darksouls
             // TODO: Add your update logic here
             player.Update(gameTime);
             //skeleton.Update(gameTime);
-            wingedMob.Update(gameTime);
-            //wizard.Update(gameTime);
+            //wingedMob.Update(gameTime);
+            wizard.Update(gameTime);
             camera.Update();
             base.Update(gameTime);
         }
@@ -97,8 +99,8 @@ namespace game_darksouls
 
             player.Draw(_spriteBatch);
             //skeleton.Draw(_spriteBatch);
-            wingedMob.Draw(_spriteBatch);
-            //wizard.Draw(_spriteBatch);
+            //wingedMob.Draw(_spriteBatch);
+            wizard.Draw(_spriteBatch);
             
             levelOne.Draw(_spriteBatch);
             //tempLevel.Draw(_spriteBatch,redsquare);

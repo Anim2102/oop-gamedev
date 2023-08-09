@@ -60,7 +60,7 @@ namespace game_darksouls.Animation
             Dictionary<MovementState, ActionAnimation> animations = new();
             ActionAnimation idleAnimation = LoadAnimations("idle", amountFrames: 8, fps: 8, yas: 0, width: 160, height: 128);
             ActionAnimation attackAnimation = LoadAnimations("attack", amountFrames: 13, fps: 6, yas: 256, width: 160, height: 128);
-            idleAnimation.Loop = true;
+            
             
             animations.Add(MovementState.IDLE, idleAnimation);
             animations.Add(MovementState.ATTACK, attackAnimation);

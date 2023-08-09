@@ -4,6 +4,7 @@ using game_darksouls.Animation;
 using game_darksouls.Component;
 using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Entity.Behaviour;
+using System.Diagnostics;
 
 namespace game_darksouls.Entity
 {
@@ -14,30 +15,36 @@ namespace game_darksouls.Entity
         private CollisionManager collisionManager;
 
         private RangeAttack rangeAttack;
+        private Texture2D fireball;
 
-        public Wizard(Texture2D texture, Player player)
+        public Wizard(Texture2D texture,Texture2D fireball, Player player)
         {
-            this.texture = texture;
-            this.animationManager = new AnimationManager(AnimationFactory.LoadWizardAnimations());
-            this.collisionManager = new CollisionManager();
+           this.texture = texture;
+           this.fireball = fireball;
 
-            this.drawingBox = new Box(250, 20, 64 * 4, 64 * 4, new Vector2(-100, -130));
-            this.collisionBox = new Box(2575, 720, 64, 100, new Vector2(0, 0));
+           animationManager = new AnimationManager(AnimationFactory.LoadWizardAnimations());
+           collisionManager = new CollisionManager();
+           
+           drawingBox = new Box(250, 20, 64 * 4, 64 * 4, new Vector2(-100, -130));
+           collisionBox = new Box(2575, 720, 64, 100, new Vector2(0, 0));
+           
+           movementBehaviour = new GroundMovement(new CollisionManager(), animationManager, collisionBox);
 
-            this.movementBehaviour = new GroundMovement(new CollisionManager(), animationManager, collisionBox);
-
-            rangeAttack = new RangeAttack(player, this, animationManager, movementBehaviour, collisionManager);
-              
+           rangeAttack = new RangeAttack(player, this, animationManager, movementBehaviour, collisionManager,fireball);
+           rangeAttack.RangeOfAttack = 300;
         }
 
         public void Update(GameTime gameTime)
         {
-            this.drawingBox.UpdatePosition(collisionBox.Position);  
-            this.animationManager.Update(gameTime);
-            this.movementBehaviour.Update(gameTime);
-
+            animationManager.Update(gameTime);
             rangeAttack.Behave(gameTime);
             rangeAttack.UpdateSpell(gameTime);
+            drawingBox.UpdatePosition(collisionBox.Position);  
+            movementBehaviour.Update(gameTime);
+
+            Debug.WriteLine(animationManager.currentAnimation.name);
+            Debug.WriteLine(animationManager.currentAnimation.Counter);
+            Debug.WriteLine(animationManager.currentAnimation.Complete);
 
         }
 

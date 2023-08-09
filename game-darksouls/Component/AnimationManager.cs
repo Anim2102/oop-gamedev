@@ -28,7 +28,7 @@ namespace game_darksouls.Component
         {
             if (animations.ContainsKey(movementState))
             {
-                currentAnimation.ResetAnimation();
+                //currentAnimation.ResetAnimation();
                 currentAnimation = animations[movementState];                
             }
         }
