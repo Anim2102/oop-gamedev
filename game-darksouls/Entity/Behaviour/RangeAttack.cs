@@ -1,20 +1,14 @@
 ﻿using game_darksouls.Component;
 using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Enum;
-using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace game_darksouls.Entity.Behaviour
 {
     internal class RangeAttack : IBehave
-{
+    {
         private readonly Player player;
         private readonly AnimatedObject animatedObject;
         private readonly AnimationManager animationManager;
@@ -33,9 +27,9 @@ namespace game_darksouls.Entity.Behaviour
         private bool projectFlying = false;
 
 
-        public RangeAttack(Player player, 
-        AnimatedObject animatedObject, 
-        AnimationManager animationManager, 
+        public RangeAttack(Player player,
+        AnimatedObject animatedObject,
+        AnimationManager animationManager,
         IMovementBehaviour movementBehaviour,
         CollisionManager collisionManager,
         Texture2D fireball)
@@ -52,7 +46,7 @@ namespace game_darksouls.Entity.Behaviour
 
         public void Behave(GameTime gameTime)
         {
-            
+
             if (ReturnDistanceBetweenPlayer() <= RangeOfAttack)
             {
                 animationManager.FacingLeft = PlayerOnLeft();
@@ -73,7 +67,7 @@ namespace game_darksouls.Entity.Behaviour
 
         public void UpdateSpell(GameTime gameTime)
         {
-          
+
             if (!shootSpell)
                 return;
 
@@ -86,11 +80,11 @@ namespace game_darksouls.Entity.Behaviour
                     ResetSpellBlock();
                     return;
                 }
-               MoveSpell(gameTime);
+                MoveSpell(gameTime);
             }
             else
             {
-                if(animationManager.currentAnimation.Complete && ReturnDistanceBetweenPlayer() <= RangeOfAttack)
+                if (animationManager.currentAnimation.Complete && ReturnDistanceBetweenPlayer() <= RangeOfAttack)
                 {
                     projectFlying = true;
                 }
@@ -111,6 +105,7 @@ namespace game_darksouls.Entity.Behaviour
         }
         private void ResetSpellBlock()
         {
+
             spelBlock = new Box((int)currentPosition.X, (int)currentPosition.Y, 10, 10);
 
         }
@@ -124,7 +119,7 @@ namespace game_darksouls.Entity.Behaviour
         {
             if (playerPosition.X > currentPosition.X)
                 return false;
-            else 
+            else
                 return true;
         }
 
