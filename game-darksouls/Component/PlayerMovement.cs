@@ -161,7 +161,7 @@ namespace game_darksouls.Component
 
         public void PushAfterHit(Vector2 pushDirection)
         {
-            Vector2 pushForce = new Vector2(-50f, 100f);
+            Vector2 pushForce = new Vector2(0f, 60f);
             Vector2 currentPosition = CollisionBox.Position;
             Vector2 push = pushDirection * pushForce;
             Vector2 futurePosition = currentPosition + push;
