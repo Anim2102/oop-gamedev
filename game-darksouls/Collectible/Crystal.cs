@@ -10,31 +10,31 @@ namespace game_darksouls.Collectible
     {
         public Crystal(Texture2D crystalTexture)
         {
-            texture = crystalTexture;
-            animationManager = new AnimationManager(AnimationFactory.LoadCrystalAnimations());
-            collisionBox = new Box(2405, 820, 30, 64);
-            drawingBox = new Box(0, 0, 64, 64);
-            drawingBox.Offset = new Vector2(-18,0);
+            Texture = crystalTexture;
+            AnimationManager = new AnimationManager(AnimationFactory.LoadCrystalAnimations());
+            CollisionBox = new Box(2405, 820, 30, 64);
+            DrawingBox = new Box(0, 0, 64, 64);
+            DrawingBox.Offset = new Vector2(-18,0);
 
-            animationManager.PlayAnimation(Enum.MovementState.IDLE);
+            AnimationManager.PlayAnimation(Enum.MovementState.IDLE);
         }
 
         public void Update(GameTime gameTime)
         {
-            drawingBox.UpdatePosition(collisionBox.Position);
-            animationManager.Update(gameTime);
+            DrawingBox.UpdatePosition(CollisionBox.Position);
+            AnimationManager.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Red);
-            spriteBatch.Draw(texture,
-                drawingBox.Rectangle,
-                animationManager.currentAnimation.CurrentFrame.SourceRectangle,
+            spriteBatch.Draw(Texture,
+                DrawingBox.Rectangle,
+                AnimationManager.currentAnimation.CurrentFrame.SourceRectangle,
                 Color.White,
                 0f,
                 Vector2.Zero,
-                animationManager.SpriteFLip,
+                AnimationManager.SpriteFLip,
                 0f);
         }
     }

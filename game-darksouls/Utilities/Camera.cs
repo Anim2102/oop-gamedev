@@ -32,7 +32,7 @@ namespace game_darksouls.Utilities
         }
         public void Update()
         {
-            CameraPosition = this.player.drawingBox.CenterOfBox();
+            CameraPosition = this.player.DrawingBox.CenterOfBox();
         }
     }
 

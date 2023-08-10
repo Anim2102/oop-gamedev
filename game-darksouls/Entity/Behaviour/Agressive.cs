@@ -23,8 +23,8 @@ namespace game_darksouls.Entity.Behaviour
 
         private Attack attackBox;
 
-        private Vector2 currentPosition => animatedObject.collisionBox.Position;
-        private Vector2 playerPosition => player.collisionBox.CenterOfBox();
+        private Vector2 currentPosition => animatedObject.CollisionBox.Position;
+        private Vector2 playerPosition => player.CollisionBox.CenterOfBox();
 
         public float RangeOfAttack { get; set; } = 40f;
 
@@ -45,12 +45,12 @@ namespace game_darksouls.Entity.Behaviour
             float distanceBetweenPlayer = 0f;
             if (entityMovement == EntityMovementType.FLYING)
             {
-                 distanceBetweenPlayer = VectorHelpingClass.ReturnDistanceBetweenPlayerXandY(currentPosition, player.collisionBox);
+                 distanceBetweenPlayer = VectorHelpingClass.ReturnDistanceBetweenPlayerXandY(currentPosition, player.CollisionBox);
             }
 
             if (entityMovement == EntityMovementType.GROUND)
             {
-                distanceBetweenPlayer = VectorHelpingClass.ReturnDistanceBetweenPlayerLinear(currentPosition, player.collisionBox);
+                distanceBetweenPlayer = VectorHelpingClass.ReturnDistanceBetweenPlayerLinear(currentPosition, player.CollisionBox);
 
             }
             //Debug.WriteLine("currentposition" + currentPosition);

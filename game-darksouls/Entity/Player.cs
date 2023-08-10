@@ -1,4 +1,5 @@
-﻿using game_darksouls.Animation;
+﻿using Component.Health;
+using game_darksouls.Animation;
 using game_darksouls.Component;
 using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Enum;
@@ -18,34 +19,34 @@ namespace game_darksouls.Entity
 
         public Player(Texture2D texturePlayer)
         {
-            texture = texturePlayer;
+            Texture = texturePlayer;
             
-            collisionBox = new Box(2405, 700, 30, 40);
-            drawingBox.Rectangle = new Rectangle(0, 0, 50, 50);
-            drawingBox.Offset = new Vector2(-10, -10);
+            CollisionBox = new Box(2405, 700, 30, 40);
+            DrawingBox = new Box(0, 0, 50, 50);
+            DrawingBox.Offset = new Vector2(-10, -10);
 
-            animationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
-            playerMovement = new PlayerMovement(new CollisionManager(),collisionBox,animationManager,new(), this);
+            AnimationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
+            playerMovement = new PlayerMovement(new CollisionManager(),CollisionBox,AnimationManager,new(), this);
 
-            attack = new Attack(animationManager,collisionBox,Vector2.Zero);
+            attack = new Attack(AnimationManager,CollisionBox,Vector2.Zero);
             attack.WidthAttackFrame = 40;
             attack.HeightAttackFrame = 32;
             attack.AttackStartFrame = 2;
             attack.AttackEndFrame = 4;
 
-            HealthManager = new Health(5, playerMovement);
-            playerAbilities = new PlayerAbilities(playerMovement, attack, new(),animationManager);
+            HealthManager = new Health(5, playerMovement,AnimationManager);
+            playerAbilities = new PlayerAbilities(playerMovement, attack, new(),AnimationManager);
             
         }
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            Debug.WriteLine(collisionBox.Position);
-            drawingBox.UpdatePosition(collisionBox.Position);
+            //Debug.WriteLine(collisionBox.Position);
             playerMovement.Update(gameTime);
-            animationManager.Update(gameTime);
+            AnimationManager.Update(gameTime);
             HealthManager.Update(gameTime);
             playerAbilities.Update(gameTime);
             HealthManager.Update(gameTime);
+            base.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -56,13 +57,13 @@ namespace game_darksouls.Entity
             //playerAbilities.Draw(spriteBatch);
             
             attack.Draw(spriteBatch);
-            spriteBatch.Draw(texture, 
-                drawingBox.Rectangle,
-                animationManager.currentAnimation.CurrentFrame.SourceRectangle,
+            spriteBatch.Draw(Texture, 
+                DrawingBox.Rectangle,
+                AnimationManager.currentAnimation.CurrentFrame.SourceRectangle,
                 HealthManager.CurrentColor, 
                 0f,
                 Vector2.Zero,
-                animationManager.SpriteFLip,
+                AnimationManager.SpriteFLip,
                 0f );
         }
     }

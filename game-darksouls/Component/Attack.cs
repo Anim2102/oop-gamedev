@@ -46,7 +46,7 @@ namespace game_darksouls.Component
             if (indexAnimationFrame >= AttackStartFrame && indexAnimationFrame <= AttackEndFrame)
             {
                 SpawnAttackFrame();
-                hit = CheckHit(targetObject.collisionBox);
+                hit = CheckHit(targetObject.CollisionBox);
 
                 if (hit)
                 {

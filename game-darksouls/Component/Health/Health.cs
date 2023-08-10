@@ -1,8 +1,11 @@
-﻿using game_darksouls.Entity.EntityMovement;
+﻿using game_darksouls.Component;
+using game_darksouls.Component.Health;
+using game_darksouls.Entity.EntityMovement;
+using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
 
-namespace game_darksouls.Component
+namespace Component.Health
 {
     public class Health
     {
@@ -10,8 +13,10 @@ namespace game_darksouls.Component
         public bool Hit { get; private set; }
         public Color CurrentColor { get; private set; }
         public bool Alive { get; private set; }
+        public State CurrentState { get; private set; }
         public bool Invurnable { get; private set; }
-        public IMovementBehaviour MovementBehaviour { get; set; }
+        public IMovementBehaviour MovementBehaviour { get; private set; }
+        public AnimationManager AnimationManager { get; private set; }
 
         private float invurnableTime = 3f;
         private float currentInvurnableTime = 0f;
@@ -22,12 +27,15 @@ namespace game_darksouls.Component
 
         private int maxHealthPoints;
 
-        public Health(int maxHealth, IMovementBehaviour movementBehaviour)
+        public Health(int maxHealth, IMovementBehaviour movementBehaviour, AnimationManager animationManager)
         {
-            this.MovementBehaviour = movementBehaviour;
+            MovementBehaviour = movementBehaviour;
+            AnimationManager = animationManager;
             maxHealthPoints = maxHealth;
             HealthPoints = maxHealth;
             CurrentColor = Color.White;
+            Alive = true;
+
         }
 
         public void TakeDamage()
@@ -37,11 +45,12 @@ namespace game_darksouls.Component
 
             HealthPoints -= 1;
 
-            if (HealthPoints < 0)
+            if (HealthPoints <= 0)
             {
-                Alive = false;
+                AnimationManager.PlayAnimation(MovementState.DEATH);
+                CurrentState = State.DYING;
             }
-            
+
             Hit = true;
             MovementBehaviour.PushAfterHit(new Vector2(0, -1));
 
@@ -49,7 +58,7 @@ namespace game_darksouls.Component
 
         public void Update(GameTime gameTime)
         {
-           // Debug.WriteLine("Hp: " + HealthPoints + "geraakt: " + Hit + "onzichtbaar: " + Invurnable);
+            // Debug.WriteLine("Hp: " + HealthPoints + "geraakt: " + Hit + "onzichtbaar: " + Invurnable);
             ChangeInvurnableTime(gameTime);
             ChangeColor(gameTime);
         }
@@ -89,7 +98,7 @@ namespace game_darksouls.Component
                 }
             }
         }
-        
+
 
     }
 }

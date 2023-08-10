@@ -5,6 +5,7 @@ using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace game_darksouls
 {
@@ -22,7 +23,7 @@ namespace game_darksouls
         public static Skeleton skeleton;
 
         private Texture2D wingedMobTexture;
-        public  WingedMob wingedMob;
+        public  static WingedMob wingedMob;
 
         private Texture2D wizardTexture;
         public  Wizard wizard;
@@ -40,6 +41,8 @@ namespace game_darksouls
 
         private Texture2D crystalTexture;
         private Crystal crystal;
+
+        private List<IEntity> entities;
 
         public Game1()
         {
@@ -59,6 +62,9 @@ namespace game_darksouls
             crystal = new Crystal(crystalTexture);
             tempLevel = new();
             levelOne = new LevelOne();
+            entities = new List<IEntity>();
+
+
             camera = new Camera(GraphicsDevice.Viewport,player);
 
             _graphics.PreferredBackBufferWidth = 1250;   
@@ -90,10 +96,11 @@ namespace game_darksouls
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            
+            wingedMob.Update(gameTime);
             // TODO: Add your update logic here
             player.Update(gameTime);
             //skeleton.Update(gameTime);
-            wingedMob.Update(gameTime);
             //wizard.Update(gameTime);
             crystal.Update(gameTime);
             camera.Update();

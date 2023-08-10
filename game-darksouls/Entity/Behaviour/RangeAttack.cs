@@ -16,8 +16,8 @@ namespace game_darksouls.Entity.Behaviour
         private readonly CollisionManager collisionManager;
         private Texture2D fireBallTexure;
 
-        private Vector2 currentPosition => animatedObject.collisionBox.Position;
-        private Vector2 playerPosition => player.drawingBox.Position;
+        private Vector2 currentPosition => animatedObject.CollisionBox.Position;
+        private Vector2 playerPosition => player.DrawingBox.Position;
 
         public double RangeOfAttack { get; set; }
 
@@ -93,7 +93,7 @@ namespace game_darksouls.Entity.Behaviour
         }
         private void MoveSpell(GameTime gameTime)
         {
-            Vector2 direction = this.player.collisionBox.CenterOfBox() - currentPosition;
+            Vector2 direction = this.player.CollisionBox.CenterOfBox() - currentPosition;
 
 
             Vector2 normalizedDirection = Vector2.Normalize(direction);
@@ -126,10 +126,10 @@ namespace game_darksouls.Entity.Behaviour
 
         private float ReturnDistanceBetweenPlayer()
         {
-            Vector2 currentPosition = new Vector2(animatedObject.collisionBox.Rectangle.X,
-                animatedObject.collisionBox.Rectangle.Y);
+            Vector2 currentPosition = new Vector2(animatedObject.CollisionBox.Rectangle.X,
+                animatedObject.CollisionBox.Rectangle.Y);
 
-            Vector2 playerPosition = player.drawingBox.CenterOfBox();
+            Vector2 playerPosition = player.DrawingBox.CenterOfBox();
 
             return CalculateDistanceBetweenTwoVectorsOnX(currentPosition, playerPosition);
         }

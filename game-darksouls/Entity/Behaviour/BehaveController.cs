@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace game_darksouls.Entity.Behaviour
 {
-    internal class EntityStateController : IComponent
+    internal class BehaveController : IComponent
     {
         
         private readonly Player player;
@@ -17,7 +17,7 @@ namespace game_darksouls.Entity.Behaviour
         public IBehave agressive;
         private IBehave currentBehaviour;
 
-        public EntityStateController(IBehave Patrol, IBehave agressive,Player player,AnimatedObject animatedObject)
+        public BehaveController(IBehave Patrol, IBehave agressive,Player player,AnimatedObject animatedObject)
         {
             this.Patrol = Patrol;
             this.agressive = agressive;
@@ -33,8 +33,8 @@ namespace game_darksouls.Entity.Behaviour
 
         private void ControleState()
         {
-            Vector2 currentPosition = animatedObject.collisionBox.CenterOfBox();
-            Vector2 playerPosition = player.collisionBox.CenterOfBox();
+            Vector2 currentPosition = animatedObject.CollisionBox.CenterOfBox();
+            Vector2 playerPosition = player.CollisionBox.CenterOfBox();
 
             float distanceBetweenPlayer = CalculateDistanceBetweenTwoVectorsOnX(currentPosition, playerPosition);
 

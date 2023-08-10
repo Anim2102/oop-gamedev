@@ -1,6 +1,8 @@
 ﻿
 
+using Component.Health;
 using game_darksouls.Component;
+using game_darksouls.Entity.EntityMovement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,12 +10,17 @@ namespace game_darksouls.Entity
 {
     public abstract class AnimatedObject
     {
-        private protected AnimationManager animationManager;
+        public Texture2D Texture { get; set; }
+        public AnimationManager AnimationManager { get; set; }
         public Health HealthManager { get; set; }
-        private protected Texture2D texture;
-        internal Box drawingBox = new();
-        internal Box collisionBox;
+        public CollisionManager CollisionManager { get; set; }
+        public IMovementBehaviour MovementBehaviour { get; set; }
+        public Box DrawingBox { get; set; }
+        public Box CollisionBox { get; set; }
 
-
+        public virtual void Update(GameTime gameTime)
+        {
+            DrawingBox.UpdatePosition(CollisionBox.Position);
+        }
     }
 }

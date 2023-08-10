@@ -16,9 +16,6 @@ namespace game_darksouls.Entity.EntityMovement
         private Vector2 SPEED = new Vector2(0.1f, 0.1f);
         private Vector2 direction;
 
-
-
-
         public FlyMovement(CollisionManager collisionManager, AnimationManager animationManager, Box collisionBox)
         {
             this.CollisionManager = collisionManager;
@@ -43,6 +40,8 @@ namespace game_darksouls.Entity.EntityMovement
             updatedRectangle.X += (int)(direction.X * SPEED.X * gameTime.ElapsedGameTime.Milliseconds);
             updatedRectangle.Y += (int)(direction.Y * SPEED.Y * gameTime.ElapsedGameTime.Milliseconds);
             MoveWithCollision(updatedRectangle);
+
+            
         }
         private void MoveWithCollision(Rectangle futurePosition)
         {

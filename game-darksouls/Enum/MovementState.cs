@@ -5,6 +5,7 @@
         IDLE,
         MOVING,
         FALLING,
-        ATTACK
+        ATTACK,
+        DEATH
     }
 }

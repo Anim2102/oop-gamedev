@@ -5,6 +5,7 @@ using game_darksouls.Component;
 using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Entity.Behaviour;
 using System.Diagnostics;
+using Component.Health;
 
 namespace game_darksouls.Entity
 {
@@ -19,27 +20,27 @@ namespace game_darksouls.Entity
 
         public Wizard(Texture2D texture,Texture2D fireball, Player player)
         {
-           this.texture = texture;
+           this.Texture = texture;
            this.fireball = fireball;
 
-           animationManager = new AnimationManager(AnimationFactory.LoadWizardAnimations());
+           AnimationManager = new AnimationManager(AnimationFactory.LoadWizardAnimations());
            collisionManager = new CollisionManager();
+            HealthManager = new Health(1, movementBehaviour, AnimationManager);
+           DrawingBox = new Box(250, 20, 64 * 4, 64 * 4, new Vector2(-100, -130));
+           CollisionBox = new Box(2575, 720, 64, 100, new Vector2(0, 0));
            
-           drawingBox = new Box(250, 20, 64 * 4, 64 * 4, new Vector2(-100, -130));
-           collisionBox = new Box(2575, 720, 64, 100, new Vector2(0, 0));
-           
-           movementBehaviour = new GroundMovement(new CollisionManager(), animationManager, collisionBox);
+           movementBehaviour = new GroundMovement(new CollisionManager(), AnimationManager, CollisionBox);
 
-           rangeAttack = new RangeAttack(player, this, animationManager, movementBehaviour, collisionManager,fireball);
+           rangeAttack = new RangeAttack(player, this, AnimationManager, movementBehaviour, collisionManager,fireball);
            rangeAttack.RangeOfAttack = 300;
         }
 
         public void Update(GameTime gameTime)
         {
-            animationManager.Update(gameTime);
+            AnimationManager.Update(gameTime);
             rangeAttack.Behave(gameTime);
             rangeAttack.UpdateSpell(gameTime);
-            drawingBox.UpdatePosition(collisionBox.Position);  
+            DrawingBox.UpdatePosition(CollisionBox.Position);  
             movementBehaviour.Update(gameTime);
 
             //Debug.WriteLine(animationManager.currentAnimation.name);
@@ -54,13 +55,13 @@ namespace game_darksouls.Entity
             //spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Green);
 
             rangeAttack.Draw(spriteBatch);
-            spriteBatch.Draw(texture,
-                drawingBox.Rectangle,
-                animationManager.currentAnimation.CurrentFrame.SourceRectangle,
+            spriteBatch.Draw(Texture,
+                DrawingBox.Rectangle,
+                AnimationManager.currentAnimation.CurrentFrame.SourceRectangle,
                 Color.White,
                 0f,
                 Vector2.Zero,
-                animationManager.SpriteFLip,
+                AnimationManager.SpriteFLip,
                 0f);
         }
     }

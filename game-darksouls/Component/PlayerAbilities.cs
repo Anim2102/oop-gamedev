@@ -32,10 +32,9 @@ namespace game_darksouls.Component
                 playerMovement.ResetDirection();
             }
             
-
             if (Attacking)
             {
-                attackBox.AttackWithFrame(Game1.skeleton);
+                attackBox.AttackWithFrame(Game1.wingedMob);
             }
 
             if (attackBox.AttackFinished && Attacking)

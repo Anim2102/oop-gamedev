@@ -40,7 +40,7 @@ namespace game_darksouls.Entity.Behaviour
             timer.Update(gameTime);
             npcMovementManager.ChangeMovingState();
 
-            Vector2 currentPosition = this.animatedObject.collisionBox.CenterOfBox();
+            Vector2 currentPosition = this.animatedObject.CollisionBox.CenterOfBox();
 
 
             //Debug.WriteLine("positie: " + currentPosition + "   target positie: " + currentTarget);
@@ -83,8 +83,8 @@ namespace game_darksouls.Entity.Behaviour
             Rectangle pointB = new Rectangle((int)positionB.X, (int)positionB.Y, 10, 10);
             
 
-            Rectangle centerPoint = new Rectangle((int)this.animatedObject.drawingBox.CenterOfBox().X,
-                (int)this.animatedObject.drawingBox.CenterOfBox().Y,10, 10);
+            Rectangle centerPoint = new Rectangle((int)this.animatedObject.DrawingBox.CenterOfBox().X,
+                (int)this.animatedObject.DrawingBox.CenterOfBox().Y,10, 10);
 
             spriteBatch.Draw(Game1.redsquareDebug, pointA, Color.Red);
             spriteBatch.Draw(Game1.redsquareDebug, pointB, Color.Red);
