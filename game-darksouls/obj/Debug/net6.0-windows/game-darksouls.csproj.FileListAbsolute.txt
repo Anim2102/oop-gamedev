@@ -42,3 +42,4 @@ C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\wizard.xnb
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\Dungeon Tile Set.xnb
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\fireball.xnb
+C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\crystal.xnb

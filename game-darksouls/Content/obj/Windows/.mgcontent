@@ -5,6 +5,7 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Brain Mole.png</File>
+    <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/crystal.png</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Daco_4696122.png</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Dungeon Tile Set.png</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Knight Sprite Sheet.png</File>
@@ -13,6 +14,7 @@
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/square.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File>fireball.png</File>
     <File xsi:nil="true" />

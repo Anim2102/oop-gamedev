@@ -1,4 +1,5 @@
-﻿using game_darksouls.Entity;
+﻿using game_darksouls.Collectible;
+using game_darksouls.Entity;
 using game_darksouls.Level;
 using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
@@ -37,6 +38,9 @@ namespace game_darksouls
         private Texture2D redsquare;
         public static Texture2D redsquareDebug;
 
+        private Texture2D crystalTexture;
+        private Crystal crystal;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -52,6 +56,7 @@ namespace game_darksouls
             skeleton = new Skeleton(skeletonTexture, player);
             wingedMob = new WingedMob(wingedMobTexture, player);
             wizard = new Wizard(wizardTexture,wizardFireBall, player);
+            crystal = new Crystal(crystalTexture);
             tempLevel = new();
             levelOne = new LevelOne();
             camera = new Camera(GraphicsDevice.Viewport,player);
@@ -74,6 +79,8 @@ namespace game_darksouls
             wizardTexture = Content.Load<Texture2D>("wizard");
             wizardFireBall = Content.Load<Texture2D>("fireball");
 
+            crystalTexture = Content.Load<Texture2D>("crystal");
+
             dungeonTexture = Content.Load<Texture2D>("Dungeon Tile Set");
             // TODO: use this.Content to load your game content here
         }
@@ -87,7 +94,8 @@ namespace game_darksouls
             player.Update(gameTime);
             //skeleton.Update(gameTime);
             //wingedMob.Update(gameTime);
-            wizard.Update(gameTime);
+            //wizard.Update(gameTime);
+            crystal.Update(gameTime);
             camera.Update();
             base.Update(gameTime);
         }
@@ -97,11 +105,12 @@ namespace game_darksouls
             GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin(transformMatrix: camera.CreateTransformation(GraphicsDevice));
 
-            player.Draw(_spriteBatch);
             //skeleton.Draw(_spriteBatch);
             //wingedMob.Draw(_spriteBatch);
-            wizard.Draw(_spriteBatch);
-            
+            //wizard.Draw(_spriteBatch);
+            crystal.Draw(_spriteBatch);
+            player.Draw(_spriteBatch);
+
             levelOne.Draw(_spriteBatch);
             //tempLevel.Draw(_spriteBatch,redsquare);
             _spriteBatch.End();

@@ -27,7 +27,6 @@ namespace game_darksouls.Entity.Behaviour
 
         public void Update(GameTime gameTime)
         {
-           
             ControleState();
             currentBehaviour.Behave(gameTime);
         }

@@ -21,7 +21,7 @@ namespace game_darksouls.Component
         {
             this.animations = animations;
             //temp default animation
-            currentAnimation = animations[MovementState.ATTACK];
+            currentAnimation = animations[MovementState.IDLE];
         }
 
         public void PlayAnimation(MovementState movementState)

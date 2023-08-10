@@ -39,7 +39,7 @@ namespace game_darksouls.Entity
         }
         public void Update(GameTime gameTime)
         {
-            //Debug.WriteLine(collisionBox.Position);
+            Debug.WriteLine(collisionBox.Position);
             drawingBox.UpdatePosition(collisionBox.Position);
             playerMovement.Update(gameTime);
             animationManager.Update(gameTime);

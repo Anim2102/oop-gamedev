@@ -68,7 +68,16 @@ namespace game_darksouls.Animation
             return animations;
         }
 
-        private static ActionAnimation LoadAnimations(string name = "none",bool loop = true,int fps = 15, int amountFrames = 1, int yas = 40, int width = 32, int height = 27)
+        public static Dictionary<MovementState, ActionAnimation> LoadCrystalAnimations()
+        {
+            Dictionary<MovementState, ActionAnimation> animations = new();
+            ActionAnimation staticAnimation = LoadAnimations("static",amountFrames: 24,fps: 12,yas: 0, width: 64,height: 64);
+
+            animations.Add(MovementState.IDLE,staticAnimation);
+
+            return animations;
+        }
+        public static ActionAnimation LoadAnimations(string name = "none",bool loop = true,int fps = 15, int amountFrames = 1, int yas = 40, int width = 32, int height = 27)
         {
             ActionAnimation animation = new ActionAnimation(name);
             animation.Loop = loop;
@@ -85,5 +94,7 @@ namespace game_darksouls.Animation
 
             return animation;
         }
+
+        
     }
 }
