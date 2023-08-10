@@ -43,7 +43,7 @@ namespace game_darksouls.Component
             }
             
             Hit = true;
-
+            MovementBehaviour.PushAfterHit(new Vector2(0, -1));
 
         }
 

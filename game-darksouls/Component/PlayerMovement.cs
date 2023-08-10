@@ -159,6 +159,16 @@ namespace game_darksouls.Component
             AnimationManager.UpdateAnimationOnState(CurrentMovementState);
         }
 
+        public void PushAfterHit(Vector2 pushDirection)
+        {
+            Vector2 pushForce = new Vector2(-50f, 100f);
+            Vector2 currentPosition = CollisionBox.Position;
+            Vector2 push = pushDirection * pushForce;
+            Vector2 futurePosition = currentPosition + push;
+
+            MoveWithCollision(futurePosition);
+        }
+
         public void Push(Vector2 direction)
         {
             this.direction = direction;
