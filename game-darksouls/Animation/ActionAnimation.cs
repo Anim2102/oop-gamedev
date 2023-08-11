@@ -69,7 +69,7 @@ namespace game_darksouls.Animation
                 if (Loop)
                 {
                     Counter = 0;
-                    Complete = true;
+                    
                 }
                 else
                 {

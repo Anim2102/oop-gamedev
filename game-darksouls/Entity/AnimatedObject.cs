@@ -20,6 +20,7 @@ namespace game_darksouls.Entity
 
         public virtual void Update(GameTime gameTime)
         {
+
             DrawingBox.UpdatePosition(CollisionBox.Position);
         }
     }

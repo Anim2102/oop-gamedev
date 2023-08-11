@@ -5,12 +5,13 @@ using game_darksouls.Entity.Behaviour;
 using game_darksouls.Entity.EntityMovement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace game_darksouls.Entity
 {
     public class WingedMob : AnimatedObject, IEntity
     {
-        private IMovementBehaviour npcMovementManager;
+       
         private BehaveController entityStateController;
 
         private Player player;
@@ -23,15 +24,13 @@ namespace game_darksouls.Entity
         public WingedMob(Texture2D texture, Player player)
         {
             this.Texture = texture;
-            AnimationManager = new AnimationManager(AnimationFactory.LoadBrainMobAnimations());
-
-            CollisionBox = new Box(2405, 700, 50, 50);
-            DrawingBox = new Box(2405, 700, 50, 50);
-
-            npcMovementManager = new FlyMovement(new CollisionManager(), AnimationManager, CollisionBox);
             this.player = player;
 
-            linearPatrol = new(new Vector2(2275, 799), new Vector2(2500, 799), this, npcMovementManager);
+            AnimationManager = new AnimationManager(AnimationFactory.LoadBrainMobAnimations());
+            CollisionBox = new Box(500, 700, 50, 50);
+            DrawingBox = new Box(2405, 700, 50, 50);
+
+            MovementBehaviour = new FlyMovement(new CollisionManager(), AnimationManager, CollisionBox);
 
             attackBox = new Attack(AnimationManager, CollisionBox, Vector2.Zero);
             attackBox.AttackStartFrame = 2;
@@ -39,12 +38,16 @@ namespace game_darksouls.Entity
             attackBox.WidthAttackFrame = 90;
             attackBox.HeightAttackFrame = 50;
 
-            agressive = new Agressive(EntityMovementType.FLYING, player, this, npcMovementManager, AnimationManager, attackBox);
+            linearPatrol = new(new Vector2(2275, 799), new Vector2(2500, 799), this, MovementBehaviour);
+            agressive = new Agressive(EntityMovementType.FLYING, player, this, MovementBehaviour, AnimationManager, attackBox);
             agressive.RangeOfAttack = 50;
+            
+
+            
 
             entityStateController = new BehaveController(linearPatrol, agressive, player, this);
 
-            HealthManager = new Health(1, npcMovementManager, AnimationManager);
+            HealthManager = new Health(1, MovementBehaviour, AnimationManager);
 
 
 
@@ -52,11 +55,14 @@ namespace game_darksouls.Entity
 
         public override void Update(GameTime gameTime)
         {
-            //Debug.WriteLine(HealthManager.HealthPoints);
-            //Debug.WriteLine(animationManager.currentAnimation.name);
+            
+            if (HealthManager.CurrentState != Component.Health.State.DYING &&
+                HealthManager.CurrentState != Component.Health.State.DEATH)
+            {
+                MovementBehaviour.Update(gameTime);
+                entityStateController.Update(gameTime);
+            }
 
-            npcMovementManager.Update(gameTime);
-            entityStateController.Update(gameTime);
             AnimationManager.Update(gameTime);
             HealthManager.Update(gameTime);
             base.Update(gameTime);
@@ -69,10 +75,10 @@ namespace game_darksouls.Entity
             Debug.WriteLine(animationManager.currentAnimation.name);
             */
 
-            entityStateController.Draw(spriteBatch);
+            //entityStateController.Draw(spriteBatch);
             spriteBatch.Draw(Texture,
                 DrawingBox.Rectangle,
-                AnimationManager.currentAnimation.CurrentFrame.SourceRectangle,
+                AnimationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
                 Color.White,
                 0f,
                 Vector2.Zero,

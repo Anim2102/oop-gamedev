@@ -44,19 +44,20 @@ namespace game_darksouls.Entity
         }
 
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             AnimationManager.Update(gameTime);
             npcMovementManager.Update(gameTime);
             DrawingBox.UpdatePosition(CollisionBox.Position);
             entityStateController.Update(gameTime);
+            base.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, 
                 DrawingBox.Rectangle,
-                AnimationManager.currentAnimation.CurrentFrame.SourceRectangle,
+                AnimationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
                 Color.White,
                 0f, 
                 Vector2.Zero,

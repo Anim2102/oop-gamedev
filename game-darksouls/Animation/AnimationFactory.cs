@@ -48,6 +48,7 @@ namespace game_darksouls.Animation
             ActionAnimation movingAnimation = LoadAnimations("moving", amountFrames: 4, fps: 4, yas: 0, width: 32, height: 32);
             ActionAnimation attackAnimation = LoadAnimations("attack", amountFrames: 4, fps: 4, yas: 32, width: 32, height: 32);
             ActionAnimation dyingAnimation = LoadAnimations("dying", amountFrames: 7, fps: 7, yas: 96,height:32,width: 32);
+            dyingAnimation.Loop = false;
 
             animations.Add(MovementState.DEATH, dyingAnimation);
             animations.Add(MovementState.ATTACK, attackAnimation);

@@ -52,7 +52,7 @@ namespace game_darksouls.Entity.Behaviour
                 animationManager.FacingLeft = PlayerOnLeft();
                 animationManager.PlayAnimation(MovementState.ATTACK);
 
-                if (animationManager.currentAnimation.Complete)
+                if (animationManager.CurrentAnimation.Complete)
                 {
                     shootSpell = true;
                     ResetSpellBlock();
@@ -84,7 +84,7 @@ namespace game_darksouls.Entity.Behaviour
             }
             else
             {
-                if (animationManager.currentAnimation.Complete && ReturnDistanceBetweenPlayer() <= RangeOfAttack)
+                if (animationManager.CurrentAnimation.Complete && ReturnDistanceBetweenPlayer() <= RangeOfAttack)
                 {
                     projectFlying = true;
                 }

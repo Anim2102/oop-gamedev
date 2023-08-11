@@ -20,8 +20,9 @@ namespace game_darksouls.Entity
         public Player(Texture2D texturePlayer)
         {
             Texture = texturePlayer;
-            
-            CollisionBox = new Box(2405, 700, 30, 40);
+
+           
+            CollisionBox = new Box(500, 700, 30, 40);
             DrawingBox = new Box(0, 0, 50, 50);
             DrawingBox.Offset = new Vector2(-10, -10);
 
@@ -59,7 +60,7 @@ namespace game_darksouls.Entity
             attack.Draw(spriteBatch);
             spriteBatch.Draw(Texture, 
                 DrawingBox.Rectangle,
-                AnimationManager.currentAnimation.CurrentFrame.SourceRectangle,
+                AnimationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
                 HealthManager.CurrentColor, 
                 0f,
                 Vector2.Zero,

@@ -11,7 +11,9 @@ namespace game_darksouls.Component
     {
         //private Dictionary<MovementState, ActionAnimation> animations = new();
 
-        public ActionAnimation currentAnimation { get; set; }
+        public ActionAnimation CurrentAnimation { get; set; }
+        public ActionAnimation DeathAnimation { get; set; }
+        public bool LockAnimation { get; set; }
         public Dictionary<MovementState,ActionAnimation> animations { get; set; } = new();
         public bool FacingLeft { get; set; }
         public SpriteEffects SpriteFLip => FacingLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
@@ -21,15 +23,20 @@ namespace game_darksouls.Component
         {
             this.animations = animations;
             //temp default animation
-            currentAnimation = animations[MovementState.IDLE];
+            CurrentAnimation = animations[MovementState.IDLE];
+            DeathAnimation = ReturnAnimationOnState(MovementState.DEATH);
+           
         }
 
         public void PlayAnimation(MovementState movementState)
         {
+            if (LockAnimation)
+                return;
+
             if (animations.ContainsKey(movementState))
             {
                 //currentAnimation.ResetAnimation();
-                currentAnimation = animations[movementState];                
+                CurrentAnimation = animations[movementState];                
             }
         }
 
@@ -40,10 +47,13 @@ namespace game_darksouls.Component
 
         public void UpdateAnimationOnState(MovementState state)
         {
-            if (animations.ContainsKey(state) && !currentAnimation.IsRunning)
+            if (LockAnimation)
+                return;
+
+            if (animations.ContainsKey(state) && !CurrentAnimation.IsRunning)
             {
                 //currentAnimation.ResetAnimation();
-                currentAnimation = animations[state];
+                CurrentAnimation = animations[state];
             }
 
         }
@@ -62,10 +72,17 @@ namespace game_darksouls.Component
                 animation.ResetAnimation();
             }
         }
+
+        public void PlayDeathAnimation()
+        {
+            PlayAnimation(MovementState.DEATH);
+            LockAnimation = true;
+        }
         public void Update(GameTime gameTime)
         {
+            
             //Debug.WriteLine(currentAnimation.name);
-            currentAnimation.Update(gameTime);
+            CurrentAnimation.Update(gameTime);
         }
     }
 }

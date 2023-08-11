@@ -30,7 +30,7 @@ namespace game_darksouls.Collectible
             //spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Red);
             spriteBatch.Draw(Texture,
                 DrawingBox.Rectangle,
-                AnimationManager.currentAnimation.CurrentFrame.SourceRectangle,
+                AnimationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
                 Color.White,
                 0f,
                 Vector2.Zero,

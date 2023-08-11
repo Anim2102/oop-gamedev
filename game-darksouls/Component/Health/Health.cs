@@ -25,13 +25,10 @@ namespace Component.Health
         private const float MAXCOLORTIME = 5f;
         private const float colorInterval = 1f;
 
-        private int maxHealthPoints;
-
         public Health(int maxHealth, IMovementBehaviour movementBehaviour, AnimationManager animationManager)
         {
             MovementBehaviour = movementBehaviour;
             AnimationManager = animationManager;
-            maxHealthPoints = maxHealth;
             HealthPoints = maxHealth;
             CurrentColor = Color.White;
             Alive = true;
@@ -47,13 +44,16 @@ namespace Component.Health
 
             if (HealthPoints <= 0)
             {
-                AnimationManager.PlayAnimation(MovementState.DEATH);
+                AnimationManager.PlayDeathAnimation();
                 CurrentState = State.DYING;
+
+                
             }
+            if (CurrentState == State.DYING && AnimationManager.CurrentAnimation.Complete)
+                CurrentState = State.DEATH;
 
             Hit = true;
             MovementBehaviour.PushAfterHit(new Vector2(0, -1));
-
         }
 
         public void Update(GameTime gameTime)
@@ -61,6 +61,7 @@ namespace Component.Health
             // Debug.WriteLine("Hp: " + HealthPoints + "geraakt: " + Hit + "onzichtbaar: " + Invurnable);
             ChangeInvurnableTime(gameTime);
             ChangeColor(gameTime);
+            Debug.WriteLine(CurrentState);
         }
 
         private void ChangeInvurnableTime(GameTime gameTime)

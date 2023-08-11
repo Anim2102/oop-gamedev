@@ -57,7 +57,7 @@ namespace game_darksouls.Entity
             rangeAttack.Draw(spriteBatch);
             spriteBatch.Draw(Texture,
                 DrawingBox.Rectangle,
-                AnimationManager.currentAnimation.CurrentFrame.SourceRectangle,
+                AnimationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
                 Color.White,
                 0f,
                 Vector2.Zero,
