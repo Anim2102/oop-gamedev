@@ -61,7 +61,7 @@ namespace Component.Health
             // Debug.WriteLine("Hp: " + HealthPoints + "geraakt: " + Hit + "onzichtbaar: " + Invurnable);
             ChangeInvurnableTime(gameTime);
             ChangeColor(gameTime);
-            Debug.WriteLine(CurrentState);
+            //Debug.WriteLine(CurrentState);
         }
 
         private void ChangeInvurnableTime(GameTime gameTime)

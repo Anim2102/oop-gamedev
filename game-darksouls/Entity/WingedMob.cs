@@ -45,7 +45,7 @@ namespace game_darksouls.Entity
 
             
 
-            entityStateController = new BehaveController(linearPatrol, agressive, player, this);
+            entityStateController = new BehaveController(player,this,EntityMovementType.FLYING,new Vector2(2275,799),new Vector2(2500,799),attackBox);
 
             HealthManager = new Health(1, MovementBehaviour, AnimationManager);
 

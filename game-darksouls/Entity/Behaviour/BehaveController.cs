@@ -12,18 +12,26 @@ namespace game_darksouls.Entity.Behaviour
         private readonly Player player;
         private readonly AnimatedObject animatedObject;
 
-
-        private IBehave Patrol;
-        public IBehave agressive;
         private IBehave currentBehaviour;
 
-        public BehaveController(IBehave Patrol, IBehave agressive,Player player,AnimatedObject animatedObject)
+        public Vector2 PatrolPointA { get; set; }
+        public Vector2 PatrolPointB { get; set; }
+        public EntityMovementType MovementType { get; set; }
+        public Attack Attack { get; set; }
+
+        public BehaveController(Player player,AnimatedObject animatedObject,EntityMovementType movementType,
+            Vector2 patrolPointA,Vector2 patrolPointB, Attack attack)
         {
-            this.Patrol = Patrol;
-            this.agressive = agressive;
+            
             this.player = player;
             this.animatedObject = animatedObject;
-        }
+
+            PatrolPointA = patrolPointA;
+            PatrolPointB = patrolPointB;
+
+            this.Attack = attack;
+            this.MovementType = movementType;
+        }   
 
         public void Update(GameTime gameTime)
         {
@@ -40,11 +48,11 @@ namespace game_darksouls.Entity.Behaviour
 
             if (distanceBetweenPlayer < 100)
             {
-                currentBehaviour = agressive;
+                currentBehaviour = new Agressive(MovementType,player,animatedObject,animatedObject.MovementBehaviour,animatedObject.AnimationManager,Attack);
             }
             else
             {
-                currentBehaviour = Patrol;
+                currentBehaviour = new LinearPatrol(PatrolPointA, PatrolPointB, animatedObject, animatedObject.MovementBehaviour);
             }
         }
 
@@ -53,11 +61,7 @@ namespace game_darksouls.Entity.Behaviour
             return Math.Abs(a.X - b.X);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Patrol.Draw(spriteBatch);
-            agressive.Draw(spriteBatch);
-        }
+        
        
 
     }

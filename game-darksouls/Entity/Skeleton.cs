@@ -11,7 +11,6 @@ namespace game_darksouls.Entity
 {
     public class Skeleton : AnimatedObject, IEntity
     {
-        private IMovementBehaviour npcMovementManager;
         private BehaveController entityStateController;
 
         //temp switch to manager
@@ -27,19 +26,19 @@ namespace game_darksouls.Entity
 
             this.Texture = texture;
             this.AnimationManager = new(AnimationFactory.LoadSkeletonAnimations());
-            this.npcMovementManager = new GroundMovement(new CollisionManager(), AnimationManager,CollisionBox);
-            this.HealthManager = new Health(5, npcMovementManager,AnimationManager);
+            this.MovementBehaviour = new GroundMovement(new CollisionManager(), AnimationManager,CollisionBox);
+            this.HealthManager = new Health(5, MovementBehaviour,AnimationManager);
 
-            this.linearPatrol = new(new Vector2(1450, 650), new Vector2(2000, 650), this, npcMovementManager);
+            this.linearPatrol = new(new Vector2(1450, 650), new Vector2(2000, 650), this, MovementBehaviour);
 
             this.attackBox = new Attack(AnimationManager, CollisionBox, Vector2.Zero);
             attackBox.AttackStartFrame = 5;
             attackBox.AttackEndFrame = 10;
             attackBox.WidthAttackFrame = 90;
             attackBox.HeightAttackFrame = 50;
-            this.agressive = new Agressive(EntityMovementType.GROUND,player, this, npcMovementManager, AnimationManager,attackBox);
+            this.agressive = new Agressive(EntityMovementType.GROUND,player, this, MovementBehaviour, AnimationManager,attackBox);
 
-            entityStateController = new BehaveController(linearPatrol, agressive, player, this);
+            entityStateController = new BehaveController(player,this,EntityMovementType.GROUND,new Vector2(1450,650),new Vector2(2000,650),attackBox);
             
         }
 
@@ -47,7 +46,7 @@ namespace game_darksouls.Entity
         public override void Update(GameTime gameTime)
         {
             AnimationManager.Update(gameTime);
-            npcMovementManager.Update(gameTime);
+            MovementBehaviour.Update(gameTime);
             DrawingBox.UpdatePosition(CollisionBox.Position);
             entityStateController.Update(gameTime);
             base.Update(gameTime);
