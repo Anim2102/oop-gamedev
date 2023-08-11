@@ -21,8 +21,8 @@ namespace game_darksouls.Entity
         public Skeleton(Texture2D texture, Player player)
         {
             CollisionBox = new Box();
-            CollisionBox.Rectangle = new Rectangle(2405, 700, 60, 50);
-            this.DrawingBox = new Box(170, 20, 64 * 2, 64 * 2 , new Vector2(-35, -50));
+            CollisionBox.Rectangle = new Rectangle(2405, 650, 60, 50);
+            this.DrawingBox = new Box(0, 0, 64 * 2, 64 * 2 , new Vector2(-35, -50));
 
             this.Texture = texture;
             this.AnimationManager = new(AnimationFactory.LoadSkeletonAnimations());

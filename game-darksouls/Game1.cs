@@ -97,12 +97,12 @@ namespace game_darksouls
                 Exit();
 
             
-            wingedMob.Update(gameTime);
+            //wingedMob.Update(gameTime);
             // TODO: Add your update logic here
             player.Update(gameTime);
             skeleton.Update(gameTime);
-            wizard.Update(gameTime);
-            crystal.Update(gameTime);
+            //wizard.Update(gameTime);
+            //crystal.Update(gameTime);
             camera.Update();
             base.Update(gameTime);
         }
@@ -113,9 +113,9 @@ namespace game_darksouls
             _spriteBatch.Begin(transformMatrix: camera.CreateTransformation(GraphicsDevice));
 
             skeleton.Draw(_spriteBatch);
-            wingedMob.Draw(_spriteBatch);
-            wizard.Draw(_spriteBatch);
-            crystal.Draw(_spriteBatch);
+            //wingedMob.Draw(_spriteBatch);
+            //wizard.Draw(_spriteBatch);
+            //crystal.Draw(_spriteBatch);
             player.Draw(_spriteBatch);
 
             levelOne.Draw(_spriteBatch);
