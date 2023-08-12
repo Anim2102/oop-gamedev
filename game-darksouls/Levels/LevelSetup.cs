@@ -98,6 +98,8 @@ namespace game_darksouls.Level
      
             string relativePath = "Levels/csv levels/map.csv";
             string[] lines = File.ReadAllLines(relativePath);
+            int rows = lines.Length;
+            //Debug.Write(lines[0]);
             int columns = lines[0].Split(',').Length;
 
             int[,] array = new int[rows, columns];
@@ -110,6 +112,7 @@ namespace game_darksouls.Level
                     array[i, j] = Convert.ToInt32(line[j]);
                 }
             }
+
 
             Debug.Write(array);
             return array;
