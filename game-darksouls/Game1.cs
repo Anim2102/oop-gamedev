@@ -26,7 +26,7 @@ namespace game_darksouls
         public  static WingedMob wingedMob;
 
         private Texture2D wizardTexture;
-        public  Wizard wizard;
+        public  static Wizard wizard;
         private Texture2D wizardFireBall;
 
         private Camera camera;
@@ -100,8 +100,8 @@ namespace game_darksouls
             //wingedMob.Update(gameTime);
             // TODO: Add your update logic here
             player.Update(gameTime);
-            skeleton.Update(gameTime);
-            //wizard.Update(gameTime);
+            //skeleton.Update(gameTime);
+            wizard.Update(gameTime);
             //crystal.Update(gameTime);
             camera.Update();
             base.Update(gameTime);
@@ -112,9 +112,9 @@ namespace game_darksouls
             GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin(transformMatrix: camera.CreateTransformation(GraphicsDevice));
 
-            skeleton.Draw(_spriteBatch);
+            //skeleton.Draw(_spriteBatch);
             //wingedMob.Draw(_spriteBatch);
-            //wizard.Draw(_spriteBatch);
+            wizard.Draw(_spriteBatch);
             //crystal.Draw(_spriteBatch);
             player.Draw(_spriteBatch);
 
