@@ -26,6 +26,7 @@ namespace game_darksouls.Level
         private int columns;
         private int rows;
 
+
         protected string pathToCsv;
         private Texture2D tileSetTexture;
 
