@@ -46,8 +46,6 @@ namespace Component.Health
             {
                 AnimationManager.PlayDeathAnimation();
                 CurrentState = State.DYING;
-
-                
             }
             if (CurrentState == State.DYING && AnimationManager.CurrentAnimation.Complete)
                 CurrentState = State.DEATH;

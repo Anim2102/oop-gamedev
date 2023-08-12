@@ -34,7 +34,7 @@ namespace game_darksouls.Component
             
             if (Attacking)
             {
-                attackBox.AttackWithFrame(Game1.wingedMob);
+                attackBox.AttackWithFrame(Game1.skeleton);
             }
 
             if (attackBox.AttackFinished && Attacking)
