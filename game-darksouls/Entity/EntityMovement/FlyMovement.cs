@@ -32,7 +32,7 @@ namespace game_darksouls.Entity.EntityMovement
             ChangeMovingState();
             ChangeFlipOnDirection();
         }
-
+        
         private void UpdatePosition(GameTime gameTime)
         {
             Rectangle updatedRectangle = CollisionBox.Rectangle;

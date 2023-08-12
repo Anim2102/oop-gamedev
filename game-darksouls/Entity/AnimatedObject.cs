@@ -20,8 +20,21 @@ namespace game_darksouls.Entity
 
         public virtual void Update(GameTime gameTime)
         {
-
             DrawingBox.UpdatePosition(CollisionBox.Position);
+        }
+        public void StartPosition(Vector2 startPosition)
+        {
+            this.CollisionBox.UpdatePosition(startPosition);
+        }
+        public virtual void Draw(SpriteBatch spriteBatch) {
+            spriteBatch.Draw(Texture,
+                DrawingBox.Rectangle,
+                AnimationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
+                HealthManager.CurrentColor,
+                0f,
+                Vector2.Zero,
+                AnimationManager.SpriteFLip,
+                0f);
         }
 
     }

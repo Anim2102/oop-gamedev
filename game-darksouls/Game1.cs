@@ -1,11 +1,13 @@
 ﻿using game_darksouls.Collectible;
 using game_darksouls.Entity;
 using game_darksouls.Level;
+using game_darksouls.Levels.worlds;
 using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace game_darksouls
 {
@@ -29,12 +31,13 @@ namespace game_darksouls
         public  static Wizard wizard;
         private Texture2D wizardFireBall;
 
-        private Camera camera;
+        
 
-        private TempLevel tempLevel;
+        private LevelOne firstLevel;
+        //private LevelOneTemp tempLevel;
         public static Texture2D dungeonTexture;
 
-        private LevelOne levelOne;
+        //private LevelOneTemp levelOne;
 
         private Texture2D redsquare;
         public static Texture2D redsquareDebug;
@@ -53,6 +56,9 @@ namespace game_darksouls
 
         protected override void Initialize()
         {
+            
+
+            Debug.WriteLine(Content.RootDirectory);
             // TODO: Add your initialization logic here
             base.Initialize();
             player = new Player(knightSpritesheet);
@@ -60,16 +66,13 @@ namespace game_darksouls
             wingedMob = new WingedMob(wingedMobTexture, player);
             wizard = new Wizard(wizardTexture,wizardFireBall, player);
             crystal = new Crystal(crystalTexture);
-            tempLevel = new();
-            levelOne = new LevelOne();
+            //tempLevel = new();
             entities = new List<IEntity>();
 
+            firstLevel = new LevelOne(Content,GraphicsDevice.Viewport);
 
-            camera = new Camera(GraphicsDevice.Viewport,player);
+            
 
-            _graphics.PreferredBackBufferWidth = 1250;   
-            _graphics.PreferredBackBufferHeight = 700;
-            _graphics.ApplyChanges();
 
         }
 
@@ -96,30 +99,21 @@ namespace game_darksouls
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            
+
             //wingedMob.Update(gameTime);
             // TODO: Add your update logic here
-            player.Update(gameTime);
+            //player.Update(gameTime);
             //skeleton.Update(gameTime);
-            wizard.Update(gameTime);
+            //wizard.Update(gameTime);
             //crystal.Update(gameTime);
-            camera.Update();
+            firstLevel.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            _spriteBatch.Begin(transformMatrix: camera.CreateTransformation(GraphicsDevice));
-
-            //skeleton.Draw(_spriteBatch);
-            //wingedMob.Draw(_spriteBatch);
-            wizard.Draw(_spriteBatch);
-            //crystal.Draw(_spriteBatch);
-            player.Draw(_spriteBatch);
-
-            levelOne.Draw(_spriteBatch);
-            //tempLevel.Draw(_spriteBatch,redsquare);
+            firstLevel.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

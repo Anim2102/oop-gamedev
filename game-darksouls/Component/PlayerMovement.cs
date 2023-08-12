@@ -54,7 +54,10 @@ namespace game_darksouls.Component
             ChangeMovingState(direction);
             ChangeFlipOnDirection(direction);
         }
-
+        private void StartPosition(Vector2 startPosition)
+        {
+            CollisionBox.UpdatePosition(startPosition);
+        }
         private void Move(GameTime gameTime)
         {
             direction = inputManager.GetInput();

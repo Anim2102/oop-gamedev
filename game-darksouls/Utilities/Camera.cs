@@ -22,7 +22,7 @@ namespace game_darksouls.Utilities
             OriginCenter = new Vector2(viewport.Width / 2, viewport.Height / 2);
 
         }
-        public Matrix CreateTransformation(GraphicsDevice graphicsDevice)
+        public Matrix CreateTransformation()
         {
             //negative cameraposition for garanty opposite direction 
             var newTransform = Matrix.CreateTranslation(new Vector3(-CameraPosition + OriginCenter, 0)) *

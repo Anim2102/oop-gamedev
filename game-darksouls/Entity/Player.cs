@@ -41,7 +41,7 @@ namespace game_darksouls.Entity
         }
         public override void Update(GameTime gameTime)
         {
-            //Debug.WriteLine(collisionBox.Position);
+            Debug.WriteLine(CollisionBox.Position);
             playerMovement.Update(gameTime);
             AnimationManager.Update(gameTime);
             HealthManager.Update(gameTime);
@@ -50,22 +50,9 @@ namespace game_darksouls.Entity
             base.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Red);
-            //spriteBatch.Draw(Game1.redsquareDebug, attack, Color.Red);
-            //playerMovement.Draw(spriteBatch);
-            //playerAbilities.Draw(spriteBatch);
-            
-            attack.Draw(spriteBatch);
-            spriteBatch.Draw(Texture, 
-                DrawingBox.Rectangle,
-                AnimationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
-                HealthManager.CurrentColor, 
-                0f,
-                Vector2.Zero,
-                AnimationManager.SpriteFLip,
-                0f );
+            base.Draw(spriteBatch);
         }
     }
 }
