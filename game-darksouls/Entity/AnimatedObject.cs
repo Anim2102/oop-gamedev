@@ -23,5 +23,6 @@ namespace game_darksouls.Entity
 
             DrawingBox.UpdatePosition(CollisionBox.Position);
         }
+
     }
 }
