@@ -15,17 +15,19 @@ namespace game_darksouls.Utilities
         private List<Rectangle> amountHealth = new();
         private readonly Viewport viewport;
 
+        private const int SIZE = 50;
+
         public Hud(Health health, ContentManager content, Viewport viewport)
         {
             this.health = health;
             this.healthTexture = content.Load<Texture2D>("hart");
+            this.viewport = viewport;   
 
             
         }
         public void Update()
         {
             UpdateHealth();
-            Debug.WriteLine(health.HealthPoints);
         }
         private void UpdateHealth()
         {
@@ -33,7 +35,7 @@ namespace game_darksouls.Utilities
                 return;
 
             amountHealth.Clear();
-            int posX = (int)(viewport.Width * 0.1f);
+            int posX = (int)(viewport.Width * 0.05f);
             int posY = (int)(viewport.Height * 0.1f);
             
             for (int i = 0; i < health.HealthPoints; i++)
@@ -41,13 +43,12 @@ namespace game_darksouls.Utilities
                 Rectangle rec = Rectangle.Empty;
                 rec.X = posX;
                 rec.Y = posY;
-                rec.Width = 50;
-                rec.Height = 50;
+                rec.Width = SIZE; 
+                rec.Height = SIZE;
 
                 amountHealth.Add(rec);
 
-                posX += 50;
-               
+                posX += SIZE;
             }
         }
         
