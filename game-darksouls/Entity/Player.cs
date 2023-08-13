@@ -15,15 +15,25 @@ namespace game_darksouls.Entity
         private Attack attack;
         private PlayerAbilities playerAbilities;
 
+        private int collisionBoxWidth = 30;
+        private int collisionBoxHeight = 40;
+        private int drawingBoxWidth = 50;
+        private int drawingBoxHeight = 50;
+        private float drawingBoxOffsetY = -10;
+        private float drawingBoxOffsetX = -10;
+
+        
+
+        private int HEALTH = 5;
         public bool IsPlayerAttack => playerAbilities.Attacking;
 
         public Player(Texture2D texturePlayer, CollisionManager collisionManager) : base(collisionManager)
         {
             Texture = texturePlayer;
            
-            CollisionBox = new Box(500, 700, 30, 40);
-            DrawingBox = new Box(0, 0, 50, 50);
-            DrawingBox.Offset = new Vector2(-10, -10);
+            CollisionBox = new Box(0, 0, collisionBoxWidth, collisionBoxHeight);
+            DrawingBox = new Box(0, 0, drawingBoxWidth, drawingBoxHeight);
+            DrawingBox.Offset = new Vector2(drawingBoxOffsetX, drawingBoxOffsetY);
 
             AnimationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
             playerMovement = new PlayerMovement(CollisionManager,CollisionBox,AnimationManager,new(), this);
@@ -34,16 +44,15 @@ namespace game_darksouls.Entity
             attack.AttackStartFrame = 2;
             attack.AttackEndFrame = 4;
 
-            HealthManager = new Health(5, playerMovement,AnimationManager);
+            HealthManager = new Health(HEALTH, playerMovement,AnimationManager);
             playerAbilities = new PlayerAbilities(playerMovement, attack, new(),AnimationManager);
             
         }
         public override void Update(GameTime gameTime)
         {
-            Debug.WriteLine(CollisionBox.Position);
+            
             playerMovement.Update(gameTime);
             AnimationManager.Update(gameTime);
-            HealthManager.Update(gameTime);
             playerAbilities.Update(gameTime);
             HealthManager.Update(gameTime);
             base.Update(gameTime);

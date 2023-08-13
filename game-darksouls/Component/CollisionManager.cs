@@ -36,7 +36,6 @@ namespace game_darksouls.Component
                 if (block.TileBox.Intersects(hitbox))
                 {
                     return true;
-
                 }
             }
             return false;
