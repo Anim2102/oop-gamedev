@@ -10,12 +10,13 @@ namespace game_darksouls.Utilities
 {
     public class Hud
     {
-        private Texture2D healthTexture;
+        private readonly Texture2D healthTexture;
         private readonly Health health;
         private List<Rectangle> amountHealth = new();
         private readonly Viewport viewport;
 
         private const int SIZE = 50;
+
 
         public Hud(Health health, ContentManager content, Viewport viewport)
         {
@@ -25,6 +26,7 @@ namespace game_darksouls.Utilities
 
             
         }
+
         public void Update()
         {
             UpdateHealth();
