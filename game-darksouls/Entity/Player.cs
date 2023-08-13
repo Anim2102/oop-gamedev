@@ -15,25 +15,23 @@ namespace game_darksouls.Entity
         private Attack attack;
         private PlayerAbilities playerAbilities;
 
-        private int collisionBoxWidth = 30;
-        private int collisionBoxHeight = 40;
-        private int drawingBoxWidth = 50;
-        private int drawingBoxHeight = 50;
-        private float drawingBoxOffsetY = -10;
-        private float drawingBoxOffsetX = -10;
+        private const int COLLISIONBOXWIDTH = 30;
+        private const int COLLISIONBOXHEIGHT = 40;
+        private const int DRAWINGBOXWIDTH = 50;
+        private const int DRAWINGBOXHEIGHT = 50;
+        private const float DRAWINGBOXOFFSETY = -10;
+        private const float DRAWINGBOXOFFSETX = -10;
 
-        
-
-        private int HEALTH = 5;
+        private const int HEALTH = 5;
         public bool IsPlayerAttack => playerAbilities.Attacking;
 
         public Player(Texture2D texturePlayer, CollisionManager collisionManager) : base(collisionManager)
         {
             Texture = texturePlayer;
            
-            CollisionBox = new Box(0, 0, collisionBoxWidth, collisionBoxHeight);
-            DrawingBox = new Box(0, 0, drawingBoxWidth, drawingBoxHeight);
-            DrawingBox.Offset = new Vector2(drawingBoxOffsetX, drawingBoxOffsetY);
+            CollisionBox = new Box(0, 0, COLLISIONBOXWIDTH, COLLISIONBOXHEIGHT);
+            DrawingBox = new Box(0, 0, DRAWINGBOXWIDTH, DRAWINGBOXHEIGHT);
+            DrawingBox.Offset = new Vector2(DRAWINGBOXOFFSETX, DRAWINGBOXOFFSETY);
 
             AnimationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
             playerMovement = new PlayerMovement(CollisionManager,CollisionBox,AnimationManager,new(), this);
