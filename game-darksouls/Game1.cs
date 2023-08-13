@@ -45,6 +45,7 @@ namespace game_darksouls
         private Texture2D crystalTexture;
         private Crystal crystal;
 
+        //private Hud hud = new();
         private List<IEntity> entities;
 
         public Game1()
@@ -115,10 +116,12 @@ namespace game_darksouls
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            firstLevel.Draw(_spriteBatch);
-            _spriteBatch.End();
 
+            firstLevel.Draw(_spriteBatch);
+      
             base.Draw(gameTime);
         }
+
+        
     }
 }

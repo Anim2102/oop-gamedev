@@ -20,6 +20,7 @@ namespace game_darksouls.Levels.worlds
     public class LevelOne : LevelSetup
     {
         private Camera camera;
+        private Hud hud;
 
         public LevelOne(ContentManager contentManager, Viewport viewport) : base(Game1.dungeonTexture, @"Content\test.3.csv")
         {
@@ -40,18 +41,26 @@ namespace game_darksouls.Levels.worlds
             //mob {X:2130 Y:658}
             //wiz {X:2130 Y:658}
             camera = new Camera(viewport, player);
+            hud = new Hud(player.HealthManager,contentManager,viewport);
         }
 
         public override void Update(GameTime gameTime)
         {
             camera.Update();
+            hud.Update();
             base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+          
             spriteBatch.Begin(transformMatrix: camera.CreateTransformation());
             base.Draw(spriteBatch);
+            spriteBatch.End();
+
+            spriteBatch.Begin();
+            hud.Draw(spriteBatch);
+            spriteBatch.End();
         }
     }
 }
