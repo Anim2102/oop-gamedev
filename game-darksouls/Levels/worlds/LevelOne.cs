@@ -1,4 +1,5 @@
 ﻿using game_darksouls.Entity;
+using game_darksouls.Entity.EntityUtils;
 using game_darksouls.Level;
 using game_darksouls.Utilities;
 using Microsoft.VisualBasic.ApplicationServices;
@@ -25,6 +26,16 @@ namespace game_darksouls.Levels.worlds
             player.StartPosition(new Vector2(500, 700));
             entitys.Add(player);
 
+
+            AnimatedObject skeleton = EntityFactory.EntityCreator(contentManager, "skeleton", player);
+            AnimatedObject wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mob", player);
+            AnimatedObject wizard = EntityFactory.EntityCreator(contentManager, "wizard", player);
+            
+            skeleton.StartPosition(new Vector2(1700, 648));
+            entitys.Add(skeleton);
+            //skeleton {X:1785 Y:658}
+            //mob {X:2130 Y:658}
+            //wiz {X:2130 Y:658}
             camera = new Camera(viewport, player);
         }
 

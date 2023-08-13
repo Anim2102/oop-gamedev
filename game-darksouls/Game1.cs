@@ -71,7 +71,9 @@ namespace game_darksouls
 
             firstLevel = new LevelOne(Content,GraphicsDevice.Viewport);
 
-            
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 700;
+            _graphics.ApplyChanges();
 
 
         }

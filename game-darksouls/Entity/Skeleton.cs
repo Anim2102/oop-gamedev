@@ -14,6 +14,8 @@ namespace game_darksouls.Entity
         private BehaveController entityStateController;
         private Attack attackBox;
 
+       
+
 
         public Skeleton(Texture2D texture, Player player)
         {
@@ -32,7 +34,10 @@ namespace game_darksouls.Entity
             attackBox.WidthAttackFrame = 90;
             attackBox.HeightAttackFrame = 50;
 
-            entityStateController = new BehaveController(player,this,EntityMovementType.GROUND,new Vector2(1450,650),new Vector2(2000,650),attackBox);
+            //niet goed
+            Vector2 patrolPointA = new Vector2(CollisionBox.Position.X - 200, CollisionBox.Position.Y);
+            Vector2 patrolPointB = new Vector2(CollisionBox.Position.X + 200,CollisionBox.Position.Y);
+            entityStateController = new BehaveController(player,this,EntityMovementType.GROUND,patrolPointA,patrolPointB,attackBox);
             
         }
 
