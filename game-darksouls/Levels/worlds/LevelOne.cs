@@ -1,4 +1,5 @@
-﻿using game_darksouls.Component;
+﻿using game_darksouls.Collectible;
+using game_darksouls.Component;
 using game_darksouls.Entity;
 using game_darksouls.Entity.EntityUtils;
 using game_darksouls.Level;
@@ -40,6 +41,12 @@ namespace game_darksouls.Levels.worlds
             //skeleton {X:1785 Y:658}
             //mob {X:2130 Y:658}
             //wiz {X:2130 Y:658}
+
+            Vector2 gemOnePosition = new Vector2(1700, 628);
+            Crystal gemOne = new Crystal(contentManager.Load<Texture2D>("crystal"),gemOnePosition);
+            
+            Collectible.Add(gemOne);
+
             camera = new Camera(viewport, player);
             hud = new Hud(player.HealthManager,contentManager,viewport);
         }

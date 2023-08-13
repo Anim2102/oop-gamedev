@@ -1,4 +1,5 @@
-﻿using game_darksouls.Entity;
+﻿using game_darksouls.Collectible;
+using game_darksouls.Entity;
 using game_darksouls.Level;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -13,7 +14,16 @@ namespace game_darksouls.Component
         {
             CurrentLevel = currentLevel;
         }
-
+        public void CheckIfCollectible(AnimatedObject player)
+        {
+            foreach (var collectible in CurrentLevel.Collectible)
+            {
+                if (player.CollisionBox.Rectangle.Intersects(collectible.CollisionBox.Rectangle))
+                {
+                    collectible.CollectedGem();
+                }
+            }
+        }
         public bool CheckForCollision(Box hitbox)
         {
 

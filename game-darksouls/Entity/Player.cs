@@ -53,11 +53,13 @@ namespace game_darksouls.Entity
             AnimationManager.Update(gameTime);
             playerAbilities.Update(gameTime);
             HealthManager.Update(gameTime);
+            CollisionManager.CheckIfCollectible(this);
             base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            //spriteBatch.Draw(Game1.redsquareDebug, CollisionBox.Rectangle,Color.Red);
             base.Draw(spriteBatch);
         }
     }

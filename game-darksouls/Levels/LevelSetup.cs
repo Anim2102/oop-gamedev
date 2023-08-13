@@ -1,4 +1,5 @@
-﻿using game_darksouls.Entity;
+﻿using game_darksouls.Collectible;
+using game_darksouls.Entity;
 using Microsoft.VisualBasic.ApplicationServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -17,6 +18,8 @@ namespace game_darksouls.Level
     {
         public List<Tile> Tiles { get; protected set; } = new();
         public List<AnimatedObject> entitys { get; protected set; } = new();
+        public List<ICollectible> Collectible { get; set; } = new();
+
         public int[,] TileArray { get; protected set; }
         
         private const int TILESIZE = 50;
@@ -55,6 +58,11 @@ namespace game_darksouls.Level
             {
                 entity.Update(gameTime);
             }
+
+            foreach (var collectible in Collectible)
+            {
+                collectible.Update(gameTime);
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -66,6 +74,11 @@ namespace game_darksouls.Level
             foreach (var tile in Tiles)
             {
                 spriteBatch.Draw(tileSetTexture, tile.TileBox, tile.SourceRectangle, Color.White);
+            }
+
+            foreach (var collectible in Collectible)
+            {
+                collectible.Draw(spriteBatch);
             }
         }
 
