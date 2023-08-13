@@ -1,4 +1,5 @@
-﻿using game_darksouls.Entity;
+﻿using game_darksouls.Component;
+using game_darksouls.Entity;
 using game_darksouls.Entity.EntityUtils;
 using game_darksouls.Level;
 using game_darksouls.Utilities;
@@ -22,14 +23,16 @@ namespace game_darksouls.Levels.worlds
 
         public LevelOne(ContentManager contentManager, Viewport viewport) : base(Game1.dungeonTexture, @"Content\test.3.csv")
         {
-            Player player = new Player(contentManager.Load<Texture2D>("Knight"));
+            CollisionManager collisionManager = new CollisionManager(this);
+
+            Player player = new Player(contentManager.Load<Texture2D>("Knight"),collisionManager);
             player.StartPosition(new Vector2(500, 700));
             entitys.Add(player);
 
 
-            AnimatedObject skeleton = EntityFactory.EntityCreator(contentManager, "skeleton", player);
-            AnimatedObject wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mob", player);
-            AnimatedObject wizard = EntityFactory.EntityCreator(contentManager, "wizard", player);
+            AnimatedObject skeleton = EntityFactory.EntityCreator(contentManager, "skeleton", player,collisionManager);
+            AnimatedObject wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mob", player,collisionManager);
+            AnimatedObject wizard = EntityFactory.EntityCreator(contentManager, "wizard", player, collisionManager);
             
             skeleton.StartPosition(new Vector2(1700, 648));
             entitys.Add(skeleton);

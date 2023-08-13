@@ -8,7 +8,7 @@ namespace game_darksouls.Collectible
 {
     public class Crystal : AnimatedObject, IEntity
     {
-        public Crystal(Texture2D crystalTexture)
+        public Crystal(Texture2D crystalTexture, CollisionManager collisionManager) : base(collisionManager)
         {
             Texture = crystalTexture;
             AnimationManager = new AnimationManager(AnimationFactory.LoadCrystalAnimations());

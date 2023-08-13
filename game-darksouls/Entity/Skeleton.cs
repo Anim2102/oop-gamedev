@@ -17,18 +17,18 @@ namespace game_darksouls.Entity
        
 
 
-        public Skeleton(Texture2D texture, Player player)
+        public Skeleton(Texture2D texture, Player player,CollisionManager collisionManager) : base(collisionManager)
         {
             CollisionBox = new Box();
             CollisionBox.Rectangle = new Rectangle(2405, 650, 60, 50);
-            this.DrawingBox = new Box(0, 0, 64 * 2, 64 * 2 , new Vector2(-35, -50));
+            DrawingBox = new Box(0, 0, 64 * 2, 64 * 2 , new Vector2(-35, -50));
 
-            this.Texture = texture;
-            this.AnimationManager = new(AnimationFactory.LoadSkeletonAnimations());
-            this.MovementBehaviour = new GroundMovement(new CollisionManager(), AnimationManager,CollisionBox);
-            this.HealthManager = new Health(1, MovementBehaviour,AnimationManager);
+            Texture = texture;
+            AnimationManager = new(AnimationFactory.LoadSkeletonAnimations());
+            MovementBehaviour = new GroundMovement(CollisionManager, AnimationManager,CollisionBox);
+            HealthManager = new Health(1, MovementBehaviour,AnimationManager);
 
-            this.attackBox = new Attack(AnimationManager, CollisionBox, Vector2.Zero);
+            attackBox = new Attack(AnimationManager, CollisionBox, Vector2.Zero,collisionManager);
             attackBox.AttackStartFrame = 5;
             attackBox.AttackEndFrame = 10;
             attackBox.WidthAttackFrame = 90;

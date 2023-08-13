@@ -18,6 +18,10 @@ namespace game_darksouls.Entity
         public Box DrawingBox { get; set; }
         public Box CollisionBox { get; set; }
 
+        public AnimatedObject(CollisionManager collisionManager)
+        {
+            this.CollisionManager = collisionManager;
+        }
         public virtual void Update(GameTime gameTime)
         {
             DrawingBox.UpdatePosition(CollisionBox.Position);

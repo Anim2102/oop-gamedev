@@ -7,16 +7,17 @@ namespace game_darksouls.Component
 {
     public class CollisionManager
     {
-        private readonly LevelOneTemp tempLevel;
-        public CollisionManager()
+        public LevelSetup CurrentLevel { get; set; }
+
+        public CollisionManager(LevelSetup currentLevel)
         {
-            tempLevel = LevelOneTemp.GetInstance();
+            CurrentLevel = currentLevel;
         }
 
         public bool CheckForCollision(Box hitbox)
         {
 
-            foreach (var block in LevelOneTemp.GetInstance().Tiles)
+            foreach (var block in CurrentLevel.Tiles)
             {
                 if (block.TileBox.Intersects(hitbox.Rectangle))
                 {
@@ -30,7 +31,7 @@ namespace game_darksouls.Component
         public bool CheckForCollision(Rectangle hitbox)
         {
 
-            foreach (var block in LevelOneTemp.GetInstance().Tiles)
+            foreach (var block in CurrentLevel.Tiles)
             {
                 if (block.TileBox.Intersects(hitbox))
                 {
@@ -39,6 +40,17 @@ namespace game_darksouls.Component
                 }
             }
             return false;
+        }
+
+        public AnimatedObject CheckForHit(Rectangle attackFrame)
+        {
+            foreach (var entity in CurrentLevel.entitys)
+            {
+                if (attackFrame.Intersects(entity.CollisionBox.Rectangle))
+                    return entity;
+            }
+
+            return null;
         }
     }
 }

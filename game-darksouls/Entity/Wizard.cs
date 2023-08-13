@@ -13,18 +13,18 @@ namespace game_darksouls.Entity
         private RangeAttack rangeAttack;
         private Texture2D fireball;
 
-        public Wizard(Texture2D texture, Texture2D fireball, Player player)
+        public Wizard(Texture2D texture, Texture2D fireball, Player player, CollisionManager collisionManager):base(collisionManager)
         {
             this.Texture = texture;
             this.fireball = fireball;
 
             AnimationManager = new AnimationManager(AnimationFactory.LoadWizardAnimations());
-            CollisionManager = new CollisionManager();
+            CollisionManager = CollisionManager;
             HealthManager = new Health(1, MovementBehaviour, AnimationManager);
             DrawingBox = new Box(250, 20, 64 * 4, 64 * 4, new Vector2(-100, -130));
             CollisionBox = new Box(2575, 720, 64, 100, new Vector2(0, 0));
 
-            MovementBehaviour = new GroundMovement(new CollisionManager(), AnimationManager, CollisionBox);
+            MovementBehaviour = new GroundMovement(CollisionManager, AnimationManager, CollisionBox);
             HealthManager = new Health(1,MovementBehaviour, AnimationManager);
             rangeAttack = new RangeAttack(player, this, AnimationManager, MovementBehaviour, CollisionManager, fireball);
             rangeAttack.RangeOfAttack = 300;

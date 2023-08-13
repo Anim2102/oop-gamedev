@@ -61,11 +61,11 @@ namespace game_darksouls
             Debug.WriteLine(Content.RootDirectory);
             // TODO: Add your initialization logic here
             base.Initialize();
-            player = new Player(knightSpritesheet);
-            skeleton = new Skeleton(skeletonTexture, player);
-            wingedMob = new WingedMob(wingedMobTexture, player);
-            wizard = new Wizard(wizardTexture,wizardFireBall, player);
-            crystal = new Crystal(crystalTexture);
+            //player = new Player(knightSpritesheet);
+            //skeleton = new Skeleton(skeletonTexture, player);
+            //wingedMob = new WingedMob(wingedMobTexture, player);
+            //wizard = new Wizard(wizardTexture,wizardFireBall, player);
+            //crystal = new Crystal(crystalTexture);
             //tempLevel = new();
             entities = new List<IEntity>();
 

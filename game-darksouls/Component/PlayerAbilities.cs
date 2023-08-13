@@ -34,7 +34,7 @@ namespace game_darksouls.Component
             
             if (Attacking)
             {
-                attackBox.AttackWithFrame(Game1.wizard);
+                attackBox.AttackWithFrame();
             }
 
             if (attackBox.AttackFinished && Attacking)

@@ -66,7 +66,7 @@ namespace game_darksouls.Entity.Behaviour
             {
                 attacking = true;
                 npcMovementManager.ResetDirection();
-                attackBox.AttackWithFrame(player);
+                attackBox.AttackWithFrame();
 
                 if (attackBox.AttackFinished)
                 {

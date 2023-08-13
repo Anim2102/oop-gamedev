@@ -17,19 +17,18 @@ namespace game_darksouls.Entity
 
         public bool IsPlayerAttack => playerAbilities.Attacking;
 
-        public Player(Texture2D texturePlayer)
+        public Player(Texture2D texturePlayer, CollisionManager collisionManager) : base(collisionManager)
         {
             Texture = texturePlayer;
-
            
             CollisionBox = new Box(500, 700, 30, 40);
             DrawingBox = new Box(0, 0, 50, 50);
             DrawingBox.Offset = new Vector2(-10, -10);
 
             AnimationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
-            playerMovement = new PlayerMovement(new CollisionManager(),CollisionBox,AnimationManager,new(), this);
+            playerMovement = new PlayerMovement(CollisionManager,CollisionBox,AnimationManager,new(), this);
 
-            attack = new Attack(AnimationManager,CollisionBox,Vector2.Zero);
+            attack = new Attack(AnimationManager,CollisionBox,Vector2.Zero,collisionManager);
             attack.WidthAttackFrame = 40;
             attack.HeightAttackFrame = 32;
             attack.AttackStartFrame = 2;

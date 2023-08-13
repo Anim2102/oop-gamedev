@@ -13,6 +13,7 @@ namespace game_darksouls.Component
         private readonly AnimationManager animationManager;
         private readonly Box collisionBox;
         private readonly ActionAnimation attackAnimation;
+        private readonly CollisionManager collisionManager;
 
         public Rectangle attackFrame;
         public int WidthAttackFrame { get; set; }
@@ -29,16 +30,17 @@ namespace game_darksouls.Component
         public bool AttackFinished { get; private set; } = false;
 
 
-        public Attack(AnimationManager animationManager, Box collisionBox, Vector2 offsetAttackFrame)
+        public Attack(AnimationManager animationManager, Box collisionBox, Vector2 offsetAttackFrame, CollisionManager collisionManager)
         {
             this.collisionBox = collisionBox;
+            this.collisionManager = collisionManager;
             this.animationManager = animationManager;
             this.attackAnimation = animationManager.ReturnAnimationOnState(MovementState.ATTACK);
             Offset = offsetAttackFrame;
         }
 
 
-        public bool AttackWithFrame(AnimatedObject targetObject)
+        public bool AttackWithFrame()
         {
             AttackAnimation();
             bool hit = false;
@@ -46,11 +48,11 @@ namespace game_darksouls.Component
             if (indexAnimationFrame >= AttackStartFrame && indexAnimationFrame <= AttackEndFrame)
             {
                 SpawnAttackFrame();
-                hit = CheckHit(targetObject.CollisionBox);
+                AnimatedObject hittedObject = CheckHit();
 
-                if (hit)
+                if (hittedObject != null)
                 {
-                    targetObject.HealthManager.TakeDamage();
+                    hittedObject.HealthManager.TakeDamage();
                 }
                 AttackFinished = false;
             }
@@ -83,9 +85,9 @@ namespace game_darksouls.Component
 
             }
         }
-        private bool CheckHit(Box collisionBoxTarget)
+        private AnimatedObject CheckHit()
         {
-            return attackFrame.Intersects(collisionBoxTarget.Rectangle);
+            return collisionManager.CheckForHit(attackFrame);
         }
 
         public void ResetAttackAnimation()
