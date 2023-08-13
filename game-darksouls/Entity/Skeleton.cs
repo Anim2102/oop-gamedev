@@ -28,7 +28,7 @@ namespace game_darksouls.Entity
             MovementBehaviour = new GroundMovement(CollisionManager, AnimationManager,CollisionBox);
             HealthManager = new Health(1, MovementBehaviour,AnimationManager);
 
-            attackBox = new Attack(AnimationManager, CollisionBox, Vector2.Zero,collisionManager);
+            attackBox = new Attack(this,AnimationManager, CollisionBox, Vector2.Zero,collisionManager);
             attackBox.AttackStartFrame = 5;
             attackBox.AttackEndFrame = 10;
             attackBox.WidthAttackFrame = 90;
@@ -49,24 +49,13 @@ namespace game_darksouls.Entity
             {
                 MovementBehaviour.Update(gameTime);
                 entityStateController.Update(gameTime);
+                HealthManager.Update(gameTime);
             }
             AnimationManager.Update(gameTime);
             DrawingBox.UpdatePosition(CollisionBox.Position);
             base.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, 
-                DrawingBox.Rectangle,
-                AnimationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
-                Color.White,
-                0f, 
-                Vector2.Zero,
-                AnimationManager.SpriteFLip,
-                0f);
-            
-            //agressive.Draw(spriteBatch);
-        }
+        
     }
 }

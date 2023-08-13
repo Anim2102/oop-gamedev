@@ -42,10 +42,13 @@ namespace game_darksouls.Component
             return false;
         }
 
-        public AnimatedObject CheckForHit(Rectangle attackFrame)
+        public AnimatedObject CheckForHit(AnimatedObject initiator, Rectangle attackFrame)
         {
             foreach (var entity in CurrentLevel.entitys)
             {
+                if (entity == initiator)
+                    continue;
+
                 if (attackFrame.Intersects(entity.CollisionBox.Rectangle))
                     return entity;
             }

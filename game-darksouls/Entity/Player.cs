@@ -28,7 +28,7 @@ namespace game_darksouls.Entity
             AnimationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
             playerMovement = new PlayerMovement(CollisionManager,CollisionBox,AnimationManager,new(), this);
 
-            attack = new Attack(AnimationManager,CollisionBox,Vector2.Zero,collisionManager);
+            attack = new Attack(this,AnimationManager,CollisionBox,Vector2.Zero,collisionManager);
             attack.WidthAttackFrame = 40;
             attack.HeightAttackFrame = 32;
             attack.AttackStartFrame = 2;

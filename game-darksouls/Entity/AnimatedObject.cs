@@ -30,6 +30,7 @@ namespace game_darksouls.Entity
         {
             this.CollisionBox.UpdatePosition(startPosition);
         }
+
         public virtual void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(Texture,
                 DrawingBox.Rectangle,

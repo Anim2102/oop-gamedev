@@ -14,6 +14,7 @@ namespace game_darksouls.Component
         private readonly Box collisionBox;
         private readonly ActionAnimation attackAnimation;
         private readonly CollisionManager collisionManager;
+        private readonly AnimatedObject initiator;
 
         public Rectangle attackFrame;
         public int WidthAttackFrame { get; set; }
@@ -30,12 +31,13 @@ namespace game_darksouls.Component
         public bool AttackFinished { get; private set; } = false;
 
 
-        public Attack(AnimationManager animationManager, Box collisionBox, Vector2 offsetAttackFrame, CollisionManager collisionManager)
+        public Attack(AnimatedObject initiator,AnimationManager animationManager, Box collisionBox, Vector2 offsetAttackFrame, CollisionManager collisionManager)
         {
             this.collisionBox = collisionBox;
             this.collisionManager = collisionManager;
             this.animationManager = animationManager;
             this.attackAnimation = animationManager.ReturnAnimationOnState(MovementState.ATTACK);
+            this.initiator = initiator;
             Offset = offsetAttackFrame;
         }
 
@@ -52,6 +54,7 @@ namespace game_darksouls.Component
 
                 if (hittedObject != null)
                 {
+                    hit = true;
                     hittedObject.HealthManager.TakeDamage();
                 }
                 AttackFinished = false;
@@ -87,7 +90,7 @@ namespace game_darksouls.Component
         }
         private AnimatedObject CheckHit()
         {
-            return collisionManager.CheckForHit(attackFrame);
+            return collisionManager.CheckForHit(initiator, attackFrame);
         }
 
         public void ResetAttackAnimation()

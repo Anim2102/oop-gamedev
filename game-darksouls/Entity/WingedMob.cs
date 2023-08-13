@@ -32,7 +32,7 @@ namespace game_darksouls.Entity
 
             MovementBehaviour = new FlyMovement(CollisionManager, AnimationManager, CollisionBox);
 
-            attackBox = new Attack(AnimationManager, CollisionBox, Vector2.Zero, collisionManager);
+            attackBox = new Attack(this, AnimationManager, CollisionBox, Vector2.Zero, collisionManager);
             attackBox.AttackStartFrame = 2;
             attackBox.AttackEndFrame = 3;
             attackBox.WidthAttackFrame = 90;
@@ -68,22 +68,6 @@ namespace game_darksouls.Entity
             base.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            /*spriteBatch.Draw(Game1.redsquareDebug, drawingBox.Rectangle, Color.Green);
-            spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Green);
-            Debug.WriteLine(animationManager.currentAnimation.name);
-            */
-
-            //entityStateController.Draw(spriteBatch);
-            spriteBatch.Draw(Texture,
-                DrawingBox.Rectangle,
-                AnimationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
-                Color.White,
-                0f,
-                Vector2.Zero,
-                AnimationManager.SpriteFLip,
-                0f);
-        }
+        
     }
 }
