@@ -1,7 +1,7 @@
-﻿using game_darksouls.Collectible;
+﻿using Collectible;
+using game_darksouls.Collectible;
 using game_darksouls.Entity;
 using game_darksouls.Level;
-using game_darksouls.Levels;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 

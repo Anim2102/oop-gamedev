@@ -102,8 +102,6 @@ namespace game_darksouls.Level
         }
         private int[,] ReadCsv()
         {
-     
-            
             string[] lines = File.ReadAllLines(pathToCsv);
             int rows = lines.Length;
             int columns = lines[0].Split(',').Length;

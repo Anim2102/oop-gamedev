@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace game_darksouls.Levels
+namespace Collectible
 {
     public interface ICollectibleManager
-{
+    {
         List<ICollectible> Collectibles { get; }
         List<ICollectible> RemoveCollectibles { get; }
         void AddCollectible(ICollectible collectible) { }
 
         void Update(GameTime gameTime) { }
         void Draw(SpriteBatch spriteBatch) { }
-}
+    }
 }

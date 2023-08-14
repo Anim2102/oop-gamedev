@@ -1,4 +1,5 @@
-﻿using game_darksouls.Collectible;
+﻿using Collectible;
+using game_darksouls.Collectible;
 using game_darksouls.Component;
 using game_darksouls.Entity;
 using game_darksouls.Entity.EntityUtils;

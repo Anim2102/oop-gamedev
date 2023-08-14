@@ -1,22 +1,18 @@
-﻿using game_darksouls.Collectible;
+﻿using Collectible;
+using game_darksouls.Collectible;
 using game_darksouls.Component;
-using game_darksouls.Entity.EntityUtils;
 using game_darksouls.Entity;
+using game_darksouls.Entity.EntityUtils;
 using game_darksouls.Level;
 using game_darksouls.Utilities;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game_darksouls.Levels.worlds
 {
     internal class LevelTwo : LevelSetup
-{
+    {
         private Camera camera;
         private Hud hud;
 

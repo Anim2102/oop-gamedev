@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace game_darksouls.Levels
+namespace Collectible
 {
     public class CollectibleManager : ICollectibleManager
     {
@@ -21,7 +21,7 @@ namespace game_darksouls.Levels
         }
 
 
-    
+
         public void AddCollectible(ICollectible collectible)
         {
             collectibles.Add(collectible);
