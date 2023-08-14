@@ -25,7 +25,7 @@ namespace game_darksouls.Levels.worlds
 
         private ICollectibleManager collectibleManager;
 
-        public LevelOne(ContentManager contentManager, Viewport viewport) : base(Game1.dungeonTexture, @"Content\test.3.csv")
+        public LevelOne(ContentManager contentManager, Viewport viewport) : base(Game1.dungeonTexture, "Levels/csv levels/map.csv")
         {
             collectibleManager = new CollectibleManager();
             CollisionManager collisionManager = new CollisionManager(this, collectibleManager);

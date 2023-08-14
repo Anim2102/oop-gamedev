@@ -34,6 +34,7 @@ namespace game_darksouls
         
 
         private LevelOne firstLevel;
+        private LevelTwo secondLevel;
         //private LevelOneTemp tempLevel;
         public static Texture2D dungeonTexture;
 
@@ -71,6 +72,7 @@ namespace game_darksouls
             entities = new List<IEntity>();
 
             firstLevel = new LevelOne(Content,GraphicsDevice.Viewport);
+            secondLevel = new LevelTwo(Content,GraphicsDevice.Viewport);
 
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 700;
@@ -109,7 +111,8 @@ namespace game_darksouls
             //skeleton.Update(gameTime);
             //wizard.Update(gameTime);
             //crystal.Update(gameTime);
-            firstLevel.Update(gameTime);
+            //firstLevel.Update(gameTime);
+            secondLevel.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -117,8 +120,8 @@ namespace game_darksouls
         {
             GraphicsDevice.Clear(Color.Black);
 
-            firstLevel.Draw(_spriteBatch);
-      
+            //firstLevel.Draw(_spriteBatch);
+            secondLevel.Draw(_spriteBatch);
             base.Draw(gameTime);
         }
 

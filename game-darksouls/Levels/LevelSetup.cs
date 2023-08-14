@@ -103,8 +103,8 @@ namespace game_darksouls.Level
         private int[,] ReadCsv()
         {
      
-            string relativePath = "Levels/csv levels/map.csv";
-            string[] lines = File.ReadAllLines(relativePath);
+            
+            string[] lines = File.ReadAllLines(pathToCsv);
             int rows = lines.Length;
             int columns = lines[0].Split(',').Length;
 
