@@ -18,8 +18,7 @@ namespace game_darksouls.Level
     {
         public List<Tile> Tiles { get; protected set; } = new();
         public List<AnimatedObject> entitys { get; protected set; } = new();
-        public List<ICollectible> Collectible { get; set; } = new();
-        public List<ICollectible> CollectedCollectible { get; set; } = new();
+        
 
         public int[,] TileArray { get; protected set; }
         
@@ -60,18 +59,7 @@ namespace game_darksouls.Level
                 entity.Update(gameTime);
             }
 
-            foreach (var collectible in Collectible)
-            {
-                collectible.Update(gameTime);
-
-                if (collectible.IsCollected)
-                    CollectedCollectible.Add(collectible);
-            }
-
-            foreach (var collectibleToRemove in CollectedCollectible)
-            {
-                Collectible.Remove(collectibleToRemove);
-            }
+            
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -85,10 +73,7 @@ namespace game_darksouls.Level
                 spriteBatch.Draw(tileSetTexture, tile.TileBox, tile.SourceRectangle, Color.White);
             }
 
-            foreach (var collectible in Collectible)
-            {
-                collectible.Draw(spriteBatch);
-            }
+           
         }
 
         private void CreateTileSet()

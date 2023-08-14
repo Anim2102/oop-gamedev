@@ -23,9 +23,12 @@ namespace game_darksouls.Levels.worlds
         private Camera camera;
         private Hud hud;
 
+        private ICollectibleManager collectibleManager;
+
         public LevelOne(ContentManager contentManager, Viewport viewport) : base(Game1.dungeonTexture, @"Content\test.3.csv")
         {
-            CollisionManager collisionManager = new CollisionManager(this);
+            collectibleManager = new CollectibleManager();
+            CollisionManager collisionManager = new CollisionManager(this, collectibleManager);
 
             Player player = new Player(contentManager.Load<Texture2D>("Knight"),collisionManager);
             player.StartPosition(new Vector2(500, 700));
@@ -45,7 +48,7 @@ namespace game_darksouls.Levels.worlds
             Vector2 gemOnePosition = new Vector2(1700, 628);
             Crystal gemOne = new Crystal(contentManager.Load<Texture2D>("crystal"),gemOnePosition);
             
-            Collectible.Add(gemOne);
+            collectibleManager.AddCollectible(gemOne);
 
             camera = new Camera(viewport, player);
             hud = new Hud(player.HealthManager,contentManager,viewport);
@@ -55,6 +58,7 @@ namespace game_darksouls.Levels.worlds
         {
             camera.Update();
             hud.Update();
+            collectibleManager.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -62,6 +66,7 @@ namespace game_darksouls.Levels.worlds
         {
           
             spriteBatch.Begin(transformMatrix: camera.CreateTransformation());
+            collectibleManager.Draw(spriteBatch);
             base.Draw(spriteBatch);
             spriteBatch.End();
 

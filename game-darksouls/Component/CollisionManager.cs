@@ -1,6 +1,7 @@
 ﻿using game_darksouls.Collectible;
 using game_darksouls.Entity;
 using game_darksouls.Level;
+using game_darksouls.Levels;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
@@ -9,14 +10,16 @@ namespace game_darksouls.Component
     public class CollisionManager
     {
         public LevelSetup CurrentLevel { get; set; }
+        public ICollectibleManager CollectibleManager { get; set; }
 
-        public CollisionManager(LevelSetup currentLevel)
+        public CollisionManager(LevelSetup currentLevel, ICollectibleManager collectibleManager)
         {
             CurrentLevel = currentLevel;
+            CollectibleManager = collectibleManager;
         }
         public void CheckIfCollectible(AnimatedObject player)
         {
-            foreach (var collectible in CurrentLevel.Collectible)
+            foreach (var collectible in CollectibleManager.Collectibles)
             {
                 if (player.CollisionBox.Rectangle.Intersects(collectible.CollisionBox.Rectangle))
                 {
