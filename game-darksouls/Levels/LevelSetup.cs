@@ -19,6 +19,7 @@ namespace game_darksouls.Level
         public List<Tile> Tiles { get; protected set; } = new();
         public List<AnimatedObject> entitys { get; protected set; } = new();
         public List<ICollectible> Collectible { get; set; } = new();
+        public List<ICollectible> CollectedCollectible { get; set; } = new();
 
         public int[,] TileArray { get; protected set; }
         
@@ -62,6 +63,14 @@ namespace game_darksouls.Level
             foreach (var collectible in Collectible)
             {
                 collectible.Update(gameTime);
+
+                if (collectible.IsCollected)
+                    CollectedCollectible.Add(collectible);
+            }
+
+            foreach (var collectibleToRemove in CollectedCollectible)
+            {
+                Collectible.Remove(collectibleToRemove);
             }
         }
 
