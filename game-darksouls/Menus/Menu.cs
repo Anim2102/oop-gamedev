@@ -11,15 +11,20 @@ namespace game_darksouls.Menus
 {
     public class Menu
 {
+        private BaseButton button;
+
+        public Menu()
+        {
+            button= new BaseButton();
+        }
         public void Update(GameTime gameTime)
         {
-
+            button.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            Debug.WriteLine("in het meny");
-            spriteBatch.Draw(Game1.redsquareDebug, new Rectangle(200, 200, 200, 200), Color.White);
+            button.Draw(spriteBatch); 
             spriteBatch.End();
         }
 }

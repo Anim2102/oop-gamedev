@@ -10,14 +10,10 @@ namespace game_darksouls.GameManaging
         private GameManager gameManager;
         private LevelSetup currentLevel;
 
-        private bool waiting = false;
-        private double waitStartTime;
-        private double waitDuration = 2.0;
-
         public GameplayState(GameManager gameManager) 
         {
             this.gameManager = gameManager;
-            Play();
+            
         }
         public void Play()
         {
@@ -31,21 +27,7 @@ namespace game_darksouls.GameManaging
 
         public void Update(GameTime gameTime)
         {
-            if (waiting)
-            {
-                double elapsedSeconds = (gameTime.TotalGameTime.TotalMilliseconds - waitStartTime) / 1000.0;
-
-                if (elapsedSeconds >= waitDuration)
-                {
-                    waiting = false;
-                    currentLevel= gameManager.Levels[1];
-                }
-            }
-            else
-            {
-                waiting = true;
-                waitStartTime = gameTime.TotalGameTime.TotalMilliseconds;
-            }
+            
 
             currentLevel.Update(gameTime);  
         }

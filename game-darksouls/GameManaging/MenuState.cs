@@ -31,22 +31,6 @@ namespace game_darksouls.GameManaging
 
         public void Update(GameTime gameTime)
         {
-            if (waiting)
-            {
-                double elapsedSeconds = (gameTime.TotalGameTime.TotalMilliseconds - waitStartTime) / 1000.0;
-
-                if (elapsedSeconds >= waitDuration)
-                {
-                    waiting = false;
-                    gameManager.SetState(new GameplayState(gameManager));
-                }
-            }
-            else
-            {
-                waiting = true;
-                waitStartTime = gameTime.TotalGameTime.TotalMilliseconds;
-            }
-
             GameMenu.Update(gameTime);
         }
 
