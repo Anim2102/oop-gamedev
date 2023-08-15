@@ -13,22 +13,22 @@ namespace game_darksouls.GameManaging
 {
     public class GameManager
 {
-        public List<ILevel> Levels { get; set; } = new();
+        public LevelManager LevelManager { get; private set; }
         public Menu GameMenu { get; set; }
+
 
         private IStateLevel currentState;
 
-        public GameManager(MenuState menuState)
-        {
-            currentState = menuState;
-        }
-        public GameManager() {
+        
+        public GameManager(LevelManager levelManager) {
             GameMenu = new Menu();
+            this.LevelManager = levelManager;
+            
         }
 
         public void AddLevel(ILevel newLevel)
         {
-            Levels.Add(newLevel);
+            LevelManager.AddLevel(newLevel);
         }
 
         public void SetState(IStateLevel stateLevel)

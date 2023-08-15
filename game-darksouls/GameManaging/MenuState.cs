@@ -34,7 +34,7 @@ namespace game_darksouls.GameManaging
             GameMenu.Update(gameTime);
 
             if (GameMenu.GetButtonPressed)
-                gameManager.SetState(new GameplayState(gameManager));
+                gameManager.SetState(new GameplayState(gameManager,gameManager.LevelManager.GetLevelByIndex(0)));
         }
 
         public void Draw(SpriteBatch spriteBatch)

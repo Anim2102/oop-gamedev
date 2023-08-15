@@ -9,19 +9,19 @@ namespace game_darksouls.GameManaging
         private GameManager gameManager;
         private ILevel currentLevel;
 
-        public GameplayState(GameManager gameManager)
+        public GameplayState(GameManager gameManager, ILevel level)
         {
             this.gameManager = gameManager;
 
 
             //default first level for testing
-            currentLevel = gameManager.Levels[0];
+            currentLevel = level;
 
         }
 
         public void Play()
         {
-            currentLevel = gameManager.Levels[0];
+            
         }
 
         public void Stop()
@@ -36,7 +36,14 @@ namespace game_darksouls.GameManaging
 
             if (currentLevel.IsComplete)
             {
-                gameManager.SetState(new MenuState(gameManager));
+                if (gameManager.LevelManager.CheckLastLevel(currentLevel))
+                {
+                    gameManager.SetState(new MenuState(gameManager));
+                }
+                else
+                {
+                    gameManager.SetState(new GameplayState(gameManager,gameManager.LevelManager.GetNextLevel(currentLevel)));
+                }
             }
 
         }

@@ -27,6 +27,7 @@ namespace game_darksouls
         private ILevel secondLevel;
 
         private GameManager gameManager;
+        private LevelManager levelManager;
 
         public Game1()
         {
@@ -45,10 +46,15 @@ namespace game_darksouls
             
             firstLevel = (ILevel)new LevelOne(Content,GraphicsDevice.Viewport);
             secondLevel = (ILevel)new LevelTwo(Content,GraphicsDevice.Viewport);
-            gameManager = new GameManager();
+
+            levelManager = new LevelManager();
+            levelManager.AddLevel(firstLevel);
+            levelManager.AddLevel(secondLevel);
+
+            gameManager = new GameManager(levelManager);
             gameManager.SetState(new MenuState(gameManager));
-            gameManager.AddLevel(firstLevel);
-            gameManager.AddLevel(secondLevel);
+
+            
 
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 700;
