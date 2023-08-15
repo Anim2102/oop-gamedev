@@ -7,6 +7,16 @@ namespace Collectible
 {
     public class CollectibleManager : ICollectibleManager
     {
+        public bool IsComplete
+        {
+            get
+            {
+                return RemoveCollectibles.Count == startCrystals;
+            }
+        }
+
+        private int startCrystals = 0;
+
         private List<ICollectible> collectibles = new List<ICollectible>();
         public List<ICollectible> Collectibles
         {
@@ -14,7 +24,6 @@ namespace Collectible
         }
 
         private List<ICollectible> removeCollectibles = new List<ICollectible>();
-
         public List<ICollectible> RemoveCollectibles
         {
             get { return removeCollectibles; }
@@ -25,6 +34,7 @@ namespace Collectible
         public void AddCollectible(ICollectible collectible)
         {
             collectibles.Add(collectible);
+            startCrystals++;
         }
 
         public void Update(GameTime gameTime)
