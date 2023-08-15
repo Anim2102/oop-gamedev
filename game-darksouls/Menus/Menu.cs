@@ -13,14 +13,25 @@ namespace game_darksouls.Menus
 {
         private BaseButton button;
 
+        public bool GetButtonPressed
+        {
+            get
+            {
+                return button.ClickedButton;
+            }
+        }
+
         public Menu()
         {
             button= new BaseButton();
+            button.ButtonRectangle = new Rectangle(100, 100, 100, 100);
         }
+
         public void Update(GameTime gameTime)
         {
             button.Update(gameTime);
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();

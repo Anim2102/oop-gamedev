@@ -13,6 +13,10 @@ namespace game_darksouls.GameManaging
         public GameplayState(GameManager gameManager) 
         {
             this.gameManager = gameManager;
+
+
+            //default first level for testing
+            currentLevel = gameManager.Levels[0];
             
         }
         public void Play()
