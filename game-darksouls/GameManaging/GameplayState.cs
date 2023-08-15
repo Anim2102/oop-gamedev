@@ -34,7 +34,6 @@ namespace game_darksouls.GameManaging
         {
             currentLevel.Update(gameTime);
 
-
             if (currentLevel.IsComplete)
             {
                 gameManager.SetState(new MenuState(gameManager));
