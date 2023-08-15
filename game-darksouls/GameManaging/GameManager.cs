@@ -17,8 +17,6 @@ namespace game_darksouls.GameManaging
 
         private IStateLevel currentState;
 
-
-
         public GameManager(MenuState menuState)
         {
             currentState = menuState;
@@ -26,8 +24,6 @@ namespace game_darksouls.GameManaging
         public GameManager() {
             GameMenu = new Menu();
         }
-
-
 
         public void AddLevel(LevelSetup newLevel)
         {

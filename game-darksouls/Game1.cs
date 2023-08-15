@@ -77,7 +77,7 @@ namespace game_darksouls
             firstLevel = new LevelOne(Content,GraphicsDevice.Viewport);
             secondLevel = new LevelTwo(Content,GraphicsDevice.Viewport);
             gameManager = new GameManager();
-            gameManager.SetState(new MenuState(gameManager.GameMenu));
+            gameManager.SetState(new MenuState(gameManager.GameMenu,gameManager));
             gameManager.AddLevel(firstLevel);
             gameManager.AddLevel(secondLevel);
 
