@@ -13,10 +13,8 @@ namespace game_darksouls.GameManaging
         {
             this.gameManager = gameManager;
 
-
             //default first level for testing
             currentLevel = level;
-
         }
 
         public void Play()

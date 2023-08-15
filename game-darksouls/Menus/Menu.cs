@@ -11,31 +11,42 @@ namespace game_darksouls.Menus
 {
     public class Menu
 {
-        private BaseButton button;
+        private List<BaseButton> buttons = new();
 
         public bool GetButtonPressed
         {
             get
             {
-                return button.ClickedButton;
+                return buttons[0].ClickedButton;
             }
         }
 
         public Menu()
         {
-            button= new BaseButton();
+            BaseButton button = new BaseButton();
             button.ButtonRectangle = new Rectangle(100, 100, 100, 100);
+            BaseButton buttonSecond = new BaseButton();
+            buttonSecond.ButtonRectangle = new Rectangle(200, 200, 100, 100);
+
+            buttons.Add(button);
+            buttons.Add(buttonSecond);
         }
 
         public void Update(GameTime gameTime)
         {
-            button.Update(gameTime);
+            foreach (var button in buttons)
+            {
+                button.Update(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            button.Draw(spriteBatch); 
+            foreach (var button in buttons)
+            {
+                button.Draw(spriteBatch);
+            }
             spriteBatch.End();
         }
 }
