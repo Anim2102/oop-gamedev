@@ -19,20 +19,20 @@ namespace game_darksouls.GameManaging
             currentLevel = gameManager.Levels[0];
             
         }
+
         public void Play()
         {
             currentLevel = gameManager.Levels[0];
         }
+
         public void Stop()
         {
             currentLevel= null;
-            gameManager.SetState(new MenuState(gameManager.GameMenu,gameManager));
+            gameManager.SetState(new MenuState(gameManager));
         }
 
         public void Update(GameTime gameTime)
         {
-            
-
             currentLevel.Update(gameTime);  
         }
 

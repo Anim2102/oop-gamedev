@@ -14,9 +14,9 @@ namespace game_darksouls.GameManaging
         private double waitStartTime;
         private double waitDuration = 2.0;
 
-        public MenuState(Menu gameMenu, GameManager gameManager)
+        public MenuState(GameManager gameManager)
         {
-            GameMenu = gameMenu;
+            GameMenu = gameManager.GameMenu;
             this.gameManager = gameManager;
         }
 
