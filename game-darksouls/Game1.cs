@@ -1,7 +1,9 @@
 ﻿using game_darksouls.Collectible;
 using game_darksouls.Entity;
+using game_darksouls.GameManaging;
 using game_darksouls.Level;
 using game_darksouls.Levels.worlds;
+using game_darksouls.Menus;
 using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -48,6 +50,7 @@ namespace game_darksouls
 
         //private Hud hud = new();
         private List<IEntity> entities;
+        private GameManager gameManager;
 
         public Game1()
         {
@@ -73,6 +76,10 @@ namespace game_darksouls
 
             firstLevel = new LevelOne(Content,GraphicsDevice.Viewport);
             secondLevel = new LevelTwo(Content,GraphicsDevice.Viewport);
+            gameManager = new GameManager();
+            gameManager.SetState(new MenuState(gameManager.GameMenu));
+            gameManager.AddLevel(firstLevel);
+            gameManager.AddLevel(secondLevel);
 
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 700;
@@ -112,7 +119,8 @@ namespace game_darksouls
             //wizard.Update(gameTime);
             //crystal.Update(gameTime);
             //firstLevel.Update(gameTime);
-            secondLevel.Update(gameTime);
+            //secondLevel.Update(gameTime);
+            gameManager.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -121,7 +129,8 @@ namespace game_darksouls
             GraphicsDevice.Clear(Color.Black);
 
             //firstLevel.Draw(_spriteBatch);
-            secondLevel.Draw(_spriteBatch);
+            //secondLevel.Draw(_spriteBatch);
+            gameManager.Draw(_spriteBatch);
             base.Draw(gameTime);
         }
 

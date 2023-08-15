@@ -14,7 +14,6 @@ namespace Collectible
         List<ICollectible> Collectibles { get; }
         List<ICollectible> RemoveCollectibles { get; }
         void AddCollectible(ICollectible collectible) { }
-
         void Update(GameTime gameTime) { }
         void Draw(SpriteBatch spriteBatch) { }
     }
