@@ -58,8 +58,6 @@ namespace game_darksouls.Level
             {
                 entity.Update(gameTime);
             }
-
-            
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -72,8 +70,6 @@ namespace game_darksouls.Level
             {
                 spriteBatch.Draw(tileSetTexture, tile.TileBox, tile.SourceRectangle, Color.White);
             }
-
-           
         }
 
         private void CreateTileSet()
