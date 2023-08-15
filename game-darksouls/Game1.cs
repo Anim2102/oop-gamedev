@@ -2,6 +2,7 @@
 using game_darksouls.Entity;
 using game_darksouls.GameManaging;
 using game_darksouls.Level;
+using game_darksouls.Levels;
 using game_darksouls.Levels.worlds;
 using game_darksouls.Menus;
 using game_darksouls.Utilities;
@@ -22,8 +23,8 @@ namespace game_darksouls
 
         public static Texture2D dungeonTexture;
 
-        private LevelSetup firstLevel;
-        private LevelSetup secondLevel;
+        private ILevel firstLevel;
+        private ILevel secondLevel;
 
         private GameManager gameManager;
 
@@ -42,8 +43,8 @@ namespace game_darksouls
             // TODO: Add your initialization logic here
             base.Initialize();
             
-            firstLevel = new LevelOne(Content,GraphicsDevice.Viewport);
-            secondLevel = new LevelTwo(Content,GraphicsDevice.Viewport);
+            firstLevel = (ILevel)new LevelOne(Content,GraphicsDevice.Viewport);
+            secondLevel = (ILevel)new LevelTwo(Content,GraphicsDevice.Viewport);
             gameManager = new GameManager();
             gameManager.SetState(new MenuState(gameManager));
             gameManager.AddLevel(firstLevel);

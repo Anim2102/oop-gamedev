@@ -11,6 +11,7 @@ namespace Collectible
 {
     public interface ICollectibleManager
     {
+        bool IsComplete { get; }
         List<ICollectible> Collectibles { get; }
         List<ICollectible> RemoveCollectibles { get; }
         void AddCollectible(ICollectible collectible) { }

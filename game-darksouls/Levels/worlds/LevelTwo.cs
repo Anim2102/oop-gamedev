@@ -11,12 +11,20 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace game_darksouls.Levels.worlds
 {
-    internal class LevelTwo : LevelSetup
+    internal class LevelTwo : LevelSetup, ILevel
     {
         private Camera camera;
         private Hud hud;
 
         private ICollectibleManager collectibleManager;
+
+        public bool IsComplete
+        {
+            get
+            {
+                return collectibleManager.IsComplete;
+            }
+        }
 
         public LevelTwo(ContentManager contentManager, Viewport viewport) : base(Game1.dungeonTexture, "Levels/csv levels/map2.csv")
         {

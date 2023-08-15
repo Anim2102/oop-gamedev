@@ -48,7 +48,7 @@ namespace game_darksouls.Collectible
         {
             drawingBox.UpdatePosition(collisionBox.Position);
             animationManager.Update(gameTime);
-            Debug.WriteLine(isCollected);
+            //Debug.WriteLine(isCollected);
         }
 
         public void Draw(SpriteBatch spriteBatch)

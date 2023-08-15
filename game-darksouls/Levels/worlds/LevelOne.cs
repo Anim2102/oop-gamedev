@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
@@ -19,12 +20,20 @@ using System.Threading.Tasks;
 
 namespace game_darksouls.Levels.worlds
 {
-    public class LevelOne : LevelSetup
+    public class LevelOne : LevelSetup, ILevel
     {
         private Camera camera;
         private Hud hud;
 
         private ICollectibleManager collectibleManager;
+
+        public bool IsComplete
+        {
+            get
+            {
+                return collectibleManager.IsComplete;
+            }
+        }
 
         public LevelOne(ContentManager contentManager, Viewport viewport) : base(Game1.dungeonTexture, "Levels/csv levels/map.csv")
         {
@@ -60,6 +69,7 @@ namespace game_darksouls.Levels.worlds
             camera.Update();
             hud.Update();
             collectibleManager.Update(gameTime);
+            Debug.WriteLine(IsComplete);
             base.Update(gameTime);
         }
 

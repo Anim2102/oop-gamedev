@@ -1,4 +1,5 @@
 ﻿using game_darksouls.Level;
+using game_darksouls.Levels;
 using game_darksouls.Menus;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,7 +13,7 @@ namespace game_darksouls.GameManaging
 {
     public class GameManager
 {
-        public List<LevelSetup> Levels { get; set; } = new();
+        public List<ILevel> Levels { get; set; } = new();
         public Menu GameMenu { get; set; }
 
         private IStateLevel currentState;
@@ -25,7 +26,7 @@ namespace game_darksouls.GameManaging
             GameMenu = new Menu();
         }
 
-        public void AddLevel(LevelSetup newLevel)
+        public void AddLevel(ILevel newLevel)
         {
             Levels.Add(newLevel);
         }
