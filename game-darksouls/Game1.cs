@@ -9,6 +9,7 @@ using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -28,7 +29,7 @@ namespace game_darksouls
 
         private GameManager gameManager;
         private LevelManager levelManager;
-
+        Song testaudi;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -46,6 +47,9 @@ namespace game_darksouls
             
             firstLevel = (ILevel)new LevelOne(Content,GraphicsDevice.Viewport);
             secondLevel = (ILevel)new LevelTwo(Content,GraphicsDevice.Viewport);
+
+            //testaudi = Content.Load<Song>("sounds/Dark Ambient 3");
+            //MediaPlayer.Play(testaudi);
 
             levelManager = new LevelManager();
             levelManager.AddLevel(firstLevel);
@@ -77,6 +81,7 @@ namespace game_darksouls
                 Exit();
 
             gameManager.Update(gameTime);
+
             base.Update(gameTime);
         }
 

@@ -40,7 +40,7 @@ namespace game_darksouls.Levels.worlds
             collectibleManager = new CollectibleManager();
             CollisionManager collisionManager = new CollisionManager(this, collectibleManager);
 
-            Player player = new Player(contentManager.Load<Texture2D>("Knight"),collisionManager);
+            Player player = new Player(contentManager.Load<Texture2D>("Knight"),collisionManager,contentManager);
             player.StartPosition(new Vector2(500, 700));
             entitys.Add(player);
 

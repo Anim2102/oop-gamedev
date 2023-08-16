@@ -3,7 +3,10 @@ using game_darksouls.Animation;
 using game_darksouls.Component;
 using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Enum;
+using game_darksouls.Sound;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 
@@ -15,6 +18,8 @@ namespace game_darksouls.Entity
         private Attack attack;
         private PlayerAbilities playerAbilities;
 
+        private SoundManager soundManager;
+
         private const int COLLISIONBOXWIDTH = 30;
         private const int COLLISIONBOXHEIGHT = 40;
         private const int DRAWINGBOXWIDTH = 50;
@@ -25,10 +30,12 @@ namespace game_darksouls.Entity
         private const int HEALTH = 5;
         public bool IsPlayerAttack => playerAbilities.Attacking;
 
-        public Player(Texture2D texturePlayer, CollisionManager collisionManager) : base(collisionManager)
+        public Player(Texture2D texturePlayer, CollisionManager collisionManager, ContentManager content) : base(collisionManager)
         {
             Texture = texturePlayer;
-           
+            soundManager = new SoundManager();
+            soundManager.AddSoundEffect("swing", content.Load<SoundEffect>("sounds/sword swing air"));
+
             CollisionBox = new Box(0, 0, COLLISIONBOXWIDTH, COLLISIONBOXHEIGHT);
             DrawingBox = new Box(0, 0, DRAWINGBOXWIDTH, DRAWINGBOXHEIGHT);
             DrawingBox.Offset = new Vector2(DRAWINGBOXOFFSETX, DRAWINGBOXOFFSETY);
@@ -43,7 +50,9 @@ namespace game_darksouls.Entity
             attack.AttackEndFrame = 4;
 
             HealthManager = new Health(HEALTH, playerMovement,AnimationManager);
-            playerAbilities = new PlayerAbilities(playerMovement, attack, new(),AnimationManager);
+            playerAbilities = new PlayerAbilities(playerMovement, attack, new(),soundManager);
+
+            
             
         }
         public override void Update(GameTime gameTime)
