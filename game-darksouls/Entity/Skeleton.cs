@@ -30,7 +30,7 @@ namespace game_darksouls.Entity
             MovementBehaviour = new GroundMovement(CollisionManager, AnimationManager,CollisionBox);
             HealthManager = new Health(3, MovementBehaviour,AnimationManager);
 
-            attackBox = new Attack(this,AnimationManager, CollisionBox, Vector2.Zero,collisionManager,soundManager);
+            attackBox = new Attack(this,AnimationManager, CollisionBox, Vector2.Zero,collisionManager);
             attackBox.AttackStartFrame = 5;
             attackBox.AttackEndFrame = 10;
             attackBox.WidthAttackFrame = 90;

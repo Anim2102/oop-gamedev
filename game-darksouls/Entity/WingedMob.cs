@@ -20,7 +20,6 @@ namespace game_darksouls.Entity
         private Agressive agressive;
         private Attack attackBox;
 
-
         public WingedMob(Texture2D texture, Player player,CollisionManager collisionManager) : base(collisionManager)
         {
             this.Texture = texture;
@@ -32,7 +31,7 @@ namespace game_darksouls.Entity
 
             MovementBehaviour = new FlyMovement(CollisionManager, AnimationManager, CollisionBox);
 
-            attackBox = new Attack(this, AnimationManager, CollisionBox, Vector2.Zero, collisionManager,null);
+            attackBox = new Attack(this, AnimationManager, CollisionBox, Vector2.Zero, collisionManager);
             attackBox.AttackStartFrame = 2;
             attackBox.AttackEndFrame = 3;
             attackBox.WidthAttackFrame = 90;
@@ -62,7 +61,6 @@ namespace game_darksouls.Entity
                 MovementBehaviour.Update(gameTime);
                 entityStateController.Update(gameTime);
             }
-
             AnimationManager.Update(gameTime);
             HealthManager.Update(gameTime);
             base.Update(gameTime);
