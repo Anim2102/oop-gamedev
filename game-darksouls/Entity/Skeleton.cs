@@ -3,6 +3,7 @@ using game_darksouls.Animation;
 using game_darksouls.Component;
 using game_darksouls.Entity.Behaviour;
 using game_darksouls.Entity.EntityMovement;
+using game_darksouls.Sound;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
@@ -14,11 +15,12 @@ namespace game_darksouls.Entity
         private BehaveController entityStateController;
         private Attack attackBox;
 
-       
+        private ISoundManager soundManager;
 
 
         public Skeleton(Texture2D texture, Player player,CollisionManager collisionManager) : base(collisionManager)
         {
+            this.soundManager = new SoundManager();
             CollisionBox = new Box();
             CollisionBox.Rectangle = new Rectangle(2405, 650, 60, 50);
             DrawingBox = new Box(0, 0, 64 * 2, 64 * 2 , new Vector2(-35, -50));
@@ -26,9 +28,9 @@ namespace game_darksouls.Entity
             Texture = texture;
             AnimationManager = new(AnimationFactory.LoadSkeletonAnimations());
             MovementBehaviour = new GroundMovement(CollisionManager, AnimationManager,CollisionBox);
-            HealthManager = new Health(1, MovementBehaviour,AnimationManager);
+            HealthManager = new Health(3, MovementBehaviour,AnimationManager);
 
-            attackBox = new Attack(this,AnimationManager, CollisionBox, Vector2.Zero,collisionManager);
+            attackBox = new Attack(this,AnimationManager, CollisionBox, Vector2.Zero,collisionManager,soundManager);
             attackBox.AttackStartFrame = 5;
             attackBox.AttackEndFrame = 10;
             attackBox.WidthAttackFrame = 90;

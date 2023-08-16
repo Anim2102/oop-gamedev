@@ -32,7 +32,7 @@ namespace game_darksouls.Entity
 
             MovementBehaviour = new FlyMovement(CollisionManager, AnimationManager, CollisionBox);
 
-            attackBox = new Attack(this, AnimationManager, CollisionBox, Vector2.Zero, collisionManager);
+            attackBox = new Attack(this, AnimationManager, CollisionBox, Vector2.Zero, collisionManager,null);
             attackBox.AttackStartFrame = 2;
             attackBox.AttackEndFrame = 3;
             attackBox.WidthAttackFrame = 90;

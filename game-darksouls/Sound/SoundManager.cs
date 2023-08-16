@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace game_darksouls.Sound
 {
-    public class SoundManager
+    public class SoundManager : ISoundManager
 {
         private bool isPlaying = false;
         private SoundEffectInstance lastEffect= null;
@@ -29,8 +29,6 @@ namespace game_darksouls.Sound
 
         public void PlaySoundEffect(string nameSound) 
         {
-            
-
             if (soundEffects.ContainsKey(nameSound) && !isPlaying)
             {
                 lastEffect = soundEffects[nameSound].CreateInstance();
@@ -40,6 +38,17 @@ namespace game_darksouls.Sound
 
             if (lastEffect.State == SoundState.Stopped)
                 isPlaying = false;
+        }
+
+        public void ForceSoundEffect(string nameSound)
+        {
+            if (soundEffects.ContainsKey(nameSound))
+            {
+                
+                lastEffect = soundEffects[nameSound].CreateInstance();
+                lastEffect.Play();
+                
+            }
         }
 }
 }

@@ -18,7 +18,7 @@ namespace game_darksouls.Entity
         private Attack attack;
         private PlayerAbilities playerAbilities;
 
-        private SoundManager soundManager;
+        private ISoundManager soundManager;
 
         private const int COLLISIONBOXWIDTH = 30;
         private const int COLLISIONBOXHEIGHT = 40;
@@ -35,6 +35,7 @@ namespace game_darksouls.Entity
             Texture = texturePlayer;
             soundManager = new SoundManager();
             soundManager.AddSoundEffect("swing", content.Load<SoundEffect>("sounds/sword swing air"));
+            soundManager.AddSoundEffect("hit swing", content.Load<SoundEffect>("sounds/sword swing hit"));
 
             CollisionBox = new Box(0, 0, COLLISIONBOXWIDTH, COLLISIONBOXHEIGHT);
             DrawingBox = new Box(0, 0, DRAWINGBOXWIDTH, DRAWINGBOXHEIGHT);
@@ -43,7 +44,7 @@ namespace game_darksouls.Entity
             AnimationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
             playerMovement = new PlayerMovement(CollisionManager,CollisionBox,AnimationManager,new(), this);
 
-            attack = new Attack(this,AnimationManager,CollisionBox,Vector2.Zero,collisionManager);
+            attack = new Attack(this,AnimationManager,CollisionBox,Vector2.Zero,collisionManager,soundManager);
             attack.WidthAttackFrame = 40;
             attack.HeightAttackFrame = 32;
             attack.AttackStartFrame = 2;

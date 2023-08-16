@@ -10,13 +10,13 @@ namespace game_darksouls.Component
     internal class PlayerAbilities : IComponent
     {
         private readonly IMovementBehaviour playerMovement;
-        private readonly SoundManager soundManager;
+        private readonly ISoundManager soundManager;
         public Attack attackBox;
         private InputManager inputManager;
 
         public bool Attacking { get; set; }
 
-        public PlayerAbilities(IMovementBehaviour movementBehaviour, Attack attackBox, InputManager inputManager,SoundManager soundManager)
+        public PlayerAbilities(IMovementBehaviour movementBehaviour, Attack attackBox, InputManager inputManager,ISoundManager soundManager)
         {
             this.playerMovement = movementBehaviour;
             this.attackBox = attackBox;

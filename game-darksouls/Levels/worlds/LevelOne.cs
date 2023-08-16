@@ -55,7 +55,7 @@ namespace game_darksouls.Levels.worlds
             //mob {X:2130 Y:658}
             //wiz {X:2130 Y:658}
 
-            Vector2 gemOnePosition = new Vector2(1700, 628);
+            Vector2 gemOnePosition = new Vector2(1700, 200);
             Crystal gemOne = new Crystal(contentManager.Load<Texture2D>("crystal"),gemOnePosition);
             
             collectibleManager.AddCollectible(gemOne);

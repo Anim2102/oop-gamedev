@@ -1,6 +1,7 @@
 ﻿using game_darksouls.Animation;
 using game_darksouls.Entity;
 using game_darksouls.Enum;
+using game_darksouls.Sound;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SharpDX.MediaFoundation;
