@@ -19,7 +19,7 @@ namespace game_darksouls.Utilities
             this.viewport = viewport; 
             this.player = player;
 
-            OriginCenter = new Vector2(viewport.Width / 2, viewport.Height / 2);
+            OriginCenter = new Vector2((viewport.Width / 2)-player.CollisionBox.Rectangle.Width - 160, (viewport.Height / 2)-player.CollisionBox.Rectangle.Height - 100);
 
         }
         public Matrix CreateTransformation()
@@ -32,8 +32,26 @@ namespace game_darksouls.Utilities
         }
         public void Update()
         {
-            CameraPosition = player.CollisionBox.Position;
+
+            float cameraX = player.CollisionBox.Position.X;
+            float cameraY = player.CollisionBox.Position.Y;
+
+            CameraPosition = new Vector2(cameraX, cameraY);
         }
+
+
+        
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            /*
+            float cameraX = player.CollisionBox.Position.X;
+            float cameraY = player.CollisionBox.Position.Y;
+
+            spriteBatch.Draw(Game1.redsquareDebug, new Vector2(cameraX, cameraY), Color.Red);
+            spriteBatch.Draw(Game1.redsquareDebug, OriginCenter, Color.Red);
+            */
+        }
+        
     }
 
 }

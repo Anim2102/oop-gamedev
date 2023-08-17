@@ -90,6 +90,11 @@ namespace game_darksouls.Levels.worlds
             spriteBatch.Begin();
             hud.Draw(spriteBatch);
             spriteBatch.End();
+
+
+            spriteBatch.Begin();
+            camera.Draw(spriteBatch);
+            spriteBatch.End();
         }
     }
 }
