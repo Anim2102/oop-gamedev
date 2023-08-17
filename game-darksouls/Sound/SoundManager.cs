@@ -10,7 +10,6 @@ namespace game_darksouls.Sound
 {
     public class SoundManager : ISoundManager
 {
-        private bool isPlaying = false;
         private SoundEffectInstance lastEffect= null;
 
         private Dictionary<string,SoundEffect> soundEffects = new();
@@ -35,7 +34,7 @@ namespace game_darksouls.Sound
             if (lastEffect != null)
             {
                 lastEffect.Stop();
-                //lastEffect.Dispose();
+                lastEffect.Dispose();
             }
 
             lastEffect = soundEffects[nameSound].CreateInstance();
@@ -46,7 +45,6 @@ namespace game_darksouls.Sound
         {
             if (soundEffects.ContainsKey(nameSound))
             {
-                
                 lastEffect = soundEffects[nameSound].CreateInstance();
                 lastEffect.Play();
                 
