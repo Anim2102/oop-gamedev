@@ -44,7 +44,8 @@ namespace game_darksouls.GameManaging
 
             if (gameMenu.GetButtonPressed)
             {
-                gameManager.SetState(new GameplayState(gameManager, gameManager.LevelManager.GetLevelByIndex(0), contentManager));
+                int buttonValue = gameMenu.ButtonValue();
+                gameManager.SetState(new GameplayState(gameManager, gameManager.LevelManager.GetLevelByIndex(buttonValue), contentManager));
                 Stop();
             }
         }

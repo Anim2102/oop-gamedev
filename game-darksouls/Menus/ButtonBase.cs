@@ -19,6 +19,7 @@ namespace game_darksouls.Menus
         public Color BaseCollor { get; set; }
         public Color secondCollor { get; set; }
         public float TextSize { get; set; }
+        public int ValueButton { get; set; }
 
         private Color currentColor = Color.White;
 
