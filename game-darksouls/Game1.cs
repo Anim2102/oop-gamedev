@@ -39,7 +39,10 @@ namespace game_darksouls
 
         protected override void Initialize()
         {
-            
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 700;
+            _graphics.ApplyChanges();
+
 
             Debug.WriteLine(Content.RootDirectory);
             // TODO: Add your initialization logic here
@@ -55,16 +58,8 @@ namespace game_darksouls
             levelManager.AddLevel(firstLevel);
             levelManager.AddLevel(secondLevel);
 
-            gameManager = new GameManager(levelManager);
+            gameManager = new GameManager(levelManager,GraphicsDevice.Viewport,Content);
             gameManager.SetState(new MenuState(gameManager,Content));
-
-            
-
-            _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight = 700;
-            _graphics.ApplyChanges();
-
-
         }
 
         protected override void LoadContent()

@@ -50,10 +50,10 @@ namespace game_darksouls.Levels.worlds
             IEntity wizard = EntityFactory.EntityCreator(contentManager, "wizard", player, collisionManager);
             
             skeleton.StartPosition(new Vector2(1700, 648));
-            //entitys.Add(skeleton);
+            entitys.Add(skeleton);
 
             wingedMob.StartPosition(new Vector2(1865, 608));
-            //entitys.Add(wingedMob);
+            entitys.Add(wingedMob);
 
             wizard.StartPosition(new Vector2(1865, 608));
             entitys.Add(wizard);

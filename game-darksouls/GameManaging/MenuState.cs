@@ -13,21 +13,21 @@ namespace game_darksouls.GameManaging
         private GameManager gameManager;
         private IBackGroundPlayer soundManager;
         private ContentManager contentManager;
+        private Viewport viewport;
 
         private Song backgroundSong;
 
         public MenuState(GameManager gameManager,ContentManager contentManager)
         {
-            
             this.gameManager = gameManager;
             this.contentManager = contentManager;
         }
 
         public void Start()
         {
-            gameMenu = new Menu();
-
+            gameMenu = new Menu(gameManager.Viewport,contentManager);
             soundManager = new SoundManager();
+        
             this.backgroundSong = contentManager.Load<Song>("sounds/Dungeon Theme");
             soundManager.PlayBackGroundSong(backgroundSong);
         }

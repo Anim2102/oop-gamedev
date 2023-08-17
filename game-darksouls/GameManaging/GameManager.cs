@@ -2,6 +2,7 @@
 using game_darksouls.Levels;
 using game_darksouls.Menus;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,15 @@ namespace game_darksouls.GameManaging
         public LevelManager LevelManager { get; private set; }
         public Menu GameMenu { get; set; }
 
+        private ContentManager contentManager;
+        private Viewport viewport;
+        public Viewport Viewport { get { return viewport; } }
         private IStateGame currentState;
 
-        public GameManager(LevelManager levelManager) {
-            GameMenu = new Menu();
+        public GameManager(LevelManager levelManager,Viewport viewport,ContentManager contentManager) {
+            this.viewport = viewport;
+            this.contentManager = contentManager;
+            GameMenu = new Menu(viewport,contentManager);
             this.LevelManager = levelManager;
         }
 

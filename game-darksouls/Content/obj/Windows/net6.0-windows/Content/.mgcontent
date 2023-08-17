@@ -8,8 +8,10 @@
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/crystal.png</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Daco_4696122.png</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Dungeon Tile Set.png</File>
+    <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/fonts/font.spritefont</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/hart.png</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Knight Sprite Sheet.png</File>
+    <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/menu background.jpg</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Necromancer_creativekind-Sheet.png</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Skeleton.png</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/sounds/Dark Ambient 3.ogg</File>
@@ -24,7 +26,9 @@
     <File>fireball.png</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File>Knight.png</File>
+    <File xsi:nil="true" />
     <File>wizard.png</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />

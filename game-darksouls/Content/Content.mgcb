@@ -61,6 +61,13 @@
 /processorParam:TextureFormat=Color
 /build:Dungeon Tile Set.png
 
+#begin fonts/font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/font.spritefont
+
 #begin hart.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -84,6 +91,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Knight Sprite Sheet.png;Knight.png
+
+#begin menu background.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:menu background.jpg
 
 #begin Necromancer_creativekind-Sheet.png
 /importer:TextureImporter
