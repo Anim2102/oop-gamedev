@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +11,8 @@ namespace game_darksouls.Sound
 {
     public class SoundManager : ISoundManager
 {
-        private SoundEffectInstance lastEffect= null;
+        private SoundEffectInstance lastEffect = null;
+        private Song backGroundSong = null;
 
         private Dictionary<string,SoundEffect> soundEffects = new();
 
@@ -20,6 +22,14 @@ namespace game_darksouls.Sound
         }
 
         public SoundManager() { }
+        
+        public void PlayBackGroundSong(Song song)
+        {
+            backGroundSong = song;
+            MediaPlayer.Play(backGroundSong);
+            MediaPlayer.IsRepeating = true;
+
+        }
 
         public void AddSoundEffect(string nameSound,SoundEffect soundEffect)
         {
