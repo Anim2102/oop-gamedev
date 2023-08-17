@@ -14,30 +14,30 @@ namespace game_darksouls.Entity.Behaviour
         private EntityMovementType entityMovement;
         private readonly Player player;
         private Box collisionBox;
-        private readonly IAnimationManager animationManager;
         private readonly IMovementBehaviour npcMovementManager;
 
         //private Timer waitTimerBeforeAttack;
 
-        private bool attacking = false;
+        private bool isAttacking = false;
         private bool attackPossible = false;
 
-        private MeleeAttack attackBox;
+        private CloseAttack attackBox;
 
         private Vector2 currentPosition => collisionBox.Position;
-        private Vector2 playerPosition => collisionBox.CenterOfBox();
+        private Vector2 playerPosition => player.CollisionBox.CenterOfBox();
 
-        public float RangeOfAttack { get; set; } = 40f;
+        private float rangeOfAttack;
 
-        public Agressive(EntityMovementType movementType,Player player,Box collisionbox, IMovementBehaviour npcMovementManager, IAnimationManager animationManager, MeleeAttack attackBox)
+        public Agressive(EntityMovementType movementType,Player player,Box collisionbox, IMovementBehaviour npcMovementManager, CloseAttack attackBox,float rangeOfAttack)
         {
             this.player = player;
             this.npcMovementManager = npcMovementManager;
-            this.animationManager = animationManager;
 
             //waitTimerBeforeAttack = new Timer(3);
             this.attackBox = attackBox;
             this.collisionBox = collisionbox;
+            this.entityMovement = movementType;
+            this.rangeOfAttack = rangeOfAttack;
 
         }
 
@@ -56,34 +56,36 @@ namespace game_darksouls.Entity.Behaviour
             }
             //Debug.WriteLine("currentposition" + currentPosition);
             //Debug.WriteLine("player position" + playerPosition);
-            //Debug.WriteLine("attacking: " + attacking + " aaval mogelijk: " + attackPossible);
+            Debug.WriteLine("attacking: " + isAttacking + " aaval mogelijk: " + attackPossible);
             //Debug.WriteLine(distanceBetweenPlayer);
-            if (!attacking && distanceBetweenPlayer < RangeOfAttack)
+
+
+            if (!isAttacking && distanceBetweenPlayer < rangeOfAttack)
             {
                 attackPossible = true;
             }
         
-            if (attackPossible && distanceBetweenPlayer < RangeOfAttack)
+            if (attackPossible && distanceBetweenPlayer < rangeOfAttack)
             {
-                attacking = true;
+                isAttacking = true;
                 npcMovementManager.ResetDirection();
                 attackBox.AttackWithFrame();
 
                 if (attackBox.AttackFinished)
                 {
-                    attacking = false;
+                    isAttacking = false;
                     attackPossible = false;
                 }
             }
 
-            if (attacking && distanceBetweenPlayer > RangeOfAttack)
+            if (isAttacking && distanceBetweenPlayer > rangeOfAttack)
             {
-                attacking = false;
+                isAttacking = false;
                 attackPossible = false;
             }
             
 
-            if (!attacking && currentPosition != playerPosition)
+            if (!isAttacking && currentPosition != playerPosition && distanceBetweenPlayer > rangeOfAttack)
             {
                 attackBox.RemoveAttackFrame();
                 Vector2 normalized = Vector2.Normalize(playerPosition - currentPosition);
@@ -93,8 +95,8 @@ namespace game_darksouls.Entity.Behaviour
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Game1.redsquareDebug, new Rectangle((int)currentPosition.X, (int)currentPosition.Y, 2, 2), Color.Red);
-            spriteBatch.Draw(Game1.redsquareDebug, new Rectangle((int)playerPosition.X, (int)playerPosition.Y, 2, 2), Color.Red);
+            //spriteBatch.Draw(Game1.redsquareDebug, new Rectangle((int)currentPosition.X, (int)currentPosition.Y, 2, 2), Color.Red);
+            spriteBatch.Draw(Game1.redsquareDebug, new Rectangle((int)playerPosition.X, (int)playerPosition.Y, 10, 10), Color.Red);
 
             spriteBatch.Draw(Game1.redsquareDebug,attackBox.attackFrame,Color.Red);
         }

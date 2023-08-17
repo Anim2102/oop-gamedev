@@ -10,12 +10,12 @@ namespace game_darksouls.Component
     internal class PlayerAbilities
     {
         private readonly ISoundManager soundManager;
-        public MeleeAttack attackBox;
+        public CloseAttack attackBox;
         private InputManager inputManager;
 
         public bool IsAttacking { get; private set; }
 
-        public PlayerAbilities(MeleeAttack attackBox, InputManager inputManager,ISoundManager soundManager)
+        public PlayerAbilities(CloseAttack attackBox, InputManager inputManager,ISoundManager soundManager)
         {
             this.attackBox = attackBox;
             this.inputManager = inputManager;
@@ -25,6 +25,7 @@ namespace game_darksouls.Component
         public void Update(GameTime gameTime)
         {
             IsAttacking = false;
+            bool hitEntity = false;
             if (inputManager.PressedAttack())
             {
                 IsAttacking = true;
@@ -32,8 +33,13 @@ namespace game_darksouls.Component
             
             if (IsAttacking)
             {
-                attackBox.AttackWithFrame();
+                hitEntity =  attackBox.AttackWithFrame();
                 soundManager.PlaySoundEffect("swing");
+
+                if (hitEntity)
+                {
+                    soundManager.PlaySoundEffect("hit swing");
+                }
             }
 
             if (attackBox.AttackFinished && IsAttacking)

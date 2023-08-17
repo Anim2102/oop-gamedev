@@ -52,8 +52,11 @@ namespace game_darksouls.Levels.worlds
             skeleton.StartPosition(new Vector2(1700, 648));
             //entitys.Add(skeleton);
 
-            wingedMob.StartPosition(new Vector2(1700, 648));
-            entitys.Add(wingedMob);
+            wingedMob.StartPosition(new Vector2(1865, 608));
+            //entitys.Add(wingedMob);
+
+            wizard.StartPosition(new Vector2(1865, 608));
+            entitys.Add(wizard);
             //skeleton {X:1785 Y:658}
             //mob {X:2130 Y:658}
             //wiz {X:2130 Y:658}

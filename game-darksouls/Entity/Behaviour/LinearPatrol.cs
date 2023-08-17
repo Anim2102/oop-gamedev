@@ -75,6 +75,11 @@ namespace game_darksouls.Entity.Behaviour
             return Math.Abs(a.X - b.X);
         }
 
+        void IBehave.Draw(SpriteBatch spriteBatch)
+        {
+            throw new NotImplementedException();
+        }
+
 
 
         /*public void Draw(SpriteBatch spriteBatch)

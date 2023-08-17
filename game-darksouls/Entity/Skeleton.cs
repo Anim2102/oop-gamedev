@@ -14,7 +14,7 @@ namespace game_darksouls.Entity
     public class Skeleton : AnimatedObject, IEntity
     {
         private BehaveController entityStateController;
-        private MeleeAttack attackBox;
+        private CloseAttack attackBox;
 
         private readonly ISoundManager soundManager;
         private readonly IMovementBehaviour movementBehaviour;
@@ -40,7 +40,7 @@ namespace game_darksouls.Entity
             movementBehaviour = new GroundMovement(collisionManager,animationManager,collisionBox);
             health = new Health(3,movementBehaviour,(IDeathAnimation)animationManager);
 
-            attackBox = new MeleeAttack(this,animationManager,collisionBox,collisionManager);
+            attackBox = new CloseAttack(this,animationManager,collisionBox,collisionManager);
             attackBox.AttackStartFrame = 5;
             attackBox.AttackEndFrame = 10;
             attackBox.WidthAttackFrame = 90;

@@ -13,6 +13,7 @@ namespace game_darksouls.Entity
     {
         private readonly IHealth health;
         private readonly IMovementBehaviour movementBehaviour;
+        private readonly FlyingObject flyingObject;
 
         private RangeAttack rangeAttack;
         private Texture2D fireball;
@@ -36,8 +37,10 @@ namespace game_darksouls.Entity
             collisionBox = new Box(2575, 720, 64, 100, new Vector2(0, 0));
 
             movementBehaviour = new GroundMovement(collisionManager, animationManager, collisionBox);
-            health = new Health(1, movementBehaviour, (IDeathAnimation)animationManager);
-            rangeAttack = new RangeAttack(player, this, animationManager, movementBehaviour, collisionManager, fireball); ;
+            health = new Health(2, movementBehaviour, (IDeathAnimation)animationManager);
+
+            flyingObject = new FlyingObject(fireball,10);
+            rangeAttack = new RangeAttack(player, this, animationManager, collisionManager, flyingObject); ;
             rangeAttack.RangeOfAttack = 300;
         }
 

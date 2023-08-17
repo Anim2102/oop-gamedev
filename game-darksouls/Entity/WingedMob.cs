@@ -18,11 +18,11 @@ namespace game_darksouls.Entity
 
         private LinearPatrol linearPatrol;
         private Agressive agressive;
-        private MeleeAttack attackBox;
+        private CloseAttack attackBox;
 
         private readonly IMovementBehaviour movementBehaviour;
         private readonly IHealth health;
-        private readonly Player player;
+        
 
         public IHealth HealthManager
         {
@@ -35,7 +35,7 @@ namespace game_darksouls.Entity
         public WingedMob(Texture2D texture, Player player,CollisionManager collisionManager,Vector2 patrolPointA,Vector2 patrolPointB) : base(texture)
         {
             this.texture = texture;
-            this.player = player;
+            
 
             animationManager = new AnimationManager(AnimationFactory.LoadBrainMobAnimations());
             collisionBox = new Box(500, 700, 50, 50);
@@ -43,25 +43,19 @@ namespace game_darksouls.Entity
 
             movementBehaviour = new FlyMovement(collisionManager,animationManager,collisionBox);
 
-            attackBox = new MeleeAttack(this,animationManager,collisionBox,collisionManager);
+            attackBox = new CloseAttack(this,animationManager,collisionBox,collisionManager);
             attackBox.AttackStartFrame = 2;
             attackBox.AttackEndFrame = 3;
             attackBox.WidthAttackFrame = 90;
             attackBox.HeightAttackFrame = 50;
 
             linearPatrol = new(new Vector2(2275, 799), new Vector2(2500, 799), this, movementBehaviour);
-            agressive = new Agressive(EntityMovementType.FLYING,player,collisionBox,movementBehaviour,animationManager,attackBox);
-            agressive.RangeOfAttack = 50;
-            
-
-            
-
+            agressive = new Agressive(EntityMovementType.FLYING,player,collisionBox,movementBehaviour,attackBox,60);
+           
             entityStateController = new BehaveController(player,this,EntityMovementType.FLYING,patrolPointA,patrolPointB,attackBox,movementBehaviour,collisionBox);
+            entityStateController.RangeOfAttack = 60f;
 
-            health = new Health(1,movementBehaviour,(IDeathAnimation)animationManager);
-
-
-
+            health = new Health(2,movementBehaviour,(IDeathAnimation)animationManager);
         }
 
         
@@ -82,6 +76,7 @@ namespace game_darksouls.Entity
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            entityStateController.Draw(spriteBatch);
             spriteBatch.Draw(texture,
                drawingBox.Rectangle,
                animationManager.CurrentAnimation.CurrentFrame.SourceRectangle,

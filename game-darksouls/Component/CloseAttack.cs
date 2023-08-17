@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace game_darksouls.Component
 {
-    internal class MeleeAttack
+    internal class CloseAttack
     {
         private readonly IAnimationManager animationManager;
         private readonly Box collisionBox;
@@ -24,14 +24,12 @@ namespace game_darksouls.Component
         public int AttackStartFrame { get; set; }
         public int AttackEndFrame { get; set; }
         private Rectangle collisionBoxRec => collisionBox.Rectangle;
-
-
         private int indexAnimationFrame => attackAnimation.Counter;
 
         public bool AttackFinished { get; private set; } = false;
 
 
-        public MeleeAttack(AnimatedObject initiator,IAnimationManager animationManager, Box collisionBox, CollisionManager collisionManager)
+        public CloseAttack(AnimatedObject initiator,IAnimationManager animationManager, Box collisionBox, CollisionManager collisionManager)
         {
             this.collisionBox = collisionBox;
             this.collisionManager = collisionManager;

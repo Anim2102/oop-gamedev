@@ -21,10 +21,11 @@ namespace game_darksouls.Entity.Behaviour
         public Vector2 PatrolPointA { get; set; }
         public Vector2 PatrolPointB { get; set; }
         public EntityMovementType MovementType { get; set; }
-        public MeleeAttack Attack { get; set; }
+        public CloseAttack Attack { get; set; }
+        public float RangeOfAttack { get; set; }
 
         public BehaveController(Player player,AnimatedObject animatedObject,EntityMovementType movementType,
-            Vector2 patrolPointA,Vector2 patrolPointB, MeleeAttack attack, IMovementBehaviour movementBehaviour, Box collissionBox)
+            Vector2 patrolPointA,Vector2 patrolPointB, CloseAttack attack, IMovementBehaviour movementBehaviour, Box collissionBox)
         {
             
             this.player = player;
@@ -56,7 +57,7 @@ namespace game_darksouls.Entity.Behaviour
 
             if (distanceBetweenPlayer < 100)
             {
-                currentBehaviour = new Agressive(MovementType,player, collesionBox, movementBehaviour,animationManager,Attack);
+                currentBehaviour = new Agressive(MovementType,player, collesionBox, movementBehaviour,Attack,RangeOfAttack);
             }
             else
             {
@@ -69,7 +70,11 @@ namespace game_darksouls.Entity.Behaviour
             return Math.Abs(a.X - b.X);
         }
 
-        
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (currentBehaviour is Agressive aggresive)
+             aggresive.Draw(spriteBatch);
+        }
        
 
     }

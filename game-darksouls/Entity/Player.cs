@@ -17,7 +17,7 @@ namespace game_darksouls.Entity
     {
         private IMovementBehaviour movementBehaviour;
         private CollisionManager collisionManager;
-        private MeleeAttack attack;
+        private CloseAttack attack;
         private PlayerAbilities playerAbilities;
         private Health healthManager;
 
@@ -64,7 +64,7 @@ namespace game_darksouls.Entity
 
             animationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
 
-            attack = new MeleeAttack(this,animationManager,collisionBox,collisionManager);
+            attack = new CloseAttack(this,animationManager,collisionBox,collisionManager);
             attack.WidthAttackFrame = 40;
             attack.HeightAttackFrame = 32;
             attack.AttackStartFrame = 2;
@@ -78,7 +78,7 @@ namespace game_darksouls.Entity
         }
         public override void Update(GameTime gameTime)
         {
-            
+            //Debug.WriteLine(collisionBox.Position);
             movementBehaviour.Update(gameTime);
             animationManager.Update(gameTime);
             playerAbilities.Update(gameTime);

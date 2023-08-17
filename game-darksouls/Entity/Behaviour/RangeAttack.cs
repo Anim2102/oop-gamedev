@@ -1,10 +1,9 @@
 ﻿using game_darksouls.Animation;
 using game_darksouls.Component;
-using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Enum;
+using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace game_darksouls.Entity.Behaviour
 {
@@ -13,42 +12,32 @@ namespace game_darksouls.Entity.Behaviour
         private readonly Player player;
         private readonly AnimatedObject animatedObject;
         private readonly IAnimationManager animationManager;
-        private readonly IMovementBehaviour movementBehaviour;
         private readonly CollisionManager collisionManager;
-        private Texture2D fireBallTexure;
+        private FlyingObject flyingObject;
 
         private Vector2 currentPosition => animatedObject.CollisionBox.Position;
         private Vector2 playerPosition => player.CollisionBox.Position;
 
         public double RangeOfAttack { get; set; }
 
-        private Box spelBlock;
         private bool shootSpell = false;
-
         private bool projectFlying = false;
 
 
-        public RangeAttack(Player player,
-        AnimatedObject animatedObject,
-        IAnimationManager animationManager,
-        IMovementBehaviour movementBehaviour,
-        CollisionManager collisionManager,
-        Texture2D fireball)
+        public RangeAttack(Player player, AnimatedObject animatedObject, IAnimationManager animationManager, CollisionManager collisionManager, FlyingObject flyingObject)
         {
             this.player = player;
             this.animatedObject = animatedObject;
             this.animationManager = animationManager;
-            this.movementBehaviour = movementBehaviour;
             this.collisionManager = collisionManager;
-
-            this.spelBlock = new();
-            this.fireBallTexure = fireball;
+            this.flyingObject = flyingObject;
         }
 
         public void Behave(GameTime gameTime)
         {
+            float distance = VectorHelpingClass.CalculateDistanceBetweenTwoVectorsOnX(playerPosition, currentPosition);
 
-            if (ReturnDistanceBetweenPlayer() <= RangeOfAttack)
+            if (distance <= RangeOfAttack)
             {
                 animationManager.FacingLeft = PlayerOnLeft();
                 animationManager.PlayAnimation(MovementState.ATTACK);
@@ -56,7 +45,7 @@ namespace game_darksouls.Entity.Behaviour
                 if (animationManager.CurrentAnimation.Complete)
                 {
                     shootSpell = true;
-                    ResetSpellBlock();
+                    flyingObject.ResetPosition(currentPosition);
                 }
             }
             else
@@ -74,48 +63,40 @@ namespace game_darksouls.Entity.Behaviour
 
             if (projectFlying)
             {
-                if (collisionManager.CheckForCollision(spelBlock))
+                if (collisionManager.CheckForCollision(flyingObject.Object))
                 {
                     shootSpell = false;
-                    spelBlock = null;
-                    ResetSpellBlock();
+                    flyingObject.RemoveObjectScreen();
+                    flyingObject.ResetPosition(currentPosition);
                     return;
                 }
-                MoveSpell(gameTime);
+
+                flyingObject.UpdatePositionObject(gameTime, this.player.CollisionBox.CenterOfBox() - currentPosition);
             }
             else
             {
-                if (animationManager.CurrentAnimation.Complete && ReturnDistanceBetweenPlayer() <= RangeOfAttack)
+                float distance = VectorHelpingClass.CalculateDistanceBetweenTwoVectorsOnX(playerPosition, currentPosition);
+                if (animationManager.CurrentAnimation.Complete && distance <= RangeOfAttack)
                 {
                     projectFlying = true;
                 }
             }
 
+            CheckHit();
+
         }
-        private void MoveSpell(GameTime gameTime)
+
+        private void CheckHit()
         {
-            Vector2 direction = this.player.CollisionBox.CenterOfBox() - currentPosition;
-
-
-            Vector2 normalizedDirection = Vector2.Normalize(direction);
-            Rectangle updatedRectangle = spelBlock.Rectangle;
-
-            updatedRectangle.X += (int)(normalizedDirection.X * 0.5f * gameTime.ElapsedGameTime.Milliseconds);
-            updatedRectangle.Y += (int)(normalizedDirection.Y * 0.5f * gameTime.ElapsedGameTime.Milliseconds);
-            spelBlock.Rectangle = updatedRectangle;
+            if (projectFlying)
+            {
+                IEntity entity = collisionManager.CheckForHit(animatedObject, flyingObject.Object);
+                if (entity != null)
+                {
+                    entity.HealthManager.TakeDamage();
+                }
+            }
         }
-        private void ResetSpellBlock()
-        {
-
-            spelBlock = new Box((int)currentPosition.X, (int)currentPosition.Y, 10, 10);
-
-        }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            if (shootSpell)
-                spriteBatch.Draw(fireBallTexure, spelBlock.Rectangle, Color.White);
-        }
-
         private bool PlayerOnLeft()
         {
             if (playerPosition.X > currentPosition.X)
@@ -124,21 +105,15 @@ namespace game_darksouls.Entity.Behaviour
                 return true;
         }
 
-
-        private float ReturnDistanceBetweenPlayer()
+        public void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 currentPosition = new Vector2(animatedObject.CollisionBox.Rectangle.X,
-                animatedObject.CollisionBox.Rectangle.Y);
-
-            Vector2 playerPosition = player.CollisionBox.CenterOfBox();
-
-            return CalculateDistanceBetweenTwoVectorsOnX(currentPosition, playerPosition);
+            if (shootSpell)
+                flyingObject.Draw(spriteBatch);
         }
 
 
-        private float CalculateDistanceBetweenTwoVectorsOnX(Vector2 a, Vector2 b)
-        {
-            return Math.Abs(a.X - b.X);
-        }
+
+
+
     }
 }
