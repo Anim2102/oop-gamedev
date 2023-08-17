@@ -13,10 +13,9 @@ namespace game_darksouls.Entity
     {
         private readonly IHealth health;
         private readonly IMovementBehaviour movementBehaviour;
-        private readonly FlyingObject flyingObject;
 
-        private RangeAttack rangeAttack;
-        private Texture2D fireball;
+        private readonly RangeAttack rangeAttack;
+        private readonly FlyingObject flyingObject;
 
         public IHealth HealthManager
         {
@@ -29,7 +28,6 @@ namespace game_darksouls.Entity
         public Wizard(Texture2D texture, Texture2D fireball, Player player, CollisionManager collisionManager) : base(texture)
         {
             this.texture = texture;
-            this.fireball = fireball;
 
             animationManager = new AnimationManager(AnimationFactory.LoadWizardAnimations());
             health = new Health(1, movementBehaviour, (IDeathAnimation)animationManager);
@@ -62,9 +60,6 @@ namespace game_darksouls.Entity
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw(Game1.redsquareDebug, drawingBox.Rectangle, Color.Green);
-            //spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Green);
-
             rangeAttack.Draw(spriteBatch);
             spriteBatch.Draw(texture,
                 drawingBox.Rectangle,
