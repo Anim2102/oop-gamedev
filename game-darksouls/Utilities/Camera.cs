@@ -14,12 +14,15 @@ namespace game_darksouls.Utilities
         private Viewport viewport;
         private AnimatedObject player;
 
+        private const int WIDTH_OFFSET = 160;
+        private const int HEIGHT_OFFSET = 100;
+
         public Camera(Viewport viewport, AnimatedObject player)
         {
             this.viewport = viewport; 
             this.player = player;
 
-            OriginCenter = new Vector2((viewport.Width / 2)-player.CollisionBox.Rectangle.Width - 160, (viewport.Height / 2)-player.CollisionBox.Rectangle.Height - 100);
+            OriginCenter = new Vector2((viewport.Width / 2)-player.CollisionBox.Rectangle.Width - WIDTH_OFFSET, (viewport.Height / 2)-player.CollisionBox.Rectangle.Height - HEIGHT_OFFSET);
 
         }
         public Matrix CreateTransformation()
