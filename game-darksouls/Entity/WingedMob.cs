@@ -64,7 +64,7 @@ namespace game_darksouls.Entity
 
         }
 
-        IHealth IEntity.HealthManager => throw new System.NotImplementedException();
+        
 
         public override void Update(GameTime gameTime)
         {

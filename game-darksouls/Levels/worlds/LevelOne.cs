@@ -46,11 +46,14 @@ namespace game_darksouls.Levels.worlds
 
 
             IEntity skeleton = EntityFactory.EntityCreator(contentManager, "skeleton", player,collisionManager);
-            IEntity wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mob", player,collisionManager);
+            IEntity wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mole", player,collisionManager);
             IEntity wizard = EntityFactory.EntityCreator(contentManager, "wizard", player, collisionManager);
             
             skeleton.StartPosition(new Vector2(1700, 648));
-            entitys.Add(skeleton);
+            //entitys.Add(skeleton);
+
+            wingedMob.StartPosition(new Vector2(1700, 648));
+            entitys.Add(wingedMob);
             //skeleton {X:1785 Y:658}
             //mob {X:2130 Y:658}
             //wiz {X:2130 Y:658}
