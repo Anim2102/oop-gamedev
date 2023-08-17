@@ -48,12 +48,10 @@ namespace game_darksouls.Collectible
         {
             drawingBox.UpdatePosition(collisionBox.Position);
             animationManager.Update(gameTime);
-            //Debug.WriteLine(isCollected);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Red);
             spriteBatch.Draw(texture, drawingBox.Rectangle, animationManager.CurrentAnimation.CurrentFrame.SourceRectangle, Color.White);
         }
     }

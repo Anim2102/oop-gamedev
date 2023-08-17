@@ -24,9 +24,10 @@ namespace game_darksouls.Component
 
         public void Update(GameTime gameTime)
         {
-            IsAttacking = false;
             bool hitEntity = false;
-            if (inputManager.PressedAttack())
+            Debug.WriteLineIf(IsAttacking, "aanvallen");
+
+            if (inputManager.PressedAttack() && !IsAttacking)
             {
                 IsAttacking = true;
             }
@@ -45,11 +46,13 @@ namespace game_darksouls.Component
             if (attackBox.AttackFinished && IsAttacking)
             {
                 IsAttacking = false;
-                attackBox.ResetAttackAnimation();
+                attackBox.ResetAttack();
             }
 
             if (!IsAttacking)
+            {
                 attackBox.RemoveAttackFrame();
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace game_darksouls.Component
 {
@@ -90,6 +91,7 @@ namespace game_darksouls.Component
         }
         public void Update(GameTime gameTime)
         {
+            //Debug.WriteLine(CurrentAnimation.name);
             CurrentAnimation.Update(gameTime);
         }
     }

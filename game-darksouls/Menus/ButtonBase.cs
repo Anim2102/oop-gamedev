@@ -64,10 +64,7 @@ namespace game_darksouls.Menus
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw(Game1.redsquareDebug, ButtonRectangle, Color.White);
-            //spriteBatch.DrawString(Font, ButtonText, new Vector2(ButtonRectangle.X, ButtonRectangle.Y), Color.Black);
-            spriteBatch.DrawString(Font, ButtonText, new Vector2(ButtonRectangle.X, ButtonRectangle.Y), currentColor, 0f, Vector2.Zero, TextSize, SpriteEffects.None, 0f); ;
-
+            spriteBatch.DrawString(Font, ButtonText, new Vector2(ButtonRectangle.X, ButtonRectangle.Y), currentColor, 0f, Vector2.Zero, TextSize, SpriteEffects.None, 0f); 
         }
     }
 }

@@ -182,13 +182,6 @@ namespace game_darksouls.Component
             this.direction.X = 0;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Rectangle feet = new Rectangle(CollisionBox.Rectangle.X,
-                CollisionBox.Rectangle.Y + CollisionBox.Rectangle.Height,
-                CollisionBox.Rectangle.Width,
-                8);
-            spriteBatch.Draw(Game1.redsquareDebug, feet, Color.White);
-        }
+        
     }
 }

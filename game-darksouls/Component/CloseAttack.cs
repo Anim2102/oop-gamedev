@@ -42,6 +42,7 @@ namespace game_darksouls.Component
         public bool AttackWithFrame()
         {
             AttackAnimation();
+            Debug.WriteLine(AttackFinished);
             bool hit = false;
 
             if (indexAnimationFrame >= AttackStartFrame && indexAnimationFrame <= AttackEndFrame)
@@ -54,25 +55,26 @@ namespace game_darksouls.Component
                     hit = true;
                     hittedObject.HealthManager.TakeDamage();
                 }
+
                 AttackFinished = false;
             }
             
             if (indexAnimationFrame >= AttackEndFrame)
             {
                 this.attackAnimation.ResetAnimation();
-                
                 AttackFinished = true;
             }
-
-            if (AttackFinished)
-            {
-                ResetAttackAnimation();
-                RemoveAttackFrame();
-                AttackFinished = false;
-            }            
+           
             return hit;
         }
 
+        public void ResetAttack()
+        {
+            ResetAttackAnimation();
+            RemoveAttackFrame();
+            AttackFinished = false;
+            
+        }
         private void SpawnAttackFrame()
         {
             if (animationManager.FacingLeft)

@@ -76,7 +76,6 @@ namespace game_darksouls.Entity
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            entityStateController.Draw(spriteBatch);
             spriteBatch.Draw(texture,
                drawingBox.Rectangle,
                animationManager.CurrentAnimation.CurrentFrame.SourceRectangle,

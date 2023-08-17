@@ -75,29 +75,7 @@ namespace game_darksouls.Entity.Behaviour
             return Math.Abs(a.X - b.X);
         }
 
-        void IBehave.Draw(SpriteBatch spriteBatch)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        /*public void Draw(SpriteBatch spriteBatch)
-        {
-            Rectangle pointA = new Rectangle((int)positionA.X, (int)positionA.Y,10, 10);
-            Rectangle pointB = new Rectangle((int)positionB.X, (int)positionB.Y, 10, 10);
-            
-
-            Rectangle centerPoint = new Rectangle((int)this.animatedObject.DrawingBox.CenterOfBox().X,
-                (int)this.animatedObject.DrawingBox.CenterOfBox().Y,10, 10);
-
-            spriteBatch.Draw(Game1.redsquareDebug, pointA, Color.Red);
-            spriteBatch.Draw(Game1.redsquareDebug, pointB, Color.Red);
-
-            spriteBatch.Draw(Game1.redsquareDebug, centerPoint, Color.Blue);
-
-        }
-       */
+        
 
 
     }

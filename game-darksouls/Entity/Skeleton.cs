@@ -45,10 +45,11 @@ namespace game_darksouls.Entity
             attackBox.AttackEndFrame = 10;
             attackBox.WidthAttackFrame = 90;
             attackBox.HeightAttackFrame = 50;
+           
 
             
             entityStateController = new BehaveController(player,this,EntityMovementType.GROUND,patrolPointA,patrolPointB,attackBox,movementBehaviour,collisionBox);
-            
+            entityStateController.RangeOfAttack = 40f;
         }
 
 

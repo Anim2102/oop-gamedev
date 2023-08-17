@@ -70,12 +70,6 @@ namespace game_darksouls.Entity.Behaviour
             return Math.Abs(a.X - b.X);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            if (currentBehaviour is Agressive aggresive)
-             aggresive.Draw(spriteBatch);
-        }
-       
-
+        
     }
 }

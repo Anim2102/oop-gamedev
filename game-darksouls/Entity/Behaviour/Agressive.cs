@@ -93,13 +93,7 @@ namespace game_darksouls.Entity.Behaviour
                 npcMovementManager.Push(normalized);
             }
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            //spriteBatch.Draw(Game1.redsquareDebug, new Rectangle((int)currentPosition.X, (int)currentPosition.Y, 2, 2), Color.Red);
-            spriteBatch.Draw(Game1.redsquareDebug, new Rectangle((int)playerPosition.X, (int)playerPosition.Y, 10, 10), Color.Red);
-
-            spriteBatch.Draw(Game1.redsquareDebug,attackBox.attackFrame,Color.Red);
-        }
+        
         
         
     }
