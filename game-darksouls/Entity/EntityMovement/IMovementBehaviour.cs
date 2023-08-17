@@ -7,7 +7,6 @@ namespace game_darksouls.Entity.EntityMovement
 {
     public interface IMovementBehaviour
     { 
-        public Box CollisionBox { get; set; }
         public MovementState CurrentMovementState { get; set; }
 
         void Update(GameTime gameTime);

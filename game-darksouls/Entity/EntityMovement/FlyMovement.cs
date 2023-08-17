@@ -6,52 +6,26 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace game_darksouls.Entity.EntityMovement
 {
-    internal class FlyMovement : IMovementBehaviour
+    internal class FlyMovement : EntityBaseMovement, IMovementBehaviour
     {
-        public CollisionManager CollisionManager { get; set; }
-        private readonly IAnimationManager animationManager;
 
-        public Box CollisionBox { get; set; }
         public MovementState CurrentMovementState { get; set; }
 
-        private Vector2 SPEED = new Vector2(0.1f, 0.1f);
-        private Vector2 direction;
-
-        public FlyMovement(CollisionManager collisionManager, IAnimationManager animationManager, Box collisionBox)
+        public FlyMovement(CollisionManager collisionManager, IAnimationManager animationManager, Box collisionBox) : base(collisionBox,collisionManager,animationManager)
         {
-            this.CollisionManager = collisionManager;
-            this.animationManager = animationManager;
-            this.CollisionBox = collisionBox;
 
             CurrentMovementState = MovementState.ATTACK;
             direction = Vector2.Zero;
+            speed = new Vector2(0.1f, 0.1f);
+
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            UpdatePosition(gameTime);
             ChangeMovingState();
-            ChangeFlipOnDirection();
+            base.Update(gameTime);
         }
 
-        private void UpdatePosition(GameTime gameTime)
-        {
-            Rectangle updatedRectangle = CollisionBox.Rectangle;
-
-            updatedRectangle.X += (int)(direction.X * SPEED.X * gameTime.ElapsedGameTime.Milliseconds);
-            updatedRectangle.Y += (int)(direction.Y * SPEED.Y * gameTime.ElapsedGameTime.Milliseconds);
-            MoveWithCollision(updatedRectangle);
-
-
-        }
-        private void MoveWithCollision(Rectangle futurePosition)
-        {
-            if (!CollisionManager.CheckForCollision(futurePosition))
-            {
-                Vector2 future = new Vector2(futurePosition.X, futurePosition.Y);
-                CollisionBox.UpdatePosition(future);
-            }
-        }
         void IMovementBehaviour.Push(Vector2 direction)
         {
             this.direction = direction;
@@ -76,17 +50,7 @@ namespace game_darksouls.Entity.EntityMovement
             animationManager.UpdateAnimationOnState(CurrentMovementState);
         }
 
-        private void ChangeFlipOnDirection()
-        {
-            if (direction.X > 0)
-            {
-                animationManager.FacingLeft = false;
-            }
-            else if (direction.X < 0)
-            {
-                animationManager.FacingLeft = true;
-            }
-        }
+        
 
    
     }

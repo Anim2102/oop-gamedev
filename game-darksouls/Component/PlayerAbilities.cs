@@ -25,7 +25,6 @@ namespace game_darksouls.Component
         public void Update(GameTime gameTime)
         {
             bool hitEntity = false;
-            Debug.WriteLineIf(IsAttacking, "aanvallen");
 
             if (inputManager.PressedAttack() && !IsAttacking)
             {
