@@ -29,15 +29,17 @@ namespace game_darksouls.Sound
 
         public void PlaySoundEffect(string nameSound) 
         {
-            if (soundEffects.ContainsKey(nameSound) && !isPlaying)
+            if (!soundEffects.ContainsKey(nameSound))
+                return;
+
+            if (lastEffect != null)
             {
-                lastEffect = soundEffects[nameSound].CreateInstance();
-                lastEffect.Play();
-                isPlaying = true;
+                lastEffect.Stop();
+                //lastEffect.Dispose();
             }
 
-            if (lastEffect.State == SoundState.Stopped)
-                isPlaying = false;
+            lastEffect = soundEffects[nameSound].CreateInstance();
+            lastEffect.Play();
         }
 
         public void ForceSoundEffect(string nameSound)
