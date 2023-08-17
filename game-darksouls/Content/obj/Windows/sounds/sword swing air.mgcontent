@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/sounds/sword swing air.wav</SourceFile>
-  <SourceTime>2023-08-16T17:10:15.1952995+02:00</SourceTime>
+  <SourceTime>2023-08-16T18:00:43.9110614+02:00</SourceTime>
   <DestFile>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/bin/Windows/sounds/sword swing air.xnb</DestFile>
-  <DestTime>2023-08-16T17:11:28.8448972+02:00</DestTime>
+  <DestTime>2023-08-17T13:24:14.3067879+02:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

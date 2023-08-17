@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace game_darksouls.GameManaging
 {
-    public interface IStateLevel
+    public interface IStateGame
     {
         void Start() { }
         void Stop() { }

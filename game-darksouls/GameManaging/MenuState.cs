@@ -1,45 +1,57 @@
 ﻿using game_darksouls.Menus;
+using game_darksouls.Sound;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace game_darksouls.GameManaging
 {
-    public class MenuState : IStateLevel
+    public class MenuState : IStateGame
     {
-        private Menu GameMenu { get; set; }
+        private Menu gameMenu;
         private GameManager gameManager;
+        private IBackGroundPlayer soundManager;
+        private ContentManager contentManager;
 
+        private Song backgroundSong;
 
-        private bool waiting = false;
-        private double waitStartTime;
-        private double waitDuration = 2.0;
-
-        public MenuState(GameManager gameManager)
+        public MenuState(GameManager gameManager,ContentManager contentManager)
         {
-            GameMenu = gameManager.GameMenu;
+            
             this.gameManager = gameManager;
+            this.contentManager = contentManager;
         }
 
         public void Start()
         {
+            gameMenu = new Menu();
 
+            soundManager = new SoundManager();
+            this.backgroundSong = contentManager.Load<Song>("sounds/Dungeon Theme");
+            soundManager.PlayBackGroundSong(backgroundSong);
         }
         public void Stop()
         {
-
+            soundManager = null;
+            contentManager = null;
+            MediaPlayer.Stop();
         }
 
         public void Update(GameTime gameTime)
         {
-            GameMenu.Update(gameTime);
+            gameMenu.Update(gameTime);
 
-            if (GameMenu.GetButtonPressed)
-                gameManager.SetState(new GameplayState(gameManager,gameManager.LevelManager.GetLevelByIndex(0)));
+            if (gameMenu.GetButtonPressed)
+            {
+                gameManager.SetState(new GameplayState(gameManager, gameManager.LevelManager.GetLevelByIndex(0), contentManager));
+                Stop();
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            GameMenu.Draw(spriteBatch);
+            gameMenu.Draw(spriteBatch);
         }
     }
 }

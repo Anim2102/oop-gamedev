@@ -115,6 +115,12 @@
 /processorParam:Quality=Best
 /build:sounds/Dark Ambient 3.ogg
 
+#begin sounds/Dungeon Theme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sounds/Dungeon Theme.mp3
+
 #begin sounds/sword swing air.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace game_darksouls.Sound
 {
-    public class SoundManager : ISoundManager
+    public class SoundManager : ISoundManager,IBackGroundPlayer
 {
         private SoundEffectInstance lastEffect = null;
         private Song backGroundSong = null;

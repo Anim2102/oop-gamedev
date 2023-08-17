@@ -1,18 +1,20 @@
 ﻿using game_darksouls.Levels;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game_darksouls.GameManaging
 {
-    public class GameplayState : IStateLevel
+    public class GameplayState : IStateGame
     {
         private GameManager gameManager;
         private ILevel currentLevel;
+        private ContentManager contentManager;
 
-        public GameplayState(GameManager gameManager, ILevel level)
+        public GameplayState(GameManager gameManager, ILevel level,ContentManager contentManager)
         {
             this.gameManager = gameManager;
-
+            this.contentManager = contentManager;
             //default first level for testing
             currentLevel = level;
         }
@@ -25,7 +27,7 @@ namespace game_darksouls.GameManaging
         public void Stop()
         {
             currentLevel = null;
-            gameManager.SetState(new MenuState(gameManager));
+            gameManager.SetState(new MenuState(gameManager,contentManager));
         }
 
         public void Update(GameTime gameTime)
@@ -36,11 +38,11 @@ namespace game_darksouls.GameManaging
             {
                 if (gameManager.LevelManager.CheckLastLevel(currentLevel))
                 {
-                    gameManager.SetState(new MenuState(gameManager));
+                    gameManager.SetState(new MenuState(gameManager,contentManager));
                 }
                 else
                 {
-                    gameManager.SetState(new GameplayState(gameManager,gameManager.LevelManager.GetNextLevel(currentLevel)));
+                    gameManager.SetState(new GameplayState(gameManager,gameManager.LevelManager.GetNextLevel(currentLevel),contentManager));
                 }
             }
 

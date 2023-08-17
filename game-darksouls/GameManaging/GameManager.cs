@@ -16,14 +16,11 @@ namespace game_darksouls.GameManaging
         public LevelManager LevelManager { get; private set; }
         public Menu GameMenu { get; set; }
 
+        private IStateGame currentState;
 
-        private IStateLevel currentState;
-
-        
         public GameManager(LevelManager levelManager) {
             GameMenu = new Menu();
             this.LevelManager = levelManager;
-            
         }
 
         public void AddLevel(ILevel newLevel)
@@ -31,9 +28,10 @@ namespace game_darksouls.GameManaging
             LevelManager.AddLevel(newLevel);
         }
 
-        public void SetState(IStateLevel stateLevel)
+        public void SetState(IStateGame stateLevel)
         {
             currentState = stateLevel;
+            currentState.Start();
         }
 
         public void Update(GameTime gameTime)
