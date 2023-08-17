@@ -3,6 +3,7 @@ using game_darksouls.Component;
 using game_darksouls.Component.Health;
 using game_darksouls.Entity.EntityMovement;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace Component.Health
 {
@@ -46,8 +47,7 @@ namespace Component.Health
         private float currentInvurnableTime = 0f;
 
         private float currentColorTime = 0f;
-        private const float MAXCOLORTIME = 5f;
-        private const float colorInterval = 1f;
+        private const float colorInterval = 0.8f;
 
         public Health(int maxHealth, IMovementBehaviour movementBehaviour, IDeathAnimation animationManager)
         {
@@ -110,14 +110,25 @@ namespace Component.Health
         {
             if (Invurnable)
             {
-                currentColorTime = (float)gameTime.TotalGameTime.TotalSeconds;
-                if (currentColorTime < colorInterval)
-                    CurrentColor = Color.Red;
-                else if (currentColorTime > colorInterval)
+                currentColorTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (currentColorTime >= colorInterval)
                 {
-                    CurrentColor = Color.White;
+                    if (CurrentColor == Color.White)
+                        CurrentColor = Color.Red;
+                    else
+                        CurrentColor = Color.White;
+
+                    currentColorTime = 0;
                 }
+                
             }
+            else
+            {
+                CurrentColor = Color.White;
+            }
+
+            
         }
 
 
