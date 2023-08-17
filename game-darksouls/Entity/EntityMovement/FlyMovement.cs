@@ -1,25 +1,26 @@
-﻿using game_darksouls.Component;
+﻿using game_darksouls.Animation;
+using game_darksouls.Component;
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace game_darksouls.Entity.EntityMovement
 {
     internal class FlyMovement : IMovementBehaviour
     {
         public CollisionManager CollisionManager { get; set; }
-        public AnimationManager AnimationManager { get; set; }
+        private readonly IAnimationManager animationManager;
+
         public Box CollisionBox { get; set; }
         public MovementState CurrentMovementState { get; set; }
 
         private Vector2 SPEED = new Vector2(0.1f, 0.1f);
         private Vector2 direction;
 
-        public FlyMovement(CollisionManager collisionManager, AnimationManager animationManager, Box collisionBox)
+        public FlyMovement(CollisionManager collisionManager, IAnimationManager animationManager, Box collisionBox)
         {
             this.CollisionManager = collisionManager;
-            this.AnimationManager = animationManager;
+            this.animationManager = animationManager;
             this.CollisionBox = collisionBox;
 
             CurrentMovementState = MovementState.ATTACK;
@@ -32,7 +33,7 @@ namespace game_darksouls.Entity.EntityMovement
             ChangeMovingState();
             ChangeFlipOnDirection();
         }
-        
+
         private void UpdatePosition(GameTime gameTime)
         {
             Rectangle updatedRectangle = CollisionBox.Rectangle;
@@ -41,7 +42,7 @@ namespace game_darksouls.Entity.EntityMovement
             updatedRectangle.Y += (int)(direction.Y * SPEED.Y * gameTime.ElapsedGameTime.Milliseconds);
             MoveWithCollision(updatedRectangle);
 
-            
+
         }
         private void MoveWithCollision(Rectangle futurePosition)
         {
@@ -72,41 +73,21 @@ namespace game_darksouls.Entity.EntityMovement
                 CurrentMovementState = MovementState.IDLE;
             }
 
-            AnimationManager.UpdateAnimationOnState(CurrentMovementState);
+            animationManager.UpdateAnimationOnState(CurrentMovementState);
         }
 
         private void ChangeFlipOnDirection()
         {
             if (direction.X > 0)
             {
-                AnimationManager.FacingLeft = false;
+                animationManager.FacingLeft = false;
             }
             else if (direction.X < 0)
             {
-                AnimationManager.FacingLeft = true;
+                animationManager.FacingLeft = true;
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Rectangle feetRectangle = new Rectangle(CollisionBox.Rectangle.X,
-              CollisionBox.Rectangle.Y + CollisionBox.Rectangle.Height,
-              CollisionBox.Rectangle.Width, 5);
-
-            Rectangle sideLeftRectangle = new Rectangle(CollisionBox.Rectangle.X,
-                CollisionBox.Rectangle.Y,
-                5, CollisionBox.Rectangle.Height);
-
-            Rectangle sideRightRectangle = new Rectangle(CollisionBox.Rectangle.X + CollisionBox.Rectangle.Width,
-                CollisionBox.Rectangle.Y,
-                5, CollisionBox.Rectangle.Height);
-
-            spriteBatch.Draw(Game1.redsquareDebug, sideRightRectangle, Color.Green);
-
-            spriteBatch.Draw(Game1.redsquareDebug, sideLeftRectangle, Color.Green);
-            spriteBatch.Draw(Game1.redsquareDebug, feetRectangle, Color.Black);
-        }
-
-        
+   
     }
 }

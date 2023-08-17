@@ -1,4 +1,6 @@
-﻿using game_darksouls.Component;
+﻿using game_darksouls.Animation;
+using game_darksouls.Component;
+using game_darksouls.Entity.EntityMovement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,16 +13,18 @@ namespace game_darksouls.Entity.Behaviour
         
         private readonly Player player;
         private readonly AnimatedObject animatedObject;
-
+        private readonly IMovementBehaviour movementBehaviour;
+        private readonly Box collesionBox;
+        private readonly IAnimationManager animationManager;
         private IBehave currentBehaviour;
 
         public Vector2 PatrolPointA { get; set; }
         public Vector2 PatrolPointB { get; set; }
         public EntityMovementType MovementType { get; set; }
-        public Attack Attack { get; set; }
+        public MeleeAttack Attack { get; set; }
 
         public BehaveController(Player player,AnimatedObject animatedObject,EntityMovementType movementType,
-            Vector2 patrolPointA,Vector2 patrolPointB, Attack attack)
+            Vector2 patrolPointA,Vector2 patrolPointB, MeleeAttack attack, IMovementBehaviour movementBehaviour, Box collissionBox)
         {
             
             this.player = player;
@@ -31,6 +35,10 @@ namespace game_darksouls.Entity.Behaviour
 
             this.Attack = attack;
             this.MovementType = movementType;
+
+            this.movementBehaviour = movementBehaviour;
+
+            this.collesionBox = collissionBox;
         }   
 
         public void Update(GameTime gameTime)
@@ -48,11 +56,11 @@ namespace game_darksouls.Entity.Behaviour
 
             if (distanceBetweenPlayer < 100)
             {
-                currentBehaviour = new Agressive(MovementType,player,animatedObject,animatedObject.MovementBehaviour,animatedObject.AnimationManager,Attack);
+                currentBehaviour = new Agressive(MovementType,player, collesionBox, movementBehaviour,animationManager,Attack);
             }
             else
             {
-                currentBehaviour = new LinearPatrol(PatrolPointA, PatrolPointB, animatedObject, animatedObject.MovementBehaviour);
+                currentBehaviour = new LinearPatrol(PatrolPointA, PatrolPointB, animatedObject, movementBehaviour);
             }
         }
 

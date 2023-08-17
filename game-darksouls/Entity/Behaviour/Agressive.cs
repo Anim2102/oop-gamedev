@@ -1,4 +1,5 @@
-﻿using game_darksouls.Component;
+﻿using game_darksouls.Animation;
+using game_darksouls.Component;
 using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
@@ -12,8 +13,8 @@ namespace game_darksouls.Entity.Behaviour
     {
         private EntityMovementType entityMovement;
         private readonly Player player;
-        private readonly AnimatedObject animatedObject;
-        private readonly AnimationManager animationManager;
+        private Box collisionBox;
+        private readonly IAnimationManager animationManager;
         private readonly IMovementBehaviour npcMovementManager;
 
         //private Timer waitTimerBeforeAttack;
@@ -21,22 +22,22 @@ namespace game_darksouls.Entity.Behaviour
         private bool attacking = false;
         private bool attackPossible = false;
 
-        private Attack attackBox;
+        private MeleeAttack attackBox;
 
-        private Vector2 currentPosition => animatedObject.CollisionBox.Position;
-        private Vector2 playerPosition => player.CollisionBox.CenterOfBox();
+        private Vector2 currentPosition => collisionBox.Position;
+        private Vector2 playerPosition => collisionBox.CenterOfBox();
 
         public float RangeOfAttack { get; set; } = 40f;
 
-        public Agressive(EntityMovementType movementType,Player player, AnimatedObject animatedObject, IMovementBehaviour npcMovementManager, AnimationManager animationManager, Attack attackBox)
+        public Agressive(EntityMovementType movementType,Player player,Box collisionbox, IMovementBehaviour npcMovementManager, IAnimationManager animationManager, MeleeAttack attackBox)
         {
             this.player = player;
-            this.animatedObject = animatedObject;
             this.npcMovementManager = npcMovementManager;
             this.animationManager = animationManager;
 
             //waitTimerBeforeAttack = new Timer(3);
             this.attackBox = attackBox;
+            this.collisionBox = collisionbox;
 
         }
 

@@ -3,29 +3,39 @@ using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace game_darksouls.Component
 {
-    public class AnimationManager : IComponent
+    public class AnimationManager : IAnimationManager, IDeathAnimation
     {
-        //private Dictionary<MovementState, ActionAnimation> animations = new();
-
-        public ActionAnimation CurrentAnimation { get; set; }
+        public ActionAnimation CurrentAnimation { get; private set; }
         public ActionAnimation DeathAnimation { get; set; }
         public bool LockAnimation { get; set; }
-        public Dictionary<MovementState,ActionAnimation> animations { get; set; } = new();
+        public Dictionary<MovementState, ActionAnimation> Animations { get; set; } = new();
         public bool FacingLeft { get; set; }
-        public SpriteEffects SpriteFLip => FacingLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+       
+        public SpriteEffects SpriteFlip
+        {
+            get
+            {
+                return FacingLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            }
+        }
         
+        public bool DeathAnimationComplete
+        {
+            get
+            {
+                return DeathAnimation.Complete;
+            }
+        }
 
         public AnimationManager(Dictionary<MovementState, ActionAnimation> animations)
         {
-            this.animations = animations;
-            //temp default animation
+            this.Animations = animations;
             CurrentAnimation = animations[MovementState.IDLE];
             DeathAnimation = ReturnAnimationOnState(MovementState.DEATH);
-           
+
         }
 
         public void PlayAnimation(MovementState movementState)
@@ -33,16 +43,16 @@ namespace game_darksouls.Component
             if (LockAnimation)
                 return;
 
-            if (animations.ContainsKey(movementState))
+            if (Animations.ContainsKey(movementState))
             {
                 //currentAnimation.ResetAnimation();
-                CurrentAnimation = animations[movementState];                
+                CurrentAnimation = Animations[movementState];
             }
         }
 
         public void AddAnimation(MovementState state, ActionAnimation actionAnimation)
         {
-            animations.Add(state, actionAnimation);
+            Animations.Add(state, actionAnimation);
         }
 
         public void UpdateAnimationOnState(MovementState state)
@@ -50,25 +60,25 @@ namespace game_darksouls.Component
             if (LockAnimation)
                 return;
 
-            if (animations.ContainsKey(state) && !CurrentAnimation.IsRunning)
+            if (Animations.ContainsKey(state) && !CurrentAnimation.IsRunning)
             {
                 //currentAnimation.ResetAnimation();
-                CurrentAnimation = animations[state];
+                CurrentAnimation = Animations[state];
             }
 
         }
         public ActionAnimation ReturnAnimationOnState(MovementState state)
         {
-            if (animations.ContainsKey(state))
-                return animations.GetValueOrDefault(state);
+            if (Animations.ContainsKey(state))
+                return Animations.GetValueOrDefault(state);
 
             return null;
         }
         public void ResetAnimationOnState(MovementState state)
         {
-            if (animations.ContainsKey(state))
+            if (Animations.ContainsKey(state))
             {
-                ActionAnimation animation = animations.GetValueOrDefault(state);
+                ActionAnimation animation = Animations.GetValueOrDefault(state);
                 animation.ResetAnimation();
             }
         }
@@ -80,8 +90,6 @@ namespace game_darksouls.Component
         }
         public void Update(GameTime gameTime)
         {
-            
-            //Debug.WriteLine(currentAnimation.name);
             CurrentAnimation.Update(gameTime);
         }
     }

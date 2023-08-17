@@ -1,6 +1,7 @@
 ﻿using Component.Health;
 using game_darksouls.Animation;
 using game_darksouls.Component;
+using game_darksouls.Component.Health;
 using game_darksouls.Entity.Behaviour;
 using game_darksouls.Entity.EntityMovement;
 using Microsoft.Xna.Framework;
@@ -10,44 +11,50 @@ namespace game_darksouls.Entity
 {
     public class Wizard : AnimatedObject, IEntity
     {
+        private readonly IHealth health;
+        private readonly IMovementBehaviour movementBehaviour;
+
         private RangeAttack rangeAttack;
         private Texture2D fireball;
 
-        public Wizard(Texture2D texture, Texture2D fireball, Player player, CollisionManager collisionManager):base(collisionManager)
+        public IHealth HealthManager
         {
-            this.Texture = texture;
+            get
+            {
+                return health;
+            }
+        }
+
+        public Wizard(Texture2D texture, Texture2D fireball, Player player, CollisionManager collisionManager) : base(texture)
+        {
+            this.texture = texture;
             this.fireball = fireball;
 
-            AnimationManager = new AnimationManager(AnimationFactory.LoadWizardAnimations());
-            CollisionManager = CollisionManager;
-            HealthManager = new Health(1, MovementBehaviour, AnimationManager);
-            DrawingBox = new Box(250, 20, 64 * 4, 64 * 4, new Vector2(-100, -130));
-            CollisionBox = new Box(2575, 720, 64, 100, new Vector2(0, 0));
+            animationManager = new AnimationManager(AnimationFactory.LoadWizardAnimations());
+            health = new Health(1, movementBehaviour, (IDeathAnimation)animationManager);
+            drawingBox = new Box(250, 20, 64 * 4, 64 * 4, new Vector2(-100, -130));
+            collisionBox = new Box(2575, 720, 64, 100, new Vector2(0, 0));
 
-            MovementBehaviour = new GroundMovement(CollisionManager, AnimationManager, CollisionBox);
-            HealthManager = new Health(1,MovementBehaviour, AnimationManager);
-            rangeAttack = new RangeAttack(player, this, AnimationManager, MovementBehaviour, CollisionManager, fireball);
+            movementBehaviour = new GroundMovement(collisionManager, animationManager, collisionBox);
+            health = new Health(1, movementBehaviour, (IDeathAnimation)animationManager);
+            rangeAttack = new RangeAttack(player, this, animationManager, movementBehaviour, collisionManager, fireball); ;
             rangeAttack.RangeOfAttack = 300;
         }
 
         public override void Update(GameTime gameTime)
         {
 
-            if (HealthManager.CurrentState != Component.Health.State.DYING &&
-                HealthManager.CurrentState != Component.Health.State.DEATH)
+            if (health.CurrentState != State.DYING &&
+                health.CurrentState != State.DEATH)
             {
-                MovementBehaviour.Update(gameTime);
+                movementBehaviour.Update(gameTime);
                 rangeAttack.Behave(gameTime);
 
             }
-            AnimationManager.Update(gameTime);
+            animationManager.Update(gameTime);
             rangeAttack.UpdateSpell(gameTime);
-            DrawingBox.UpdatePosition(CollisionBox.Position);
+            drawingBox.UpdatePosition(collisionBox.Position);
             base.Update(gameTime);
-            //Debug.WriteLine(animationManager.currentAnimation.name);
-            //Debug.WriteLine(animationManager.currentAnimation.Counter);
-            //Debug.WriteLine(animationManager.currentAnimation.Complete);
-
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -56,13 +63,13 @@ namespace game_darksouls.Entity
             //spriteBatch.Draw(Game1.redsquareDebug, collisionBox.Rectangle, Color.Green);
 
             rangeAttack.Draw(spriteBatch);
-            spriteBatch.Draw(Texture,
-                DrawingBox.Rectangle,
-                AnimationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
+            spriteBatch.Draw(texture,
+                drawingBox.Rectangle,
+                animationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
                 Color.White,
                 0f,
                 Vector2.Zero,
-                AnimationManager.SpriteFLip,
+                animationManager.SpriteFlip,
                 0f);
         }
     }

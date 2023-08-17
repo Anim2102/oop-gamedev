@@ -31,14 +31,14 @@ namespace game_darksouls.Levels.worlds
             collectibleManager = new CollectibleManager();
             CollisionManager collisionManager = new CollisionManager(this, collectibleManager);
 
-            Player player = new Player(contentManager.Load<Texture2D>("Knight"), collisionManager,contentManager);
+            Player player = new Player(contentManager.Load<Texture2D>("Knight"),contentManager,collisionManager);
             player.StartPosition(new Vector2(500, 0));
             entitys.Add(player);
 
 
-            AnimatedObject skeleton = EntityFactory.EntityCreator(contentManager, "skeleton", player, collisionManager);
-            AnimatedObject wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mob", player, collisionManager);
-            AnimatedObject wizard = EntityFactory.EntityCreator(contentManager, "wizard", player, collisionManager);
+            IEntity skeleton = EntityFactory.EntityCreator(contentManager, "skeleton", player, collisionManager);
+            IEntity wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mob", player, collisionManager);
+            IEntity wizard = EntityFactory.EntityCreator(contentManager, "wizard", player, collisionManager);
 
             skeleton.StartPosition(new Vector2(1700, 0));
             entitys.Add(skeleton);

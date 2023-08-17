@@ -7,18 +7,16 @@ using System.Diagnostics;
 
 namespace game_darksouls.Component
 {
-    internal class PlayerAbilities : IComponent
+    internal class PlayerAbilities
     {
-        private readonly IMovementBehaviour playerMovement;
         private readonly ISoundManager soundManager;
-        public Attack attackBox;
+        public MeleeAttack attackBox;
         private InputManager inputManager;
 
-        public bool Attacking { get; set; }
+        public bool IsAttacking { get; private set; }
 
-        public PlayerAbilities(IMovementBehaviour movementBehaviour, Attack attackBox, InputManager inputManager,ISoundManager soundManager)
+        public PlayerAbilities(MeleeAttack attackBox, InputManager inputManager,ISoundManager soundManager)
         {
-            this.playerMovement = movementBehaviour;
             this.attackBox = attackBox;
             this.inputManager = inputManager;
             this.soundManager = soundManager;
@@ -26,32 +24,26 @@ namespace game_darksouls.Component
 
         public void Update(GameTime gameTime)
         {
-            Attacking = false;
+            IsAttacking = false;
             if (inputManager.PressedAttack())
             {
-                Attacking = true;
-                playerMovement.ResetDirection();
+                IsAttacking = true;
             }
             
-            if (Attacking)
+            if (IsAttacking)
             {
                 attackBox.AttackWithFrame();
                 soundManager.PlaySoundEffect("swing");
             }
 
-            if (attackBox.AttackFinished && Attacking)
+            if (attackBox.AttackFinished && IsAttacking)
             {
-                Attacking = false;
+                IsAttacking = false;
                 attackBox.ResetAttackAnimation();
             }
 
-            if (!Attacking)
+            if (!IsAttacking)
                 attackBox.RemoveAttackFrame();
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Game1.redsquareDebug, attackBox.attackFrame, Color.Red);
         }
     }
 }

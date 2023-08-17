@@ -1,8 +1,5 @@
-﻿
-
-using Component.Health;
+﻿using game_darksouls.Animation;
 using game_darksouls.Component;
-using game_darksouls.Entity.EntityMovement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,37 +7,39 @@ namespace game_darksouls.Entity
 {
     public abstract class AnimatedObject
     {
-        public Texture2D Texture { get; set; }
-        public AnimationManager AnimationManager { get; set; }
-        public Health HealthManager { get; set; }
-        public CollisionManager CollisionManager { get; set; }
-        public IMovementBehaviour MovementBehaviour { get; set; }
-        public Box DrawingBox { get; set; }
-        public Box CollisionBox { get; set; }
+        protected Texture2D texture;
+        protected IAnimationManager animationManager;
+        protected Box drawingBox;
+        protected Box collisionBox;
 
-        public AnimatedObject(CollisionManager collisionManager)
+        public Box CollisionBox
         {
-            this.CollisionManager = collisionManager;
+            get
+            {
+                return collisionBox;
+            }
         }
+
+
+
+        public AnimatedObject(IAnimationManager animationManager, Texture2D texture)
+        {
+            this.animationManager = animationManager;
+            this.texture = texture;
+        }
+
+        public AnimatedObject(Texture2D texture)
+        {
+            this.texture = texture;
+        }
+
         public virtual void Update(GameTime gameTime)
         {
-            DrawingBox.UpdatePosition(CollisionBox.Position);
+            drawingBox.UpdatePosition(collisionBox.Position);
         }
         public void StartPosition(Vector2 startPosition)
         {
-            this.CollisionBox.UpdatePosition(startPosition);
+            collisionBox.UpdatePosition(startPosition);
         }
-
-        public virtual void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(Texture,
-                DrawingBox.Rectangle,
-                AnimationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
-                HealthManager.CurrentColor,
-                0f,
-                Vector2.Zero,
-                AnimationManager.SpriteFLip,
-                0f);
-        }
-
     }
 }

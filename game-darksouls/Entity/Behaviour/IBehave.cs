@@ -13,6 +13,6 @@ namespace game_darksouls.Entity.Behaviour
         void Behave(GameTime gameTime);
 
         //temp
-        void Draw(SpriteBatch spriteBatch);
+        //void Draw(SpriteBatch spriteBatch);
 }
 }

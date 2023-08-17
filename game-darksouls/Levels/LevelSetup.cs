@@ -17,7 +17,7 @@ namespace game_darksouls.Level
     public abstract class LevelSetup
     {
         public List<Tile> Tiles { get; protected set; } = new();
-        public List<AnimatedObject> entitys { get; protected set; } = new();
+        public List<IEntity> entitys { get; protected set; } = new();
         
 
         public int[,] TileArray { get; protected set; }

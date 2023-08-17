@@ -1,4 +1,5 @@
 ﻿using Component.Health;
+using game_darksouls.Component.Health;
 using game_darksouls.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -11,14 +12,14 @@ namespace game_darksouls.Utilities
     public class Hud
     {
         private readonly Texture2D healthTexture;
-        private readonly Health health;
+        private readonly IHealth health;
         private List<Rectangle> amountHealth = new();
         private readonly Viewport viewport;
 
         private const int SIZE = 50;
 
 
-        public Hud(Health health, ContentManager content, Viewport viewport)
+        public Hud(IHealth health, ContentManager content, Viewport viewport)
         {
             this.health = health;
             this.healthTexture = content.Load<Texture2D>("hart");

@@ -12,9 +12,9 @@ namespace game_darksouls.Utilities
         public Vector2 OriginCenter { get; set; }
 
         private Viewport viewport;
-        private Player player;
+        private AnimatedObject player;
 
-        public Camera(Viewport viewport, Player player)
+        public Camera(Viewport viewport, AnimatedObject player)
         {
             this.viewport = viewport; 
             this.player = player;
@@ -32,7 +32,7 @@ namespace game_darksouls.Utilities
         }
         public void Update()
         {
-            CameraPosition = this.player.DrawingBox.CenterOfBox();
+            CameraPosition = player.CollisionBox.Position;
         }
     }
 

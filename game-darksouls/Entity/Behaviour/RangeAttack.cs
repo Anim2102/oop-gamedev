@@ -1,4 +1,5 @@
-﻿using game_darksouls.Component;
+﻿using game_darksouls.Animation;
+using game_darksouls.Component;
 using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
@@ -11,13 +12,13 @@ namespace game_darksouls.Entity.Behaviour
     {
         private readonly Player player;
         private readonly AnimatedObject animatedObject;
-        private readonly AnimationManager animationManager;
+        private readonly IAnimationManager animationManager;
         private readonly IMovementBehaviour movementBehaviour;
         private readonly CollisionManager collisionManager;
         private Texture2D fireBallTexure;
 
         private Vector2 currentPosition => animatedObject.CollisionBox.Position;
-        private Vector2 playerPosition => player.DrawingBox.Position;
+        private Vector2 playerPosition => player.CollisionBox.Position;
 
         public double RangeOfAttack { get; set; }
 
@@ -29,7 +30,7 @@ namespace game_darksouls.Entity.Behaviour
 
         public RangeAttack(Player player,
         AnimatedObject animatedObject,
-        AnimationManager animationManager,
+        IAnimationManager animationManager,
         IMovementBehaviour movementBehaviour,
         CollisionManager collisionManager,
         Texture2D fireball)
@@ -129,7 +130,7 @@ namespace game_darksouls.Entity.Behaviour
             Vector2 currentPosition = new Vector2(animatedObject.CollisionBox.Rectangle.X,
                 animatedObject.CollisionBox.Rectangle.Y);
 
-            Vector2 playerPosition = player.DrawingBox.CenterOfBox();
+            Vector2 playerPosition = player.CollisionBox.CenterOfBox();
 
             return CalculateDistanceBetweenTwoVectorsOnX(currentPosition, playerPosition);
         }

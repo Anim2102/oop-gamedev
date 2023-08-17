@@ -1,4 +1,5 @@
 ﻿using game_darksouls.Component;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,14 +12,14 @@ namespace game_darksouls.Entity.EntityUtils
 {
     public static class EntityFactory
 {
-        public static AnimatedObject EntityCreator(ContentManager content, string textureName,Player player,CollisionManager collision)
+        public static IEntity EntityCreator(ContentManager content, string textureName,Player player,CollisionManager collision)
         {
-            AnimatedObject entity = null;
+            IEntity entity = null;
 
             if (textureName == "skeleton")
             {
                 Texture2D entityTexture = content.Load<Texture2D>("skeleton");
-                Skeleton skeleton = new Skeleton(entityTexture, player,collision);
+                Skeleton skeleton = new Skeleton(entityTexture,player,collision,new Vector2(0,0),new Vector2(0,0));
                 
 
                 return skeleton;
@@ -27,7 +28,7 @@ namespace game_darksouls.Entity.EntityUtils
             else if (textureName == "Brain Mole")
             {
                 Texture2D entityTexture = content.Load<Texture2D>("Brain Mole");
-                WingedMob winged = new WingedMob(entityTexture, player, collision);
+                WingedMob winged = new WingedMob(entityTexture, player, collision, new Vector2(0, 0), new Vector2(0, 0));
 
                 return winged;
             }

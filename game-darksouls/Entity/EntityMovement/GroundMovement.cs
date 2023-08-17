@@ -1,6 +1,8 @@
-﻿using game_darksouls.Component;
+﻿using game_darksouls.Animation;
+using game_darksouls.Component;
 using game_darksouls.Enum;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Diagnostics;
 
@@ -9,17 +11,17 @@ namespace game_darksouls.Entity.EntityMovement
     internal class GroundMovement : IMovementBehaviour
     {
         public CollisionManager CollisionManager { get; set; }
-        public AnimationManager AnimationManager { get; set; }
+        private readonly IAnimationManager animationManager;
         public Box CollisionBox { get; set; }
         public MovementState CurrentMovementState { get; set; }
 
         private Vector2 speed = new Vector2(0.1f, 0.6f);
         private Vector2 direction;
 
-        public GroundMovement(CollisionManager collisionManager, AnimationManager animationManager, Box collisionBox)
+        public GroundMovement(CollisionManager collisionManager, IAnimationManager animationManager, Box collisionBox)
         {
             this.CollisionManager = collisionManager;
-            this.AnimationManager = animationManager;
+            this.animationManager = animationManager;
             this.CurrentMovementState = MovementState.ATTACK;
             this.CollisionBox = collisionBox;
 
@@ -91,19 +93,21 @@ namespace game_darksouls.Entity.EntityMovement
                 this.CurrentMovementState = MovementState.IDLE;
             }
 
-            AnimationManager.UpdateAnimationOnState(this.CurrentMovementState);
+            animationManager.UpdateAnimationOnState(this.CurrentMovementState);
         }
 
         public void ChangeFlipOnDirection()
         {
             if (direction.X > 0)
             {
-                AnimationManager.FacingLeft = false;
+                animationManager.FacingLeft = false;
             }
             else if (direction.X < 0)
             {
-                AnimationManager.FacingLeft = true;
+                animationManager.FacingLeft = true;
             }
         }
+
+        
     }
 }

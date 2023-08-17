@@ -1,8 +1,10 @@
-﻿using game_darksouls.Entity;
+﻿using game_darksouls.Animation;
+using game_darksouls.Entity;
 using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Enum;
 using game_darksouls.Input;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace game_darksouls.Component
@@ -10,13 +12,12 @@ namespace game_darksouls.Component
     internal class PlayerMovement : IComponent, IMovementBehaviour
     {
         public CollisionManager CollisionManager { get; set; }
-        public AnimationManager AnimationManager { get; set; }
+        private readonly IAnimationManager animationManager;
         public Box CollisionBox { get; set; }
         public MovementState CurrentMovementState { get; set; }
 
-        public Player Player { get; set; }
         private InputManager inputManager;
-
+        private readonly PlayerAbilities playerAbilities;
         private Vector2 direction;
         private Vector2 speed;
         private Vector2 velocity;
@@ -27,15 +28,13 @@ namespace game_darksouls.Component
         private const float JUMPFORCE = 15f;
         private float currentJumpTime;
 
-
-
-        public PlayerMovement(CollisionManager collisionManager, Box CollisionBox, AnimationManager playerAnimation, InputManager inputManager, Player player)
+        public PlayerMovement(CollisionManager collisionManager, Box CollisionBox, IAnimationManager animationManager, InputManager inputManager,PlayerAbilities playerAbilities)
         {
             this.CollisionBox = CollisionBox;
             this.CollisionManager = collisionManager;
-            this.AnimationManager = playerAnimation;
+            this.animationManager = animationManager;
             this.inputManager = inputManager;
-            this.Player = player;
+            this.playerAbilities = playerAbilities;
 
             this.direction = Vector2.Zero;
             this.onFloor = false;
@@ -133,19 +132,20 @@ namespace game_darksouls.Component
         {
             if (direction.X > 0)
             {
-                AnimationManager.FacingLeft = false;
+                animationManager.FacingLeft = false;
             }
             else if (direction.X < 0)
             {
-                AnimationManager.FacingLeft = true;
+                animationManager.FacingLeft = true;
             }
         }
 
         private void ChangeMovingState(Vector2 direction)
         {
-            if (Player.IsPlayerAttack)
+            
+            if (playerAbilities.IsAttacking)
                 return;
-
+            
             if (!onFloor || jumping)
             {
                 CurrentMovementState = MovementState.FALLING;
@@ -159,7 +159,7 @@ namespace game_darksouls.Component
                 CurrentMovementState = MovementState.IDLE;
             }
 
-            AnimationManager.UpdateAnimationOnState(CurrentMovementState);
+            animationManager.UpdateAnimationOnState(CurrentMovementState);
         }
 
         public void PushAfterHit(Vector2 pushDirection)
@@ -180,6 +180,15 @@ namespace game_darksouls.Component
         public void ResetDirection()
         {
             this.direction.X = 0;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Rectangle feet = new Rectangle(CollisionBox.Rectangle.X,
+                CollisionBox.Rectangle.Y + CollisionBox.Rectangle.Height,
+                CollisionBox.Rectangle.Width,
+                8);
+            spriteBatch.Draw(Game1.redsquareDebug, feet, Color.White);
         }
     }
 }
