@@ -24,9 +24,7 @@ namespace game_darksouls.Levels.worlds
     {
         private Camera camera;
         private Hud hud;
-
         private BackgroundGame backgroundGame;
-
         private ICollectibleManager collectibleManager;
 
         public bool IsComplete
@@ -37,7 +35,7 @@ namespace game_darksouls.Levels.worlds
             }
         }
 
-        public LevelOne(ContentManager contentManager, Viewport viewport) : base(Game1.dungeonTexture, "Levels/csv levels/map.csv")
+        public LevelOne(ContentManager contentManager, Viewport viewport) : base(Game1.dungeonTexture, "Levels/csv levels/level-one-fixed.csv")
         {
             collectibleManager = new CollectibleManager();
             CollisionManager collisionManager = new CollisionManager(this, collectibleManager);

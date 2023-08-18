@@ -17,6 +17,8 @@ namespace game_darksouls.Component
             CurrentLevel = currentLevel;
             CollectibleManager = collectibleManager;
         }
+
+
         public void CheckIfCollectible(AnimatedObject player)
         {
             foreach (var collectible in CollectibleManager.Collectibles)
@@ -27,6 +29,17 @@ namespace game_darksouls.Component
                 }
             }
         }
+
+
+        public void CheckOutOfMap()
+        {
+            foreach (var entity in CurrentLevel.entitys)
+            {
+                //check out of map
+            }
+        }
+
+
         public bool CheckForCollision(Box hitbox)
         {
 

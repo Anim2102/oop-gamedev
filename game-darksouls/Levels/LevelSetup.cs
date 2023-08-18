@@ -1,5 +1,6 @@
 ﻿using game_darksouls.Collectible;
 using game_darksouls.Entity;
+using game_darksouls.Levels;
 using Microsoft.VisualBasic.ApplicationServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -33,7 +34,7 @@ namespace game_darksouls.Level
         protected string pathToCsv;
         private Texture2D tileSetTexture;
 
-
+        
 
         public LevelSetup(Texture2D tileSetTexture,string filepath)
         {

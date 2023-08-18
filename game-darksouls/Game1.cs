@@ -48,8 +48,8 @@ namespace game_darksouls
             // TODO: Add your initialization logic here
             base.Initialize();
             
-            firstLevel = (ILevel)new LevelOne(Content,GraphicsDevice.Viewport);
-            secondLevel = (ILevel)new LevelTwo(Content,GraphicsDevice.Viewport);
+            firstLevel = new LevelOne(Content,GraphicsDevice.Viewport);
+            secondLevel = new LevelTwo(Content,GraphicsDevice.Viewport);
 
             //testaudi = Content.Load<Song>("sounds/Dark Ambient 3");
             //MediaPlayer.Play(testaudi);

@@ -76,6 +76,12 @@ namespace game_darksouls.Entity
             healthManager = new Health(HEALTH, movementBehaviour, (IDeathAnimation)animationManager);
 
         }
+
+        public void Destroy()
+        {
+            //kill
+        }
+
         public override void Update(GameTime gameTime)
         {
             //Debug.WriteLine(collisionBox.Position);

@@ -11,7 +11,7 @@ namespace game_darksouls.Entity
         IHealth HealthManager { get; }
         Box CollisionBox { get; }
         void StartPosition(Vector2 startPosition);
-
+        void Destroy() { }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
     }

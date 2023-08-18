@@ -56,3 +56,7 @@ C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\fonts\DungeonFont.ttf
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\menu background.xnb
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\BgGame.xnb
+C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Levels\csv levels\level1.csv
+C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Levels\csv levels\level-one-fixed.csv
+C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Levels\csv levels\level2.csv
+C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Levels\csv levels\level-two-final.csv

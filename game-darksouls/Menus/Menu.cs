@@ -58,7 +58,7 @@ namespace game_darksouls.Menus
             button.BaseCollor = Color.White;
             button.secondCollor = Color.Red;
             button.TextSize = 2.5f;
-            button.ValueButton = 1;
+            button.ValueButton = 0;
 
             BaseButton secondButton = new BaseButton();
             secondButton.ButtonRectangle = new Rectangle(((viewport.Width - WIDTH) / 2), (viewport.Height + HEIGHT) / 2, WIDTH, HEIGHT);
@@ -67,7 +67,7 @@ namespace game_darksouls.Menus
             secondButton.BaseCollor = Color.White;
             secondButton.secondCollor = Color.Red;
             secondButton.TextSize = 2.5f;
-            button.ValueButton = 0;
+            secondButton.ValueButton = 1;
 
 
             buttons.Add(button);
