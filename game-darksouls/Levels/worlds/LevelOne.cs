@@ -25,6 +25,8 @@ namespace game_darksouls.Levels.worlds
         private Camera camera;
         private Hud hud;
 
+        private BackgroundGame backgroundGame;
+
         private ICollectibleManager collectibleManager;
 
         public bool IsComplete
@@ -39,6 +41,8 @@ namespace game_darksouls.Levels.worlds
         {
             collectibleManager = new CollectibleManager();
             CollisionManager collisionManager = new CollisionManager(this, collectibleManager);
+
+            
 
             Player player = new Player(contentManager.Load<Texture2D>("Knight"),contentManager,collisionManager);
             player.StartPosition(new Vector2(500, 700));
@@ -68,12 +72,16 @@ namespace game_darksouls.Levels.worlds
 
             camera = new Camera(viewport, player);
             hud = new Hud(player.HealthManager,contentManager,viewport);
+
+            Texture2D backgroundTexture = contentManager.Load<Texture2D>("BgGame");
+            backgroundGame = new BackgroundGame(backgroundTexture, viewport, camera);
         }
 
         public override void Update(GameTime gameTime)
         {
             camera.Update();
             hud.Update();
+            backgroundGame.Update();
             collectibleManager.Update(gameTime);
             //Debug.WriteLine(IsComplete);
             base.Update(gameTime);
@@ -83,6 +91,7 @@ namespace game_darksouls.Levels.worlds
         {
           
             spriteBatch.Begin(transformMatrix: camera.CreateTransformation());
+            backgroundGame.Draw(spriteBatch);
             collectibleManager.Draw(spriteBatch);
             base.Draw(spriteBatch);
             spriteBatch.End();

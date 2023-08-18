@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace game_darksouls.Utilities
 {
-    internal class Camera
+    public class Camera
     {
         //source of knowledge: http://www.david-amador.com/2009/10/xna-camera-2d-with-zoom-and-rotation/
         public Matrix Transform { get; set; }

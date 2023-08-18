@@ -55,3 +55,4 @@ C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\fonts\font.xnb
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\fonts\DungeonFont.ttf
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\menu background.xnb
+C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\BgGame.xnb
