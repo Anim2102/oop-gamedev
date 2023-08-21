@@ -86,6 +86,7 @@ namespace game_darksouls.Animation
 
             return animations;
         }
+
         public static ActionAnimation LoadAnimations(string name = "none",bool loop = true,int fps = 15, int amountFrames = 1, int yas = 40, int width = 32, int height = 27)
         {
             ActionAnimation animation = new ActionAnimation(name);

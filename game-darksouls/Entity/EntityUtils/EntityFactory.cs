@@ -21,7 +21,6 @@ namespace game_darksouls.Entity.EntityUtils
                 Texture2D entityTexture = content.Load<Texture2D>("skeleton");
                 Skeleton skeleton = new Skeleton(entityTexture,player,collision,patrolPointA,patrolPointB);
                 
-
                 return skeleton;
             }
 

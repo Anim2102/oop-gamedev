@@ -30,8 +30,6 @@ namespace game_darksouls.GameManaging
             font = contentManager.Load<SpriteFont>("fonts/font");
         }
 
-
-
         private Vector2 CalculateTextPosition()
         {
             Vector2 centerScreen = new Vector2(viewport.Width / 2, viewport.Height / 2);

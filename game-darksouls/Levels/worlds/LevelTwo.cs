@@ -52,6 +52,8 @@ namespace game_darksouls.Levels.worlds
 
         public void Reset()
         {
+            entitys.Clear();
+            collectibleManager.Collectibles.Clear();
             LoadContent();
         }
         private void LoadContent()
