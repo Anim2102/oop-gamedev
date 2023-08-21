@@ -20,6 +20,7 @@ namespace game_darksouls.Entity
         private IAttack attackBox;
         private AttackSquare attackSquare;
 
+        private IAnimationManager animationManager;
         private readonly IMovementBehaviour movementBehaviour;
         private readonly IHealth health;
       

@@ -16,10 +16,13 @@ namespace game_darksouls.GameManaging
 
         private Song backgroundSong;
 
+        private bool menuLoad = false;
+
         public MenuState(GameManager gameManager)
         {
             this.gameManager = gameManager;
             this.contentManager = gameManager.ContentManager;
+           
         }
 
         public void Play()
@@ -29,21 +32,21 @@ namespace game_darksouls.GameManaging
             this.backgroundSong = contentManager.Load<Song>("sounds/Dungeon Theme");
             soundManager.PlayBackGroundSong(backgroundSong);
         }
-        public void Stop()
-        {
-            soundManager = null;
-            contentManager = null;
-            MediaPlayer.Stop();
-        }
+       
 
         public void Update(GameTime gameTime)
         {
+            if (!menuLoad)
+            {
+                Play();
+                menuLoad = true;
+            }
             gameMenu.Update(gameTime);
 
             if (gameMenu.GetButtonPressed)
             {
                 int buttonValue = gameMenu.ButtonValue();
-                Stop();
+                
                 gameManager.SetState(new GameplayState(gameManager, buttonValue));
             }
         }

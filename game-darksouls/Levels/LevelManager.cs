@@ -53,8 +53,6 @@ namespace game_darksouls.Levels
             return null;
         }
 
-
-
         public ILevel GetLevelByIndex(int index)
         {
             return levels[index];

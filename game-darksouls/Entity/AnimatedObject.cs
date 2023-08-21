@@ -8,7 +8,6 @@ namespace game_darksouls.Entity
     public abstract class AnimatedObject
     {
         protected Texture2D texture;
-        protected IAnimationManager animationManager;
         protected Box drawingBox;
         protected Box collisionBox;
 
@@ -20,14 +19,7 @@ namespace game_darksouls.Entity
             }
         }
 
-
-
-        public AnimatedObject(IAnimationManager animationManager, Texture2D texture)
-        {
-            this.animationManager = animationManager;
-            this.texture = texture;
-        }
-
+      
         public AnimatedObject(Texture2D texture)
         {
             this.texture = texture;

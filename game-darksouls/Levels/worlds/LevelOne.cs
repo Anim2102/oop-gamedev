@@ -27,7 +27,10 @@ namespace game_darksouls.Levels.worlds
         private BackgroundGame backgroundGame;
         private ICollectibleManager collectibleManager;
         private CollisionManager collisionManager;
+        private ContentManager contentManager;
+        private Viewport viewport;
 
+        private const string mapLocation = "Levels/csv levels/level-one-fixed.csv";
         private Player player;
 
         public bool IsComplete
@@ -46,20 +49,32 @@ namespace game_darksouls.Levels.worlds
             }
         }
 
-        public LevelOne(ContentManager contentManager, Viewport viewport) : base(Game1.dungeonTexture, "Levels/csv levels/level-one-fixed.csv")
+        public LevelOne(ContentManager contentManager, Viewport viewport, Texture2D dungeon) : base(dungeon, mapLocation)
+        {
+            this.contentManager = contentManager;
+            this.viewport = viewport;
+            LoadContent();
+        }
+        
+        public void Reset()
+        {
+            entitys.Clear();
+            collectibleManager.Collectibles.Clear();
+            LoadContent();
+        }
+
+        public void LoadContent()
         {
             collectibleManager = new CollectibleManager();
             collisionManager = new CollisionManager(this, collectibleManager);
 
-            
-
-            player = new Player(contentManager.Load<Texture2D>("Knight"),contentManager,collisionManager);
+            player = new Player(contentManager.Load<Texture2D>("Knight"), contentManager, collisionManager);
             player.StartPosition(new Vector2(500, 700));
             entitys.Add(player);
 
 
-            IEntity skeleton = EntityFactory.EntityCreator(contentManager, "skeleton", player,collisionManager,new Vector2(1500,658),new Vector2(2120,658));
-            IEntity wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mole", player,collisionManager, new Vector2(2900,550),new Vector2(3250,500));
+            IEntity skeleton = EntityFactory.EntityCreator(contentManager, "skeleton", player, collisionManager, new Vector2(1500, 658), new Vector2(2120, 658));
+            IEntity wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mole", player, collisionManager, new Vector2(2900, 550), new Vector2(3250, 500));
             IEntity wizard = EntityFactory.EntityCreator(contentManager, "wizard", player, collisionManager);
 
 
@@ -69,17 +84,12 @@ namespace game_darksouls.Levels.worlds
             entitys.Add(skeleton);
             wingedMob.StartPosition(new Vector2(3100, 550));
             entitys.Add(wingedMob);
-            
-            
+
+
             Vector2 gemOnePosition = new Vector2(2510, 836);
-            Crystal gemOne = new Crystal(contentManager.Load<Texture2D>("crystal"),gemOnePosition);
-
-
-            //{ X: 3215 Y: 490}
+            Crystal gemOne = new Crystal(contentManager.Load<Texture2D>("crystal"), gemOnePosition);
             Vector2 gemTwoPosition = new Vector2(3215, 490);
             Crystal gemTwo = new Crystal(contentManager.Load<Texture2D>("crystal"), gemTwoPosition);
-
-            //{ X: 3165 Y: 97}
             Vector2 gemThirdPosition = new Vector2(3165, 97);
             Crystal gemThird = new Crystal(contentManager.Load<Texture2D>("crystal"), gemThirdPosition);
 
@@ -89,12 +99,11 @@ namespace game_darksouls.Levels.worlds
             collectibleManager.AddCollectible(gemThird);
 
             camera = new Camera(viewport, player);
-            hud = new Hud(player.Health,contentManager,viewport);
+            hud = new Hud(player.Health, contentManager, viewport);
 
             Texture2D backgroundTexture = contentManager.Load<Texture2D>("BgGame");
             backgroundGame = new BackgroundGame(backgroundTexture, viewport, camera);
         }
-        
         public override void Update(GameTime gameTime)
         {
             camera.Update();
@@ -102,9 +111,6 @@ namespace game_darksouls.Levels.worlds
             backgroundGame.Update();
             collectibleManager.Update(gameTime);
             collisionManager.CheckOutOfBounds();
-
-            
-            //Debug.WriteLine(IsComplete);
             base.Update(gameTime);
         }
 

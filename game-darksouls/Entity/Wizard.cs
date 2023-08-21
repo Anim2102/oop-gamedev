@@ -13,7 +13,7 @@ namespace game_darksouls.Entity
     {
         private readonly IHealth health;
         private readonly IMovementBehaviour movementBehaviour;
-
+        private readonly IAnimationManager animationManager;
         private readonly RangeAttack rangeAttack;
         private readonly FlyingObject flyingObject;
 

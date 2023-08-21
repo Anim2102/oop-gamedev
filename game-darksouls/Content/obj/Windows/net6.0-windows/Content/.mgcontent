@@ -15,8 +15,9 @@
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/menu background.jpg</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Necromancer_creativekind-Sheet.png</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/Skeleton.png</File>
-    <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/sounds/Dark Ambient 3.ogg</File>
+    <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/sounds/ambient.ogg</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/sounds/Dungeon Theme.mp3</File>
+    <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/sounds/goblin_den.wav</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/sounds/sword swing air.wav</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/sounds/sword swing hit.wav</File>
     <File>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/square.png</File>
@@ -32,6 +33,7 @@
     <File>Knight.png</File>
     <File xsi:nil="true" />
     <File>wizard.png</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -18,16 +18,17 @@ namespace game_darksouls.Entity
 {
     public class Player : AnimatedObject, IEntity
     {
-        private IMovementBehaviour movementBehaviour;
-        private CollisionManager collisionManager;
-        private IAttack attack;
-        private AttackSquare attackFrame;
-
-        private PlayerAbilities playerAbilities;
-        private Health healthManager;
-        private IInput input;
-
-        private ISoundManager soundManager;
+        private readonly IMovementBehaviour movementBehaviour;
+        private readonly IAnimationManager animationManager;
+        private readonly CollisionManager collisionManager;
+        private readonly IAttack attack;
+        private readonly AttackSquare attackFrame;
+                 
+        private readonly PlayerAbilities playerAbilities;
+        private readonly Health healthManager;
+        private readonly IInput input;
+                 
+        private readonly ISoundManager soundManager;
 
         private const int COLLISIONBOXWIDTH = 30;
         private const int COLLISIONBOXHEIGHT = 40;
@@ -50,11 +51,11 @@ namespace game_darksouls.Entity
             get { return healthManager; }
         }
 
-        public Box CollisionBox
+        public new Box CollisionBox
         {
             get
             {
-                return collisionBox;
+                return base.collisionBox;
             }
         }
 
@@ -98,7 +99,6 @@ namespace game_darksouls.Entity
 
         public override void Update(GameTime gameTime)
         {
-            Debug.WriteLine(collisionBox.Position);
             movementBehaviour.Update(gameTime);
             animationManager.Update(gameTime);
             playerAbilities.Update(gameTime);
@@ -109,7 +109,6 @@ namespace game_darksouls.Entity
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            playerAbilities.Draw(spriteBatch);
             spriteBatch.Draw(texture,
                 drawingBox.Rectangle,
                 animationManager.CurrentAnimation.CurrentFrame.SourceRectangle,

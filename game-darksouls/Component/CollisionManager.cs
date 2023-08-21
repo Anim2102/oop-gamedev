@@ -72,14 +72,14 @@ namespace game_darksouls.Component
             return false;
         }
 
-        public IEntity CheckForHit(AnimatedObject initiator, AttackSquare attackFrame)
+        public IEntity CheckForHit(AnimatedObject initiator, Rectangle attackFrame)
         {
             foreach (var entity in CurrentLevel.entitys)
             {
                 if (entity == initiator)
                     continue;
 
-                if (attackFrame.ReturnAttackFrame().Intersects(entity.CollisionBox.Rectangle))
+                if (attackFrame.Intersects(entity.CollisionBox.Rectangle))
                     return entity;
             }
 

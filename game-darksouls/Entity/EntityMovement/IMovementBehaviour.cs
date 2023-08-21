@@ -16,9 +16,5 @@ namespace game_darksouls.Entity.EntityMovement
         void ChangeMovingState() { }
         void ChangeFlipOnDirection() { }
         void PushAfterHit(Vector2 pushDirection) { }
-
-
-
-       
     }
 }

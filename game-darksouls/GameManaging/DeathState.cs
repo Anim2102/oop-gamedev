@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace game_darksouls.GameManaging
@@ -13,6 +14,9 @@ namespace game_darksouls.GameManaging
         private SpriteFont font;
         private const string MESSAGE = "Still lost...lost forever";
         private Viewport viewport;
+
+        private float waitTime = 0;
+        private const float MAXWAITTIME = 5000f;
 
         public DeathState(GameManager gameManager)
         {
@@ -27,10 +31,7 @@ namespace game_darksouls.GameManaging
             font = contentManager.Load<SpriteFont>("fonts/font");
         }
 
-        public void Stop()
-        {
-            contentManager.Unload();
-        }
+       
 
         private Vector2 CalculateTextPosition()
         {
@@ -47,7 +48,14 @@ namespace game_darksouls.GameManaging
 
         public void Update(GameTime gameTime)
         {
-            
+
+            waitTime += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (waitTime > MAXWAITTIME)
+            {
+                gameManager.SetState(new MenuState(gameManager));
+
+            }
         }
 
     }

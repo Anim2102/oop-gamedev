@@ -46,8 +46,6 @@ C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Levels\csv levels\map.csv
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\hart.xnb
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Levels\csv levels\map2.csv
-C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\sounds\Dark Ambient 3.wma
-C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\sounds\Dark Ambient 3.xnb
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\sounds\sword swing air.xnb
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\sounds\sword swing hit.xnb
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\sounds\Dungeon Theme.wma
@@ -60,3 +58,6 @@ C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Levels\csv levels\level-one-fixed.csv
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Levels\csv levels\level2.csv
 C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Levels\csv levels\level-two-final.csv
+C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\sounds\goblin_den.xnb
+C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\sounds\ambient.wma
+C:\Users\Tim\source\repos\game-darksouls\game-darksouls\bin\Debug\net6.0-windows\Content\sounds\ambient.xnb

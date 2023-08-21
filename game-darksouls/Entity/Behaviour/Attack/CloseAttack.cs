@@ -101,7 +101,7 @@ namespace Entity.Behaviour.Attack
         }
         private IEntity CheckHit()
         {
-            return collisionManager.CheckForHit(initiator, AttackFrame);
+            return collisionManager.CheckForHit(initiator, AttackFrame.ReturnAttackFrame());
         }
 
         public void ResetAttackAnimation()

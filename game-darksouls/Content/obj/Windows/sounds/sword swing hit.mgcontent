@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/sounds/sword swing hit.wav</SourceFile>
   <SourceTime>2023-08-16T18:00:43.914063+02:00</SourceTime>
   <DestFile>C:/Users/Tim/source/repos/game-darksouls/game-darksouls/Content/bin/Windows/sounds/sword swing hit.xnb</DestFile>
-  <DestTime>2023-08-17T15:36:00.0804715+02:00</DestTime>
+  <DestTime>2023-08-21T17:02:06.4367742+02:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

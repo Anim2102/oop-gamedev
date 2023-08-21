@@ -90,7 +90,7 @@ namespace Entity.Behaviour.Attack
 
         private void CheckHit()
         {
-            /*if (projectFlying)
+            if (projectFlying)
             {
                 IEntity entity = collisionManager.CheckForHit(animatedObject, flyingObject.Object);
                 if (entity != null)
@@ -98,7 +98,7 @@ namespace Entity.Behaviour.Attack
                     entity.TakeDamage();
                 }
             }
-            */
+            
         }
         private bool PlayerOnLeft()
         {

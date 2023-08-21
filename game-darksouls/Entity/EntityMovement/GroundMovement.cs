@@ -16,13 +16,9 @@ namespace game_darksouls.Entity.EntityMovement
         public GroundMovement(CollisionManager collisionManager, IAnimationManager animationManager, Box collisionBox) : base(collisionBox,collisionManager,animationManager)
         {
             
-            this.CurrentMovementState = MovementState.ATTACK;
-            
-
+            this.CurrentMovementState = MovementState.IDLE;
             direction = Vector2.Zero;
             speed = new Vector2(0.1f, 0.6f); ;
-
-
         }
 
         public override void Update(GameTime gameTime)

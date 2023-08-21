@@ -13,6 +13,9 @@ namespace game_darksouls.Levels.worlds
 {
     internal class LevelTwo : LevelSetup, ILevel
     {
+        private ContentManager contentManager;
+        private CollisionManager collisionManager;
+        private Viewport viewport;
         private Camera camera;
         private Hud hud;
         private BackgroundGame backgroundGame;
@@ -20,6 +23,8 @@ namespace game_darksouls.Levels.worlds
         private ICollectibleManager collectibleManager;
 
         private Player player;
+
+        private const string MAPLOCATION = "Levels/csv levels/level-two-final.csv";
 
         public bool IsComplete
         {
@@ -37,18 +42,30 @@ namespace game_darksouls.Levels.worlds
             }
         }
 
-        public LevelTwo(ContentManager contentManager, Viewport viewport) : base(Game1.dungeonTexture, "Levels/csv levels/level-two-final.csv")
+        public LevelTwo(ContentManager contentManager, Viewport viewport, Texture2D dungeonTexture) : base(dungeonTexture, MAPLOCATION)
+        {
+            this.contentManager = contentManager;
+            this.viewport = viewport;
+
+            LoadContent();
+        }
+
+        public void Reset()
+        {
+            LoadContent();
+        }
+        private void LoadContent()
         {
             collectibleManager = new CollectibleManager();
-            CollisionManager collisionManager = new CollisionManager(this, collectibleManager);
+            collisionManager = new CollisionManager(this, collectibleManager);
 
-            player = new Player(contentManager.Load<Texture2D>("Knight"),contentManager,collisionManager);
+            player = new Player(contentManager.Load<Texture2D>("Knight"), contentManager, collisionManager);
             player.StartPosition(new Vector2(500, 0));
             entitys.Add(player);
 
 
-            IEntity skeleton = EntityFactory.EntityCreator(contentManager, "skeleton", player, collisionManager,new Vector2(1260,250),new Vector2(1900,250));
-            IEntity wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mole", player, collisionManager, new Vector2(2000,650),new Vector2(2900,600));
+            IEntity skeleton = EntityFactory.EntityCreator(contentManager, "skeleton", player, collisionManager, new Vector2(1260, 250), new Vector2(1900, 250));
+            IEntity wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mole", player, collisionManager, new Vector2(2000, 650), new Vector2(2900, 600));
             IEntity wizard = EntityFactory.EntityCreator(contentManager, "wizard", player, collisionManager);
 
             skeleton.StartPosition(new Vector2(1500, 250));
@@ -62,7 +79,7 @@ namespace game_darksouls.Levels.worlds
 
 
 
-            Vector2 gemOnePosition = new Vector2(1790 ,650);
+            Vector2 gemOnePosition = new Vector2(1790, 650);
             Crystal gemOne = new Crystal(contentManager.Load<Texture2D>("crystal"), gemOnePosition);
 
             Vector2 gemTwoPosition = new Vector2(3555, 180);
@@ -83,6 +100,8 @@ namespace game_darksouls.Levels.worlds
             hud.Update();
             backgroundGame.Update();
             collectibleManager.Update(gameTime);
+            collisionManager.CheckOutOfBounds();
+
             base.Update(gameTime);
         }
 

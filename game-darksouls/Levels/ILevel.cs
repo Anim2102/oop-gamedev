@@ -11,7 +11,8 @@ namespace game_darksouls.Levels
     public interface ILevel
 {
         bool IsComplete { get; }
-        bool IsLost { get; }    
+        bool IsLost { get; }
+        void Reset();
         void Update(GameTime gameTime) { }
         void Draw(SpriteBatch spriteBatch) { }
 }

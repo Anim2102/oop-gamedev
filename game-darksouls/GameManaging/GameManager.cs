@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,8 @@ namespace game_darksouls.GameManaging
         }
         private Viewport viewport;
         public Viewport Viewport { get { return viewport; } }
+
+
         private IStateGame currentState;
 
         public GameManager(Viewport viewport,ContentManager contentManager) {
@@ -47,6 +50,7 @@ namespace game_darksouls.GameManaging
 
         public void Update(GameTime gameTime)
         {
+            Debug.WriteLine(currentState.ToString());   
             currentState.Update(gameTime);
         }
 
