@@ -18,6 +18,11 @@ namespace game_darksouls.GameManaging
         public Menu GameMenu { get; set; }
 
         private ContentManager contentManager;
+
+        public ContentManager ContentManager
+        {
+            get { return contentManager; }
+        }
         private Viewport viewport;
         public Viewport Viewport { get { return viewport; } }
         private IStateGame currentState;
@@ -37,7 +42,7 @@ namespace game_darksouls.GameManaging
         public void SetState(IStateGame stateLevel)
         {
             currentState = stateLevel;
-            currentState.Start();
+            currentState.Play();
         }
 
         public void Update(GameTime gameTime)

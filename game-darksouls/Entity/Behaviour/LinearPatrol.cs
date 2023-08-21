@@ -8,28 +8,32 @@ using System.Diagnostics;
 
 namespace game_darksouls.Entity.Behaviour
 {
-    internal class LinearPatrol : IBehave
+    internal class LinearPatrol : IBehave, IPatrol
     {
-        private readonly AnimatedObject animatedObject;
+        private readonly Box collisionBox;
         public readonly  IMovementBehaviour npcMovementManager;
 
-        private Vector2 positionA;
-        private Vector2 positionB;
+        public Vector2 PatrolPointA { get; set; }
+        public Vector2 PatrolPointB { get; set; }
+
         private Vector2 currentTarget;
 
         private const float MARGINGTARGET = 100f;
         private const int waitTime = 3;
         private Timer timer;
 
+        
+
         public LinearPatrol(Vector2 positionA, Vector2 positionB,
-            AnimatedObject animatedObject, IMovementBehaviour npcMovementManager)
+            Box collisionBox, IMovementBehaviour npcMovementManager)
         {
-            this.positionA = positionA;
-            this.positionB = positionB;
+            this.collisionBox = collisionBox;
+
+            PatrolPointA = positionA;
+            PatrolPointB = positionB;
 
             currentTarget = positionB;
 
-            this.animatedObject = animatedObject;
             this.npcMovementManager = npcMovementManager;
 
             timer = new Timer(waitTime);
@@ -40,10 +44,8 @@ namespace game_darksouls.Entity.Behaviour
             timer.Update(gameTime);
             npcMovementManager.ChangeMovingState();
 
-            Vector2 currentPosition = animatedObject.CollisionBox.CenterOfBox();
+            Vector2 currentPosition = collisionBox.CenterOfBox();
 
-
-            //Debug.WriteLine("positie: " + currentPosition + "   target positie: " + currentTarget);
             float distanceToTarget = (float)CalculateDistanceBetweenTwoVectorsOnX(currentPosition, currentTarget);
 
             if (distanceToTarget > MARGINGTARGET && !timer.timeRunning)
@@ -64,10 +66,10 @@ namespace game_darksouls.Entity.Behaviour
 
         private void SwitchTargets()
         {
-            if (currentTarget == positionA)
-                currentTarget = positionB;
+            if (currentTarget == PatrolPointA)
+                currentTarget = PatrolPointB;
             else
-                currentTarget = positionA;
+                currentTarget = PatrolPointA;
         }
 
         private float CalculateDistanceBetweenTwoVectorsOnX(Vector2 a, Vector2 b)
@@ -75,8 +77,6 @@ namespace game_darksouls.Entity.Behaviour
             return Math.Abs(a.X - b.X);
         }
 
-        
-
-
+     
     }
 }

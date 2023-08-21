@@ -34,7 +34,29 @@ namespace game_darksouls.Level
         protected string pathToCsv;
         private Texture2D tileSetTexture;
 
-        
+        public int MapWidth
+        {
+            get
+            {
+                return TileArray.GetLength(1) * TILESIZE;
+            }
+        }
+
+        public int MapHeight
+        {
+            get
+            {
+                return TileArray.GetLength(0) * TILESIZE;
+            }
+        }
+
+        public Rectangle GetMapSize
+        {
+            get
+            {
+                return new Rectangle(0,0,MapWidth,MapHeight);
+            }
+        }
 
         public LevelSetup(Texture2D tileSetTexture,string filepath)
         {

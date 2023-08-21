@@ -13,21 +13,19 @@ namespace game_darksouls.GameManaging
         private GameManager gameManager;
         private IBackGroundPlayer soundManager;
         private ContentManager contentManager;
-        private Viewport viewport;
 
         private Song backgroundSong;
 
-        public MenuState(GameManager gameManager,ContentManager contentManager)
+        public MenuState(GameManager gameManager)
         {
             this.gameManager = gameManager;
-            this.contentManager = contentManager;
+            this.contentManager = gameManager.ContentManager;
         }
 
-        public void Start()
+        public void Play()
         {
             gameMenu = new Menu(gameManager.Viewport,contentManager);
             soundManager = new SoundManager();
-        
             this.backgroundSong = contentManager.Load<Song>("sounds/Dungeon Theme");
             soundManager.PlayBackGroundSong(backgroundSong);
         }
@@ -45,8 +43,8 @@ namespace game_darksouls.GameManaging
             if (gameMenu.GetButtonPressed)
             {
                 int buttonValue = gameMenu.ButtonValue();
-                gameManager.SetState(new GameplayState(gameManager, gameManager.LevelManager.GetLevelByIndex(buttonValue), contentManager));
                 Stop();
+                gameManager.SetState(new GameplayState(gameManager, buttonValue));
             }
         }
 

@@ -1,8 +1,8 @@
 ﻿using Component.Health;
+using Entity.Behaviour.Attack;
 using game_darksouls.Animation;
 using game_darksouls.Component;
 using game_darksouls.Component.Health;
-using game_darksouls.Entity.Behaviour;
 using game_darksouls.Entity.EntityMovement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,13 +17,7 @@ namespace game_darksouls.Entity
         private readonly RangeAttack rangeAttack;
         private readonly FlyingObject flyingObject;
 
-        public IHealth HealthManager
-        {
-            get
-            {
-                return health;
-            }
-        }
+       
 
         public Wizard(Texture2D texture, Texture2D fireball, Player player, CollisionManager collisionManager) : base(texture)
         {
@@ -56,6 +50,11 @@ namespace game_darksouls.Entity
             rangeAttack.UpdateSpell(gameTime);
             drawingBox.UpdatePosition(collisionBox.Position);
             base.Update(gameTime);
+        }
+
+        public void TakeDamage()
+        {
+            health.TakeDamage();
         }
 
         public void Draw(SpriteBatch spriteBatch)

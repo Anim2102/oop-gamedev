@@ -18,6 +18,8 @@ namespace game_darksouls.Levels.worlds
 
         private ICollectibleManager collectibleManager;
 
+        private Player player;
+
         public bool IsComplete
         {
             get
@@ -26,12 +28,20 @@ namespace game_darksouls.Levels.worlds
             }
         }
 
+        public bool IsLost
+        {
+            get
+            {
+                return !player.IsAlive;
+            }
+        }
+
         public LevelTwo(ContentManager contentManager, Viewport viewport) : base(Game1.dungeonTexture, "Levels/csv levels/level-two-final.csv")
         {
             collectibleManager = new CollectibleManager();
             CollisionManager collisionManager = new CollisionManager(this, collectibleManager);
 
-            Player player = new Player(contentManager.Load<Texture2D>("Knight"),contentManager,collisionManager);
+            player = new Player(contentManager.Load<Texture2D>("Knight"),contentManager,collisionManager);
             player.StartPosition(new Vector2(500, 0));
             entitys.Add(player);
 
@@ -52,7 +62,7 @@ namespace game_darksouls.Levels.worlds
             collectibleManager.AddCollectible(gemOne);
 
             camera = new Camera(viewport, player);
-            hud = new Hud(player.HealthManager, contentManager, viewport);
+            hud = new Hud(player.Health, contentManager, viewport);
         }
 
         public override void Update(GameTime gameTime)

@@ -1,6 +1,7 @@
 ﻿using Collectible;
 using game_darksouls.Collectible;
 using game_darksouls.Entity;
+using game_darksouls.Entity.Behaviour.Attack;
 using game_darksouls.Level;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -18,6 +19,17 @@ namespace game_darksouls.Component
             CollectibleManager = collectibleManager;
         }
 
+        public void CheckOutOfBounds()
+        {
+            foreach (IEntity entity in CurrentLevel.entitys)
+            {
+                if (!CurrentLevel.GetMapSize.Contains(entity.CollisionBox.Rectangle))
+                {
+                    entity.Destroy();
+                }
+            }
+        }
+
 
         public void CheckIfCollectible(AnimatedObject player)
         {
@@ -31,13 +43,6 @@ namespace game_darksouls.Component
         }
 
 
-        public void CheckOutOfMap()
-        {
-            foreach (var entity in CurrentLevel.entitys)
-            {
-                //check out of map
-            }
-        }
 
 
         public bool CheckForCollision(Box hitbox)
@@ -67,14 +72,14 @@ namespace game_darksouls.Component
             return false;
         }
 
-        public IEntity CheckForHit(AnimatedObject initiator, Rectangle attackFrame)
+        public IEntity CheckForHit(AnimatedObject initiator, AttackSquare attackFrame)
         {
             foreach (var entity in CurrentLevel.entitys)
             {
                 if (entity == initiator)
                     continue;
 
-                if (attackFrame.Intersects(entity.CollisionBox.Rectangle))
+                if (attackFrame.ReturnAttackFrame().Intersects(entity.CollisionBox.Rectangle))
                     return entity;
             }
 

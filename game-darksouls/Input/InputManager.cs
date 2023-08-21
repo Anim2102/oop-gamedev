@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace game_darksouls.Input
 {
-    internal class InputManager
+    internal class InputManager : IInput
     {
         public InputManager() { }
 

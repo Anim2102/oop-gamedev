@@ -39,7 +39,7 @@ namespace game_darksouls.Entity.EntityMovement
 
         }
 
-        private void MoveWithCollision(Rectangle futurePosition)
+        protected void MoveWithCollision(Rectangle futurePosition)
         {
             if (!collisionManager.CheckForCollision(futurePosition))
             {

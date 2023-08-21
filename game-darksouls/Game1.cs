@@ -59,7 +59,7 @@ namespace game_darksouls
             levelManager.AddLevel(secondLevel);
 
             gameManager = new GameManager(levelManager,GraphicsDevice.Viewport,Content);
-            gameManager.SetState(new MenuState(gameManager,Content));
+            gameManager.SetState(new MenuState(gameManager));
         }
 
         protected override void LoadContent()

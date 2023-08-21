@@ -1,5 +1,8 @@
-﻿using game_darksouls.Animation;
+﻿using game_darksouls;
+using game_darksouls.Animation;
+using game_darksouls.Component;
 using game_darksouls.Entity;
+using game_darksouls.Entity.Behaviour.Attack;
 using game_darksouls.Enum;
 using game_darksouls.Sound;
 using Microsoft.Xna.Framework;
@@ -7,9 +10,9 @@ using Microsoft.Xna.Framework.Graphics;
 using SharpDX.MediaFoundation;
 using System.Diagnostics;
 
-namespace game_darksouls.Component
+namespace Entity.Behaviour.Attack
 {
-    internal class CloseAttack
+    internal class CloseAttack : IAttack
     {
         private readonly IAnimationManager animationManager;
         private readonly Box collisionBox;
@@ -17,35 +20,41 @@ namespace game_darksouls.Component
         private readonly CollisionManager collisionManager;
         private readonly AnimatedObject initiator;
 
-        public Rectangle attackFrame;
-        public int WidthAttackFrame { get; set; }
-        public int HeightAttackFrame { get; set; }
+
+        public AttackSquare AttackFrame { get; set; }
 
         public int AttackStartFrame { get; set; }
         public int AttackEndFrame { get; set; }
         private Rectangle collisionBoxRec => collisionBox.Rectangle;
         private int indexAnimationFrame => attackAnimation.Counter;
 
-        public bool AttackFinished { get; private set; } = false;
+        private bool attackFinished = false;
 
+        public bool IsAttackFinished
+        {
+            get
+            {
+                return attackFinished;
+            }
+        }
 
-        public CloseAttack(AnimatedObject initiator,IAnimationManager animationManager, Box collisionBox, CollisionManager collisionManager)
+        public CloseAttack(AnimatedObject initiator, IAnimationManager animationManager, Box collisionBox, CollisionManager collisionManager, AttackSquare attackFrame)
         {
             this.collisionBox = collisionBox;
             this.collisionManager = collisionManager;
             this.animationManager = animationManager;
-            this.attackAnimation = animationManager.ReturnAnimationOnState(MovementState.ATTACK);
+            attackAnimation = animationManager.ReturnAnimationOnState(MovementState.ATTACK);
             this.initiator = initiator;
+            AttackFrame = attackFrame;
         }
 
 
-        public bool AttackWithFrame()
+        public bool PerformAttack()
         {
             AttackAnimation();
-            Debug.WriteLine(AttackFinished);
             bool hit = false;
 
-            if (indexAnimationFrame >= AttackStartFrame && indexAnimationFrame <= AttackEndFrame)
+            if (indexAnimationFrame >= AttackFrame.AttackStartFrame && indexAnimationFrame <= AttackFrame.AttackEndFrame)
             {
                 SpawnAttackFrame();
                 IEntity hittedObject = CheckHit();
@@ -53,18 +62,18 @@ namespace game_darksouls.Component
                 if (hittedObject != null)
                 {
                     hit = true;
-                    hittedObject.HealthManager.TakeDamage();
+                    hittedObject.TakeDamage();
                 }
 
-                AttackFinished = false;
+                attackFinished = false;
             }
-            
-            if (indexAnimationFrame >= AttackEndFrame)
+
+            if (indexAnimationFrame >= AttackFrame.AttackEndFrame)
             {
-                this.attackAnimation.ResetAnimation();
-                AttackFinished = true;
+                attackAnimation.ResetAnimation();
+                attackFinished = true;
             }
-           
+
             return hit;
         }
 
@@ -72,24 +81,27 @@ namespace game_darksouls.Component
         {
             ResetAttackAnimation();
             RemoveAttackFrame();
-            AttackFinished = false;
-            
+            attackFinished = false;
+
         }
         private void SpawnAttackFrame()
         {
             if (animationManager.FacingLeft)
             {
-                attackFrame = new Rectangle((int)collisionBox.CenterOfBox().X - attackFrame.Width, collisionBoxRec.Y, WidthAttackFrame, HeightAttackFrame);
+                AttackFrame.ChangeFramePosition(new Vector2(collisionBox.CenterOfBox().X - AttackFrame.FrameWidth, collisionBoxRec.Y));
+                //attackFrame = new Rectangle((int)collisionBox.CenterOfBox().X - attackFrame.Width, collisionBoxRec.Y, WidthAttackFrame, HeightAttackFrame);
             }
             else
             {
-                attackFrame = new Rectangle((int)collisionBox.CenterOfBox().X, collisionBoxRec.Y, WidthAttackFrame, HeightAttackFrame);
+                AttackFrame.ChangeFramePosition(new Vector2(collisionBox.CenterOfBox().X,collisionBoxRec.Y));
+
+                //attackFrame = new Rectangle((int)collisionBox.CenterOfBox().X, collisionBoxRec.Y, WidthAttackFrame, HeightAttackFrame);
 
             }
         }
         private IEntity CheckHit()
         {
-            return collisionManager.CheckForHit(initiator, attackFrame);
+            return collisionManager.CheckForHit(initiator, AttackFrame);
         }
 
         public void ResetAttackAnimation()
@@ -102,15 +114,18 @@ namespace game_darksouls.Component
             animationManager.UpdateAnimationOnState(MovementState.ATTACK);
         }
 
+        
         public void RemoveAttackFrame()
         {
-            attackFrame = Rectangle.Empty;
+            AttackFrame.RemovePosition();
         }
         
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Game1.redsquareDebug, attackFrame, Color.White);
+            spriteBatch.Draw(Game1.redsquareDebug, AttackFrame.ReturnAttackFrame(), Color.White);
         }
+
+       
     }
 }

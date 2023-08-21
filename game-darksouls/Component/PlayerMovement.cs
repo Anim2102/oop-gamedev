@@ -16,7 +16,7 @@ namespace game_darksouls.Component
         public Box CollisionBox { get; set; }
         public MovementState CurrentMovementState { get; set; }
 
-        private InputManager inputManager;
+        private IInput inputManager;
         private readonly PlayerAbilities playerAbilities;
         private Vector2 direction;
         private Vector2 speed;
@@ -26,9 +26,11 @@ namespace game_darksouls.Component
         private bool onFloor;
         private const float MAXJUMP = 200f;
         private const float JUMPFORCE = 15f;
+        private const float PUSHFORCE = 60f;
+        private const int FEETHEIGHT = 8;
         private float currentJumpTime;
 
-        public PlayerMovement(CollisionManager collisionManager, Box CollisionBox, IAnimationManager animationManager, InputManager inputManager,PlayerAbilities playerAbilities)
+        public PlayerMovement(CollisionManager collisionManager, Box CollisionBox, IAnimationManager animationManager, IInput inputManager,PlayerAbilities playerAbilities)
         {
             this.CollisionBox = CollisionBox;
             this.CollisionManager = collisionManager;
@@ -53,10 +55,7 @@ namespace game_darksouls.Component
             ChangeMovingState(direction);
             ChangeFlipOnDirection(direction);
         }
-        private void StartPosition(Vector2 startPosition)
-        {
-            CollisionBox.UpdatePosition(startPosition);
-        }
+        
         private void Move(GameTime gameTime)
         {
             direction = inputManager.GetInput();
@@ -123,7 +122,7 @@ namespace game_darksouls.Component
             Rectangle feet = new Rectangle(CollisionBox.Rectangle.X,
                 CollisionBox.Rectangle.Y + CollisionBox.Rectangle.Height,
                 CollisionBox.Rectangle.Width,
-                8);
+                FEETHEIGHT);
 
             onFloor = CollisionManager.CheckForCollision(feet);
         }
@@ -164,7 +163,7 @@ namespace game_darksouls.Component
 
         public void PushAfterHit(Vector2 pushDirection)
         {
-            Vector2 pushForce = new Vector2(0f, 60f);
+            Vector2 pushForce = new Vector2(0f, PUSHFORCE);
             Vector2 currentPosition = CollisionBox.Position;
             Vector2 push = pushDirection * pushForce;
             Vector2 futurePosition = currentPosition + push;

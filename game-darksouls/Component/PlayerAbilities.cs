@@ -1,4 +1,6 @@
-﻿using game_darksouls.Entity.EntityMovement;
+﻿using Entity.Behaviour.Attack;
+using game_darksouls.Entity.Behaviour.Attack;
+using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Input;
 using game_darksouls.Sound;
 using Microsoft.Xna.Framework;
@@ -10,12 +12,14 @@ namespace game_darksouls.Component
     internal class PlayerAbilities
     {
         private readonly ISoundManager soundManager;
-        public CloseAttack attackBox;
-        private InputManager inputManager;
+        public IAttack attackBox;
+        private IInput inputManager;
 
         public bool IsAttacking { get; private set; }
 
-        public PlayerAbilities(CloseAttack attackBox, InputManager inputManager,ISoundManager soundManager)
+        private bool playedHitSound = false;
+
+        public PlayerAbilities(IAttack attackBox, IInput inputManager,ISoundManager soundManager)
         {
             this.attackBox = attackBox;
             this.inputManager = inputManager;
@@ -33,25 +37,38 @@ namespace game_darksouls.Component
             
             if (IsAttacking)
             {
-                hitEntity =  attackBox.AttackWithFrame();
-                soundManager.PlaySoundEffect("swing");
+                hitEntity =  attackBox.PerformAttack();
+                PlaySound("swing");
 
                 if (hitEntity)
                 {
-                    soundManager.PlaySoundEffect("hit swing");
+                    if (!playedHitSound) {
+                        PlaySound("hit swing");
+                        playedHitSound = true;
+                    }
                 }
             }
 
-            if (attackBox.AttackFinished && IsAttacking)
+            if (attackBox.IsAttackFinished && IsAttacking)
             {
                 IsAttacking = false;
                 attackBox.ResetAttack();
+                playedHitSound = false;
             }
 
             if (!IsAttacking)
             {
                 attackBox.RemoveAttackFrame();
             }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            attackBox.Draw(spriteBatch);
+        }
+        private void PlaySound(string effectName)
+        {
+            soundManager.PlaySoundEffect(effectName);
         }
     }
 }

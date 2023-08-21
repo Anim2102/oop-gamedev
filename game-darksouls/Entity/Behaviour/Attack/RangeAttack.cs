@@ -1,11 +1,13 @@
 ﻿using game_darksouls.Animation;
 using game_darksouls.Component;
+using game_darksouls.Entity;
+using game_darksouls.Entity.Behaviour;
 using game_darksouls.Enum;
 using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game_darksouls.Entity.Behaviour
+namespace Entity.Behaviour.Attack
 {
     internal class RangeAttack : IBehave
     {
@@ -71,7 +73,7 @@ namespace game_darksouls.Entity.Behaviour
                     return;
                 }
 
-                flyingObject.UpdatePositionObject(gameTime, this.player.CollisionBox.CenterOfBox() - currentPosition);
+                flyingObject.UpdatePositionObject(gameTime, player.CollisionBox.CenterOfBox() - currentPosition);
             }
             else
             {
@@ -88,14 +90,15 @@ namespace game_darksouls.Entity.Behaviour
 
         private void CheckHit()
         {
-            if (projectFlying)
+            /*if (projectFlying)
             {
                 IEntity entity = collisionManager.CheckForHit(animatedObject, flyingObject.Object);
                 if (entity != null)
                 {
-                    entity.HealthManager.TakeDamage();
+                    entity.TakeDamage();
                 }
             }
+            */
         }
         private bool PlayerOnLeft()
         {

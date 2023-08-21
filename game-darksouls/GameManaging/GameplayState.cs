@@ -11,23 +11,27 @@ namespace game_darksouls.GameManaging
         private ILevel currentLevel;
         private ContentManager contentManager;
 
-        public GameplayState(GameManager gameManager, ILevel level,ContentManager contentManager)
+        private int currentLevelIndex;
+
+        public GameplayState(GameManager gameManager,int levelIndex)
         {
             this.gameManager = gameManager;
-            this.contentManager = contentManager;
+            this.currentLevelIndex = levelIndex;
+            this.contentManager = gameManager.ContentManager;
+            
+            Play();
             //default first level for testing
-            currentLevel = level;
         }
 
         public void Play()
         {
-            
+            currentLevel = gameManager.LevelManager.GetLevelByIndex(currentLevelIndex);
         }
 
         public void Stop()
         {
             currentLevel = null;
-            gameManager.SetState(new MenuState(gameManager,contentManager));
+            gameManager.SetState(new MenuState(gameManager));
         }
 
         public void Update(GameTime gameTime)
@@ -38,12 +42,18 @@ namespace game_darksouls.GameManaging
             {
                 if (gameManager.LevelManager.CheckLastLevel(currentLevel))
                 {
-                    gameManager.SetState(new MenuState(gameManager,contentManager));
+                    gameManager.SetState(new MenuState(gameManager));
                 }
                 else
                 {
-                    gameManager.SetState(new GameplayState(gameManager,gameManager.LevelManager.GetNextLevel(currentLevel),contentManager));
+                    //increment last level index for getting the next one
+                    gameManager.SetState(new GameplayState(gameManager, currentLevelIndex++));
                 }
+            }
+
+            if (currentLevel.IsLost)
+            {
+                gameManager.SetState(new DeathState(gameManager));
             }
 
         }

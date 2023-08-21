@@ -1,5 +1,7 @@
-﻿using game_darksouls.Animation;
+﻿using Entity.Behaviour.Attack;
+using game_darksouls.Animation;
 using game_darksouls.Component;
+using game_darksouls.Entity.Behaviour.Attack;
 using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Utilities;
 using Microsoft.Xna.Framework;
@@ -21,14 +23,14 @@ namespace game_darksouls.Entity.Behaviour
         private bool isAttacking = false;
         private bool attackPossible = false;
 
-        private CloseAttack attackBox;
+        private IAttack attackBox;
 
         private Vector2 currentPosition => collisionBox.Position;
         private Vector2 playerPosition => player.CollisionBox.CenterOfBox();
 
         private float rangeOfAttack;
 
-        public Agressive(EntityMovementType movementType,Player player,Box collisionbox, IMovementBehaviour npcMovementManager, CloseAttack attackBox,float rangeOfAttack)
+        public Agressive(EntityMovementType movementType,Player player,Box collisionbox, IMovementBehaviour npcMovementManager, IAttack attackBox,float rangeOfAttack)
         {
             this.player = player;
             this.npcMovementManager = npcMovementManager;
@@ -69,9 +71,9 @@ namespace game_darksouls.Entity.Behaviour
             {
                 isAttacking = true;
                 npcMovementManager.ResetDirection();
-                attackBox.AttackWithFrame();
+                attackBox.PerformAttack();
 
-                if (attackBox.AttackFinished)
+                if (attackBox.IsAttackFinished)
                 {
                     isAttacking = false;
                     attackPossible = false;
@@ -88,6 +90,8 @@ namespace game_darksouls.Entity.Behaviour
             if (!isAttacking && currentPosition != playerPosition && distanceBetweenPlayer > rangeOfAttack)
             {
                 attackBox.RemoveAttackFrame();
+
+                //move logic
                 Vector2 normalized = Vector2.Normalize(playerPosition - currentPosition);
                 //Debug.WriteLine("onderweg:" + normalized);
                 npcMovementManager.Push(normalized);

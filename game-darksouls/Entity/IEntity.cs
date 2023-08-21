@@ -8,7 +8,7 @@ namespace game_darksouls.Entity
 {
     public interface IEntity
     {
-        IHealth HealthManager { get; }
+        void TakeDamage();
         Box CollisionBox { get; }
         void StartPosition(Vector2 startPosition);
         void Destroy() { }

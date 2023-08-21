@@ -1,9 +1,12 @@
 ﻿using Component.Health;
+using Entity.Behaviour.Attack;
 using game_darksouls.Animation;
 using game_darksouls.Component;
 using game_darksouls.Component.Health;
+using game_darksouls.Entity.Behaviour.Attack;
 using game_darksouls.Entity.EntityMovement;
 using game_darksouls.Enum;
+using game_darksouls.Input;
 using game_darksouls.Sound;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -17,9 +20,12 @@ namespace game_darksouls.Entity
     {
         private IMovementBehaviour movementBehaviour;
         private CollisionManager collisionManager;
-        private CloseAttack attack;
+        private IAttack attack;
+        private AttackSquare attackFrame;
+
         private PlayerAbilities playerAbilities;
         private Health healthManager;
+        private IInput input;
 
         private ISoundManager soundManager;
 
@@ -32,13 +38,16 @@ namespace game_darksouls.Entity
 
         private const int HEALTH = 5;
         public bool IsPlayerAttack => playerAbilities.IsAttacking;
-
-        public IHealth HealthManager
+        public bool IsAlive => healthManager.Alive;
+        
+        public int HealthPoints
         {
-            get
-            {
-                return healthManager;
-            }
+            get { return healthManager.HealthPoints; }
+        }
+
+        public IHealth Health
+        {
+            get { return healthManager; }
         }
 
         public Box CollisionBox
@@ -64,37 +73,47 @@ namespace game_darksouls.Entity
 
             animationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
 
-            attack = new CloseAttack(this,animationManager,collisionBox,collisionManager);
-            attack.WidthAttackFrame = 40;
-            attack.HeightAttackFrame = 32;
-            attack.AttackStartFrame = 2;
-            attack.AttackEndFrame = 4;
 
-            playerAbilities = new PlayerAbilities(attack, new(),soundManager);
+            attackFrame = new AttackSquare(40, 32,2,4);
+            attack = new CloseAttack(this,animationManager,collisionBox,collisionManager,attackFrame);
+   
+            
 
-            movementBehaviour = new PlayerMovement(collisionManager, collisionBox, animationManager, new(),playerAbilities);
+            input = new InputManager();
+
+            playerAbilities = new PlayerAbilities(attack, input,soundManager);
+
+
+
+            movementBehaviour = new PlayerMovement(collisionManager, collisionBox, animationManager, input,playerAbilities);
             healthManager = new Health(HEALTH, movementBehaviour, (IDeathAnimation)animationManager);
 
         }
 
         public void Destroy()
         {
-            //kill
+            healthManager.Destroy();
+        }
+
+        public void TakeDamage()
+        {
+            healthManager.TakeDamage();
         }
 
         public override void Update(GameTime gameTime)
         {
-            //Debug.WriteLine(collisionBox.Position);
+            Debug.WriteLine(healthManager.Alive);
             movementBehaviour.Update(gameTime);
             animationManager.Update(gameTime);
             playerAbilities.Update(gameTime);
-            HealthManager.Update(gameTime);
+            healthManager.Update(gameTime);
             collisionManager.CheckIfCollectible(this);
             base.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            playerAbilities.Draw(spriteBatch);
             spriteBatch.Draw(texture,
                 drawingBox.Rectangle,
                 animationManager.CurrentAnimation.CurrentFrame.SourceRectangle,
@@ -104,5 +123,7 @@ namespace game_darksouls.Entity
                 animationManager.SpriteFlip,
                 0f);
         }
+
+        
     }
 }

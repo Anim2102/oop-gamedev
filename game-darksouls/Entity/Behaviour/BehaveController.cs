@@ -1,5 +1,7 @@
-﻿using game_darksouls.Animation;
+﻿using Entity.Behaviour.Attack;
+using game_darksouls.Animation;
 using game_darksouls.Component;
+using game_darksouls.Entity.Behaviour.Attack;
 using game_darksouls.Entity.EntityMovement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,24 +14,23 @@ namespace game_darksouls.Entity.Behaviour
     {
         
         private readonly Player player;
-        private readonly AnimatedObject animatedObject;
         private readonly IMovementBehaviour movementBehaviour;
         private readonly Box collesionBox;
-        private readonly IAnimationManager animationManager;
         private IBehave currentBehaviour;
 
         public Vector2 PatrolPointA { get; set; }
         public Vector2 PatrolPointB { get; set; }
         public EntityMovementType MovementType { get; set; }
-        public CloseAttack Attack { get; set; }
+        public IAttack Attack { get; set; }
         public float RangeOfAttack { get; set; }
 
-        public BehaveController(Player player,AnimatedObject animatedObject,EntityMovementType movementType,
-            Vector2 patrolPointA,Vector2 patrolPointB, CloseAttack attack, IMovementBehaviour movementBehaviour, Box collissionBox)
+        private const int RANGESWITCHBEHAVE = 100;
+ 
+        public BehaveController(Player player,EntityMovementType movementType,
+            Vector2 patrolPointA,Vector2 patrolPointB, IAttack attack, IMovementBehaviour movementBehaviour, Box collissionBox)
         {
             
             this.player = player;
-            this.animatedObject = animatedObject;
 
             PatrolPointA = patrolPointA;
             PatrolPointB = patrolPointB;
@@ -50,19 +51,25 @@ namespace game_darksouls.Entity.Behaviour
 
         private void ControleState()
         {
-            Vector2 currentPosition = animatedObject.CollisionBox.CenterOfBox();
-            Vector2 playerPosition = player.CollisionBox.CenterOfBox();
 
-            float distanceBetweenPlayer = CalculateDistanceBetweenTwoVectorsOnX(currentPosition, playerPosition);
+            float distanceBetweenPlayer = DistanceToPlayer();
 
-            if (distanceBetweenPlayer < 100)
+            if (distanceBetweenPlayer < RANGESWITCHBEHAVE)
             {
                 currentBehaviour = new Agressive(MovementType,player, collesionBox, movementBehaviour,Attack,RangeOfAttack);
             }
             else
             {
-                currentBehaviour = new LinearPatrol(PatrolPointA, PatrolPointB, animatedObject, movementBehaviour);
+                currentBehaviour = new LinearPatrol(PatrolPointA, PatrolPointB, collesionBox, movementBehaviour);
             }
+        }
+
+        private float DistanceToPlayer()
+        {
+            Vector2 currentPosition = collesionBox.CenterOfBox();
+            Vector2 playerPosition = player.CollisionBox.CenterOfBox();
+
+            return CalculateDistanceBetweenTwoVectorsOnX(currentPosition, playerPosition);
         }
 
         private float CalculateDistanceBetweenTwoVectorsOnX(Vector2 a, Vector2 b)

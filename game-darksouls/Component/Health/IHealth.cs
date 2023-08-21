@@ -14,6 +14,7 @@ namespace game_darksouls.Component.Health
         State CurrentState { get; }
 
         void Update(GameTime gameTime);
-        void TakeDamage();
+        void TakeDamage() { }
+        void Destroy() { }
 }
 }

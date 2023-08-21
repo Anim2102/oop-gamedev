@@ -18,6 +18,7 @@ namespace Component.Health
                 return healthPoints;
             }
         }
+
         public bool Hit { get; private set; }
         public Color CurrentColor { get; private set; }
 
@@ -58,7 +59,11 @@ namespace Component.Health
             alive = true;
 
         }
-
+        public void Destroy()
+        {
+            currentState = State.DEATH;
+            alive = false;
+        }
         public void TakeDamage()
         {
             if (Invurnable)
@@ -72,7 +77,10 @@ namespace Component.Health
                 currentState = State.DYING;
             }
             if (CurrentState == State.DYING && deathAnimation.DeathAnimationComplete)
+            {
                 currentState = State.DEATH;
+                alive = false;
+            }
 
             Hit = true;
             movementBehaviour.PushAfterHit(new Vector2(0, -1));
@@ -82,8 +90,14 @@ namespace Component.Health
         {
             ChangeInvurnableTime(gameTime);
             ChangeColor(gameTime);
+            CheckAlive();
         }
 
+        private void CheckAlive()
+        {
+            if (healthPoints <= 0)
+                alive = false;
+        }
         private void ChangeInvurnableTime(GameTime gameTime)
         {
             if (!Hit)
