@@ -25,7 +25,7 @@ namespace game_darksouls.GameManaging
 
         public void Play()
         {
-            currentLevel = gameManager.LevelManager.GetLevelByIndex(currentLevelIndex);
+            currentLevel = LevelManager.GetInstance().GetLevelByIndex(currentLevelIndex);
         }
 
         public void Stop()
@@ -40,14 +40,14 @@ namespace game_darksouls.GameManaging
 
             if (currentLevel.IsComplete)
             {
-                if (gameManager.LevelManager.CheckLastLevel(currentLevel))
+                if (LevelManager.GetInstance().CheckLastLevel(currentLevel))
                 {
                     gameManager.SetState(new MenuState(gameManager));
                 }
                 else
                 {
                     //increment last level index for getting the next one
-                    gameManager.SetState(new GameplayState(gameManager, currentLevelIndex++));
+                    gameManager.SetState(new GameplayState(gameManager, currentLevelIndex += 1));
                 }
             }
 

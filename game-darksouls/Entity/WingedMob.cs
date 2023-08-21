@@ -17,18 +17,12 @@ namespace game_darksouls.Entity
        
         private BehaveController entityStateController;
 
-
-        private LinearPatrol linearPatrol;
-        private Agressive agressive;
         private IAttack attackBox;
         private AttackSquare attackSquare;
 
         private readonly IMovementBehaviour movementBehaviour;
         private readonly IHealth health;
-        
-
-     
-
+      
         public WingedMob(Texture2D texture, Player player,CollisionManager collisionManager,Vector2 patrolPointA,Vector2 patrolPointB) : base(texture)
         {
             this.texture = texture;
@@ -41,13 +35,8 @@ namespace game_darksouls.Entity
 
             attackSquare = new AttackSquare(90, 50, 2, 3);
             attackBox = new CloseAttack(this,animationManager,collisionBox,collisionManager,attackSquare);
-           
-
-            linearPatrol = new(new Vector2(2275, 799), new Vector2(2500, 799), collisionBox, movementBehaviour);
-            agressive = new Agressive(EntityMovementType.FLYING,player,collisionBox,movementBehaviour,attackBox,60);
-           
+                      
             entityStateController = new BehaveController(player,EntityMovementType.FLYING,patrolPointA,patrolPointB,attackBox,movementBehaviour,collisionBox);
-            entityStateController.RangeOfAttack = 60f;
 
             health = new Health(2,movementBehaviour,(IDeathAnimation)animationManager);
         }

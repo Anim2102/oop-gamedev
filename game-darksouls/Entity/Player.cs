@@ -77,13 +77,9 @@ namespace game_darksouls.Entity
             attackFrame = new AttackSquare(40, 32,2,4);
             attack = new CloseAttack(this,animationManager,collisionBox,collisionManager,attackFrame);
    
-            
-
             input = new InputManager();
 
             playerAbilities = new PlayerAbilities(attack, input,soundManager);
-
-
 
             movementBehaviour = new PlayerMovement(collisionManager, collisionBox, animationManager, input,playerAbilities);
             healthManager = new Health(HEALTH, movementBehaviour, (IDeathAnimation)animationManager);
@@ -102,7 +98,7 @@ namespace game_darksouls.Entity
 
         public override void Update(GameTime gameTime)
         {
-            Debug.WriteLine(healthManager.Alive);
+            Debug.WriteLine(collisionBox.Position);
             movementBehaviour.Update(gameTime);
             animationManager.Update(gameTime);
             playerAbilities.Update(gameTime);

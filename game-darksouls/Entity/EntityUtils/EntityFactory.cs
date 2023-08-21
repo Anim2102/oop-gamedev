@@ -12,14 +12,14 @@ namespace game_darksouls.Entity.EntityUtils
 {
     public static class EntityFactory
 {
-        public static IEntity EntityCreator(ContentManager content, string textureName,Player player,CollisionManager collision)
+        public static IEntity EntityCreator(ContentManager content, string textureName,Player player,CollisionManager collision,Vector2 patrolPointA = default,Vector2 patrolPointB = default)
         {
             IEntity entity = null;
 
             if (textureName == "skeleton")
             {
                 Texture2D entityTexture = content.Load<Texture2D>("skeleton");
-                Skeleton skeleton = new Skeleton(entityTexture,player,collision,new Vector2(0,0),new Vector2(0,0));
+                Skeleton skeleton = new Skeleton(entityTexture,player,collision,patrolPointA,patrolPointB);
                 
 
                 return skeleton;
@@ -28,10 +28,11 @@ namespace game_darksouls.Entity.EntityUtils
             else if (textureName == "Brain Mole")
             {
                 Texture2D entityTexture = content.Load<Texture2D>("Brain Mole");
-                WingedMob winged = new WingedMob(entityTexture, player, collision, new Vector2(0, 0), new Vector2(0, 0));
+                WingedMob winged = new WingedMob(entityTexture, player, collision, patrolPointA,patrolPointB);
 
                 return winged;
             }
+
             else if (textureName == "wizard")
             {
                 Texture2D entityTexture = content.Load<Texture2D>("wizard");

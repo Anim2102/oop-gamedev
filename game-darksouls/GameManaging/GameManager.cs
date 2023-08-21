@@ -14,7 +14,7 @@ namespace game_darksouls.GameManaging
 {
     public class GameManager
 {
-        public LevelManager LevelManager { get; private set; }
+        
         public Menu GameMenu { get; set; }
 
         private ContentManager contentManager;
@@ -27,16 +27,16 @@ namespace game_darksouls.GameManaging
         public Viewport Viewport { get { return viewport; } }
         private IStateGame currentState;
 
-        public GameManager(LevelManager levelManager,Viewport viewport,ContentManager contentManager) {
+        public GameManager(Viewport viewport,ContentManager contentManager) {
             this.viewport = viewport;
             this.contentManager = contentManager;
             GameMenu = new Menu(viewport,contentManager);
-            this.LevelManager = levelManager;
+            
         }
 
         public void AddLevel(ILevel newLevel)
         {
-            LevelManager.AddLevel(newLevel);
+            LevelManager.GetInstance().AddLevel(newLevel);
         }
 
         public void SetState(IStateGame stateLevel)

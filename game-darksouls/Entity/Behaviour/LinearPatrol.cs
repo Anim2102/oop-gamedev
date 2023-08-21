@@ -12,22 +12,26 @@ namespace game_darksouls.Entity.Behaviour
     {
         private readonly Box collisionBox;
         public readonly  IMovementBehaviour npcMovementManager;
+        private readonly Player player;
 
         public Vector2 PatrolPointA { get; set; }
         public Vector2 PatrolPointB { get; set; }
-
         private Vector2 currentTarget;
+
 
         private const float MARGINGTARGET = 100f;
         private const int waitTime = 3;
         private Timer timer;
 
-        
+        private BehaveController behaveController;
+        private const float DISTANCEAGGRESIVE = 100;
 
-        public LinearPatrol(Vector2 positionA, Vector2 positionB,
-            Box collisionBox, IMovementBehaviour npcMovementManager)
+        public LinearPatrol(Player player,Vector2 positionA, Vector2 positionB,
+            Box collisionBox, IMovementBehaviour npcMovementManager, BehaveController behaveController)
         {
             this.collisionBox = collisionBox;
+            this.behaveController = behaveController;
+            this.player = player; 
 
             PatrolPointA = positionA;
             PatrolPointB = positionB;
@@ -41,6 +45,12 @@ namespace game_darksouls.Entity.Behaviour
 
         public void Behave(GameTime gameTime)
         {
+            if (DistanceToPlayer() < DISTANCEAGGRESIVE)
+            {
+                behaveController.SetBehaveState(behaveController.AgressiveState);
+                return;
+            }
+
             timer.Update(gameTime);
             npcMovementManager.ChangeMovingState();
 
@@ -61,7 +71,15 @@ namespace game_darksouls.Entity.Behaviour
                 SwitchTargets();
                 npcMovementManager.ResetDirection();
             }
-                
+             
+        }
+
+        private float DistanceToPlayer()
+        {
+            Vector2 currentPosition = collisionBox.CenterOfBox();
+            Vector2 playerPosition = player.CollisionBox.CenterOfBox();
+
+            return CalculateDistanceBetweenTwoVectorsOnX(currentPosition, playerPosition);
         }
 
         private void SwitchTargets()

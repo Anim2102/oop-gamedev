@@ -58,26 +58,35 @@ namespace game_darksouls.Levels.worlds
             entitys.Add(player);
 
 
-            IEntity skeleton = EntityFactory.EntityCreator(contentManager, "skeleton", player,collisionManager);
-            IEntity wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mole", player,collisionManager);
+            IEntity skeleton = EntityFactory.EntityCreator(contentManager, "skeleton", player,collisionManager,new Vector2(1500,658),new Vector2(2120,658));
+            IEntity wingedMob = EntityFactory.EntityCreator(contentManager, "Brain Mole", player,collisionManager, new Vector2(2900,550),new Vector2(3250,500));
             IEntity wizard = EntityFactory.EntityCreator(contentManager, "wizard", player, collisionManager);
-            
+
+
+            wizard.StartPosition(new Vector2(2065, 250));
+            entitys.Add(wizard);
             skeleton.StartPosition(new Vector2(1700, 648));
             entitys.Add(skeleton);
-
-            wingedMob.StartPosition(new Vector2(1865, 608));
+            wingedMob.StartPosition(new Vector2(3100, 550));
             entitys.Add(wingedMob);
-
-            wizard.StartPosition(new Vector2(1865, 608));
-            entitys.Add(wizard);
-            //skeleton {X:1785 Y:658}
-            //mob {X:2130 Y:658}
-            //wiz {X:2130 Y:658}
-
-            Vector2 gemOnePosition = new Vector2(1700, 200);
-            Crystal gemOne = new Crystal(contentManager.Load<Texture2D>("crystal"),gemOnePosition);
             
+            
+            Vector2 gemOnePosition = new Vector2(2510, 836);
+            Crystal gemOne = new Crystal(contentManager.Load<Texture2D>("crystal"),gemOnePosition);
+
+
+            //{ X: 3215 Y: 490}
+            Vector2 gemTwoPosition = new Vector2(3215, 490);
+            Crystal gemTwo = new Crystal(contentManager.Load<Texture2D>("crystal"), gemTwoPosition);
+
+            //{ X: 3165 Y: 97}
+            Vector2 gemThirdPosition = new Vector2(3165, 97);
+            Crystal gemThird = new Crystal(contentManager.Load<Texture2D>("crystal"), gemThirdPosition);
+
+
             collectibleManager.AddCollectible(gemOne);
+            collectibleManager.AddCollectible(gemTwo);
+            collectibleManager.AddCollectible(gemThird);
 
             camera = new Camera(viewport, player);
             hud = new Hud(player.Health,contentManager,viewport);
@@ -85,7 +94,7 @@ namespace game_darksouls.Levels.worlds
             Texture2D backgroundTexture = contentManager.Load<Texture2D>("BgGame");
             backgroundGame = new BackgroundGame(backgroundTexture, viewport, camera);
         }
-
+        
         public override void Update(GameTime gameTime)
         {
             camera.Update();

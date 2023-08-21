@@ -18,8 +18,6 @@ namespace game_darksouls.Entity.Behaviour
         private Box collisionBox;
         private readonly IMovementBehaviour npcMovementManager;
 
-        //private Timer waitTimerBeforeAttack;
-
         private bool isAttacking = false;
         private bool attackPossible = false;
 
@@ -28,46 +26,54 @@ namespace game_darksouls.Entity.Behaviour
         private Vector2 currentPosition => collisionBox.Position;
         private Vector2 playerPosition => player.CollisionBox.CenterOfBox();
 
-        private float rangeOfAttack;
 
-        public Agressive(EntityMovementType movementType,Player player,Box collisionbox, IMovementBehaviour npcMovementManager, IAttack attackBox,float rangeOfAttack)
+        private BehaveController behaveController;
+
+        private const float RANGEOFATTACK = 60f;
+        private const int PATROLRANGE = 100;
+
+        public Agressive(EntityMovementType movementType,Player player,Box collisionbox, IMovementBehaviour npcMovementManager, IAttack attackBox,BehaveController behaveController)
         {
             this.player = player;
             this.npcMovementManager = npcMovementManager;
-
-            //waitTimerBeforeAttack = new Timer(3);
+            this.behaveController = behaveController;
             this.attackBox = attackBox;
             this.collisionBox = collisionbox;
             this.entityMovement = movementType;
-            this.rangeOfAttack = rangeOfAttack;
 
         }
-
-        public void Behave(GameTime gameTime)
+        private float CalculateDistance()
         {
             float distanceBetweenPlayer = 0f;
             if (entityMovement == EntityMovementType.FLYING)
             {
-                 distanceBetweenPlayer = VectorHelpingClass.ReturnDistanceBetweenPlayerXandY(currentPosition, player.CollisionBox);
+                distanceBetweenPlayer = VectorHelpingClass.ReturnDistanceBetweenPlayerXandY(currentPosition, player.CollisionBox);
             }
 
             if (entityMovement == EntityMovementType.GROUND)
             {
                 distanceBetweenPlayer = VectorHelpingClass.ReturnDistanceBetweenPlayerLinear(currentPosition, player.CollisionBox);
-
             }
-            //Debug.WriteLine("currentposition" + currentPosition);
-            //Debug.WriteLine("player position" + playerPosition);
-            Debug.WriteLine("attacking: " + isAttacking + " aaval mogelijk: " + attackPossible);
-            //Debug.WriteLine(distanceBetweenPlayer);
+            return distanceBetweenPlayer;
+            
+        }
+        public void Behave(GameTime gameTime)
+        {
 
+            float distanceBetweenPlayer = CalculateDistance();
 
-            if (!isAttacking && distanceBetweenPlayer < rangeOfAttack)
+            if (distanceBetweenPlayer > PATROLRANGE)
+            {
+                behaveController.SetBehaveState(behaveController.PatrolState);
+                return;
+            }
+
+            if (!isAttacking && distanceBetweenPlayer < RANGEOFATTACK)
             {
                 attackPossible = true;
             }
         
-            if (attackPossible && distanceBetweenPlayer < rangeOfAttack)
+            if (attackPossible && distanceBetweenPlayer < RANGEOFATTACK)
             {
                 isAttacking = true;
                 npcMovementManager.ResetDirection();
@@ -80,20 +86,17 @@ namespace game_darksouls.Entity.Behaviour
                 }
             }
 
-            if (isAttacking && distanceBetweenPlayer > rangeOfAttack)
+            if (isAttacking && distanceBetweenPlayer > RANGEOFATTACK)
             {
                 isAttacking = false;
                 attackPossible = false;
             }
             
 
-            if (!isAttacking && currentPosition != playerPosition && distanceBetweenPlayer > rangeOfAttack)
+            if (!isAttacking && currentPosition != playerPosition && distanceBetweenPlayer > RANGEOFATTACK)
             {
                 attackBox.RemoveAttackFrame();
-
-                //move logic
                 Vector2 normalized = Vector2.Normalize(playerPosition - currentPosition);
-                //Debug.WriteLine("onderweg:" + normalized);
                 npcMovementManager.Push(normalized);
             }
         }

@@ -12,7 +12,6 @@ namespace game_darksouls.Levels
 {
         bool IsComplete { get; }
         bool IsLost { get; }    
-        void LoadContent() { }
         void Update(GameTime gameTime) { }
         void Draw(SpriteBatch spriteBatch) { }
 }

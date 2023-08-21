@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Collectible
 {
@@ -39,6 +40,7 @@ namespace Collectible
 
         public void Update(GameTime gameTime)
         {
+            Debug.WriteLine(IsComplete);
             foreach (var collectible in Collectibles)
             {
                 collectible.Update(gameTime);

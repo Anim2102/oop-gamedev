@@ -28,8 +28,7 @@ namespace game_darksouls
         private ILevel secondLevel;
 
         private GameManager gameManager;
-        private LevelManager levelManager;
-        Song testaudi;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -54,11 +53,11 @@ namespace game_darksouls
             //testaudi = Content.Load<Song>("sounds/Dark Ambient 3");
             //MediaPlayer.Play(testaudi);
 
-            levelManager = new LevelManager();
-            levelManager.AddLevel(firstLevel);
-            levelManager.AddLevel(secondLevel);
+            
+            LevelManager.GetInstance().AddLevel(firstLevel);
+            LevelManager.GetInstance().AddLevel(secondLevel);
 
-            gameManager = new GameManager(levelManager,GraphicsDevice.Viewport,Content);
+            gameManager = new GameManager(GraphicsDevice.Viewport,Content);
             gameManager.SetState(new MenuState(gameManager));
         }
 

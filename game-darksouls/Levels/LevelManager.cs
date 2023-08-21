@@ -8,6 +8,24 @@ namespace game_darksouls.Levels
 {
     public class LevelManager
 {
+        private static LevelManager levelManager;
+
+        public LevelManager()
+        {
+
+        }
+
+
+        public static LevelManager GetInstance()
+        {
+            if (levelManager == null)
+            {
+                levelManager = new LevelManager();
+            }
+
+            return levelManager;
+        }
+
         private List<ILevel> levels = new();
 
         public void AddLevel(ILevel level)
@@ -34,6 +52,8 @@ namespace game_darksouls.Levels
 
             return null;
         }
+
+
 
         public ILevel GetLevelByIndex(int index)
         {

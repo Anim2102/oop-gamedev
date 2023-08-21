@@ -13,9 +13,6 @@ namespace game_darksouls.Entity.Behaviour
     internal class BehaveController : IComponent
     {
         
-        private readonly Player player;
-        private readonly IMovementBehaviour movementBehaviour;
-        private readonly Box collesionBox;
         private IBehave currentBehaviour;
 
         public Vector2 PatrolPointA { get; set; }
@@ -24,59 +21,34 @@ namespace game_darksouls.Entity.Behaviour
         public IAttack Attack { get; set; }
         public float RangeOfAttack { get; set; }
 
-        private const int RANGESWITCHBEHAVE = 100;
- 
+        public IBehave PatrolState { get; private set; }
+        public IBehave AgressiveState { get; private set; }
+
         public BehaveController(Player player,EntityMovementType movementType,
             Vector2 patrolPointA,Vector2 patrolPointB, IAttack attack, IMovementBehaviour movementBehaviour, Box collissionBox)
         {
-            
-            this.player = player;
-
+                        
             PatrolPointA = patrolPointA;
             PatrolPointB = patrolPointB;
 
-            this.Attack = attack;
-            this.MovementType = movementType;
+            Attack = attack;
+            MovementType = movementType;
 
-            this.movementBehaviour = movementBehaviour;
+            PatrolState = new LinearPatrol(player,patrolPointA, patrolPointB,collissionBox,movementBehaviour,this);
+            AgressiveState = new Agressive(movementType, player, collissionBox, movementBehaviour, Attack,this);
 
-            this.collesionBox = collissionBox;
+
+            SetBehaveState(PatrolState);
         }   
 
         public void Update(GameTime gameTime)
         {
-            ControleState();
             currentBehaviour.Behave(gameTime);
         }
 
-        private void ControleState()
+        public void SetBehaveState(IBehave behave)
         {
-
-            float distanceBetweenPlayer = DistanceToPlayer();
-
-            if (distanceBetweenPlayer < RANGESWITCHBEHAVE)
-            {
-                currentBehaviour = new Agressive(MovementType,player, collesionBox, movementBehaviour,Attack,RangeOfAttack);
-            }
-            else
-            {
-                currentBehaviour = new LinearPatrol(PatrolPointA, PatrolPointB, collesionBox, movementBehaviour);
-            }
+            currentBehaviour = behave;
         }
-
-        private float DistanceToPlayer()
-        {
-            Vector2 currentPosition = collesionBox.CenterOfBox();
-            Vector2 playerPosition = player.CollisionBox.CenterOfBox();
-
-            return CalculateDistanceBetweenTwoVectorsOnX(currentPosition, playerPosition);
-        }
-
-        private float CalculateDistanceBetweenTwoVectorsOnX(Vector2 a, Vector2 b)
-        {
-            return Math.Abs(a.X - b.X);
-        }
-
-        
     }
 }
