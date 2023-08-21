@@ -1,4 +1,5 @@
 ﻿using game_darksouls.Collectible;
+using game_darksouls.Component;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Diagnostics;
 
 namespace Collectible
 {
-    public class CollectibleManager : ICollectibleManager
+    public class CollectibleManager : ICollectibleManager, IUpdate
     {
         public bool IsComplete
         {

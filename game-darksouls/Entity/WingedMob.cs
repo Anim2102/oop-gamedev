@@ -1,6 +1,7 @@
 ﻿using Component.Health;
 using Entity.Behaviour.Attack;
 using game_darksouls.Animation;
+using game_darksouls.Animation.EntityAnimations;
 using game_darksouls.Component;
 using game_darksouls.Component.Health;
 using game_darksouls.Entity.Behaviour;
@@ -27,7 +28,10 @@ namespace game_darksouls.Entity
         public WingedMob(Texture2D texture, Player player,CollisionManager collisionManager,Vector2 patrolPointA,Vector2 patrolPointB) : base(texture)
         {
             this.texture = texture;
-            animationManager = new AnimationManager(AnimationFactory.LoadBrainMobAnimations());
+
+            BrainMobFactory brainMobFactory = new BrainMobFactory();
+            animationManager = new AnimationManager(brainMobFactory.LoadAnimations());
+
             collisionBox = new Box(500, 700, 50, 50);
             drawingBox = new Box(2405, 700, 50, 50);
 

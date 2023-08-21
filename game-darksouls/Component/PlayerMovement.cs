@@ -94,7 +94,6 @@ namespace game_darksouls.Component
 
         private void JumpPlayer(GameTime gameTime)
         {
-            //Debug.WriteLine(jumping);
             if (!jumping && inputManager.IsJumpButtonPress() && onFloor)
             {
                 jumping = true;

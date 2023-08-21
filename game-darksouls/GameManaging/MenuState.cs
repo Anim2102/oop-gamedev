@@ -22,7 +22,7 @@ namespace game_darksouls.GameManaging
         {
             this.gameManager = gameManager;
             this.contentManager = gameManager.ContentManager;
-           
+
         }
 
         public void Play()

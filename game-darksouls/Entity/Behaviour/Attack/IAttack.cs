@@ -13,7 +13,5 @@ namespace game_darksouls.Entity.Behaviour.Attack
         bool PerformAttack();
         void ResetAttack();
         void RemoveAttackFrame();
-
-        void Draw(SpriteBatch spriteBatch) { }
 }
 }

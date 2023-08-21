@@ -30,7 +30,6 @@ namespace game_darksouls.GameManaging
         public void Play()
         {
             MediaPlayer.Stop();
-
             currentLevel = LevelManager.GetInstance().GetLevelByIndex(currentLevelIndex);
             currentLevel.Reset();
             backGroundSong = contentManager.Load<Song>("sounds/ambient");

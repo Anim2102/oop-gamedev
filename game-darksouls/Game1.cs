@@ -20,9 +20,9 @@ namespace game_darksouls
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public static Texture2D redsquareDebug;
+        public Texture2D redsquareDebug;
 
-        public static Texture2D dungeonTexture;
+        public Texture2D dungeonTexture;
 
         private ILevel firstLevel;
         private ILevel secondLevel;
@@ -50,10 +50,6 @@ namespace game_darksouls
             firstLevel = new LevelOne(Content,GraphicsDevice.Viewport, dungeonTexture);
             secondLevel = new LevelTwo(Content,GraphicsDevice.Viewport, dungeonTexture);
 
-            //testaudi = Content.Load<Song>("sounds/Dark Ambient 3");
-            //MediaPlayer.Play(testaudi);
-
-            
             LevelManager.GetInstance().AddLevel(firstLevel);
             LevelManager.GetInstance().AddLevel(secondLevel);
 

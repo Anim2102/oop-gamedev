@@ -119,13 +119,6 @@ namespace Entity.Behaviour.Attack
         {
             AttackFrame.RemovePosition();
         }
-        
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Game1.redsquareDebug, AttackFrame.ReturnAttackFrame(), Color.White);
-        }
-
        
     }
 }

@@ -28,7 +28,7 @@ namespace game_darksouls.Component
 
         public void Update(GameTime gameTime)
         {
-            bool hitEntity = false;
+            bool hitEntity;
 
             if (inputManager.PressedAttack() && !IsAttacking)
             {
@@ -62,10 +62,7 @@ namespace game_darksouls.Component
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            attackBox.Draw(spriteBatch);
-        }
+       
         private void PlaySound(string effectName)
         {
             soundManager.PlaySoundEffect(effectName);

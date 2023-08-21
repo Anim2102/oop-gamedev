@@ -18,6 +18,9 @@ namespace game_darksouls.GameManaging
         private float waitTime = 0;
         private const float MAXWAITTIME = 5000f;
 
+        private const float OffsetX = 0.4f;
+        private const float OffsetY = 0.3f;
+
         public DeathState(GameManager gameManager)
         {
             this.gameManager = gameManager;
@@ -36,7 +39,7 @@ namespace game_darksouls.GameManaging
         private Vector2 CalculateTextPosition()
         {
             Vector2 centerScreen = new Vector2(viewport.Width / 2, viewport.Height / 2);
-            Vector2 position = new Vector2(centerScreen.X * 0.8f, centerScreen.Y * 0.3f);
+            Vector2 position = new Vector2(centerScreen.X * OffsetX, centerScreen.Y * OffsetY);
             return position;
         }
         public void Draw(SpriteBatch spriteBatch)

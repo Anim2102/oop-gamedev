@@ -1,6 +1,7 @@
 ﻿using Component.Health;
 using Entity.Behaviour.Attack;
 using game_darksouls.Animation;
+using game_darksouls.Animation.EntityAnimations;
 using game_darksouls.Component;
 using game_darksouls.Component.Health;
 using game_darksouls.Entity.Behaviour;
@@ -24,14 +25,27 @@ namespace game_darksouls.Entity
         private readonly IMovementBehaviour movementBehaviour;
         private readonly IHealth health;
 
+
+        private const int CollisionBoxWidth = 60;
+        private const int CollisionBoxHeight = 50;
+        private const int DrawingBoxWidth = 128;
+        private const int DrawingBoxHeight = 128;
+
+        private const float OffsetDrawingX = -35f;
+        private const float OffsetDrawingY = -50f;
+
+
         public Skeleton(Texture2D texture, Player player,CollisionManager collisionManager,Vector2 patrolPointA,Vector2 patrolPointB) : base(texture)
         {
             collisionBox = new Box();
-            collisionBox.Rectangle = new Rectangle(2405, 650, 60, 50);
-            drawingBox = new Box(0, 0, 64 * 2, 64 * 2 , new Vector2(-35, -50));
+            collisionBox.Rectangle = new Rectangle(0, 0, CollisionBoxWidth, CollisionBoxHeight);
+            drawingBox = new Box(0, 0, DrawingBoxWidth, DrawingBoxHeight, new Vector2(OffsetDrawingX, OffsetDrawingY));
 
             this.texture = texture;
-            animationManager = new AnimationManager(AnimationFactory.LoadSkeletonAnimations());
+
+            SkeletonAnimationFactory skeletonAnimationFactory = new SkeletonAnimationFactory();
+
+            animationManager = new AnimationManager(skeletonAnimationFactory.LoadAnimations());
             movementBehaviour = new GroundMovement(collisionManager,animationManager,collisionBox);
             health = new Health(3,movementBehaviour,(IDeathAnimation)animationManager);
 

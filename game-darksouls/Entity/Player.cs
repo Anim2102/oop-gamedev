@@ -1,6 +1,7 @@
 ﻿using Component.Health;
 using Entity.Behaviour.Attack;
 using game_darksouls.Animation;
+using game_darksouls.Animation.EntityAnimations;
 using game_darksouls.Component;
 using game_darksouls.Component.Health;
 using game_darksouls.Entity.Behaviour.Attack;
@@ -72,7 +73,9 @@ namespace game_darksouls.Entity
             drawingBox = new Box(0, 0, DRAWINGBOXWIDTH, DRAWINGBOXHEIGHT);
             drawingBox.Offset = new Vector2(DRAWINGBOXOFFSETX, DRAWINGBOXOFFSETY);
 
-            animationManager = new AnimationManager(AnimationFactory.LoadPlayerAnimations());
+            PlayerAnimationFactory playerAnimationsFactory = new PlayerAnimationFactory();
+
+            animationManager = new AnimationManager(playerAnimationsFactory.LoadAnimations());
 
 
             attackFrame = new AttackSquare(40, 32,2,4);

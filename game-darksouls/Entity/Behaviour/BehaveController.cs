@@ -13,13 +13,15 @@ namespace game_darksouls.Entity.Behaviour
     internal class BehaveController : IComponent
     {
         
-        private IBehave currentBehaviour;
 
         public Vector2 PatrolPointA { get; set; }
         public Vector2 PatrolPointB { get; set; }
         public EntityMovementType MovementType { get; set; }
         public IAttack Attack { get; set; }
         public float RangeOfAttack { get; set; }
+
+
+        private IBehave currentBehaviour;
 
         public IBehave PatrolState { get; private set; }
         public IBehave AgressiveState { get; private set; }
